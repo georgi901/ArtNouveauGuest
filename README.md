@@ -1,4 +1,14 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+# ArtNouveauGuest 🖼️
+
+## Descriere: 
+
+### ArtNouveauGuest este o aplicație interactivă de tip galerie virtuală, dedicată exclusiv tablourilor și picturilor în stilul Art Nouveau. Aplicația combină explorarea artistică cu mini-jocuri interactive și elementele de strategie. Fiecare tablou din galerie poate fi vizualizat cu detalii complete, incluzând titlul, artistul, perioada istorică, tehnica folosită și prețul virtual în puncte, dacă opera este disponibilă pentru achiziție. Utilizatorul poate explora operele în mod individual, folosind opțiuni de zoom și vizualizare a detaliilor, pentru a înțelege mai bine compoziția fiecărei lucrări.
+### Galeria oferă funcționalități de filtrare și căutare avansată, permițând utilizatorului să selecteze operele după artist, temă, tehnică sau valoarea în puncte. Un element central al aplicației este sistemul de puncte și colecționare. Utilizatorul acumulează puncte prin participarea la mini jocuri interactive și finalizarea provocărilor. Aceste puncte permit achiziționarea virtuală a tablourilor, construind astfel o colecție personală, care poate include atât opere comune, cât și tablouri rare sau deosebite. 
+### În mini-jocul „Artistic Delight”, utilizatorul poate colora sau picta diferite tablouri folosind pensule și culori virtuale dorind să recreeze tabloul original, iar progresul este evaluat printr-un scor de asemănare cu originalul. De asemenea, mini-jocul „Quick Art Look”, inspirat de jocurile de memorie, provoacă utilizatorul să asocieze corect tablourile cu artiștii, timpul influențând scorul și ulterior punctele disponibile pentru achiziția tablourilor.
+
+
+## Detalii Proiect:
+
 
 ### Folosiți template-ul corespunzător grupei voastre!
 
