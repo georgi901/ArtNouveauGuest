@@ -1,3 +1,5 @@
+// Primul meu commit verificat :)
+
 #include <iostream>
 #include <array>
 
