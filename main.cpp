@@ -13,7 +13,7 @@ int main() {
               "", "", {}, "Fundația Mucha", "", "", activitati_reprezentant);
     a1.setImagini(poze_artist);
 
-    Artist a2("Luca", "Popescuuu", "Român", 35, 1989, 0, "Modernism Digital", 7, 3, 1, 2015,
+    Artist a2("Luca", "Popescu", "Român", 35, 1989, 0, "Modernism Digital", 7, 3, 1, 2015,
               "lucap", "luca.popescu@gmail.com", activitati_artist);
     a2.setImagini({"profil_luca.jpg", "premiu_local.jpg"});
 

@@ -48,18 +48,18 @@ include(cmake/CopyHelper.cmake)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(ArtNouveauGuest
+add_executable(oop
         headers/Artist.h
         src/Artist.cpp
         headers/Tablou.h
         src/Tablou.cpp
     main.cpp
 )
-target_include_directories(${MAIN_EXECUTABLE_NAME} PRIVATE headers)
+target_include_directories(oop PRIVATE headers)
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
-set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ArtNouveauGuest)
+set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES oop)
 # set_compiler_flags(TARGET_NAMES ${MAIN_EXECUTABLE_NAME} ${FOO} ${BAR})
 # where ${FOO} and ${BAR} represent additional executables or libraries
 # you want to compile with the set compiler flags
@@ -76,11 +76,11 @@ set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ArtNouveauGuest)
 
 # copy binaries to "bin" folder; these are uploaded as artifacts on each release
 # DESTINATION_DIR is set as "bin" in cmake/Options.cmake:6
-install(TARGETS ArtNouveauGuest DESTINATION ${DESTINATION_DIR})
+install(TARGETS oop DESTINATION ${DESTINATION_DIR})
 if(APPLE)
     install(FILES launcher.command DESTINATION ${DESTINATION_DIR})
 endif()
 
-copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME ArtNouveauGuest)
+copy_files(FILES tastatura.txt COPY_TO_DESTINATION TARGET_NAME oop)
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
 # copy_files(DIRECTORY images sounds COPY_TO_DESTINATION TARGET_NAME ${MAIN_EXECUTABLE_NAME})
