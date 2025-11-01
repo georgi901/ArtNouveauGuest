@@ -1,33 +1,50 @@
+#include <iostream>
+#include <memory>
+#include <map>
 #include "headers/Artist.h"
 #include "headers/Tablou.h"
-#include <iostream>
-#include <vector>
-
 
 int main() {
-    std::vector<std::string> activitati_artist = {"Expoziție la Paris 2023", "Lansare colecție personală online"};
-    std::vector<std::string> activitati_reprezentant = {"Restaurare tablou celebru", "Expoziție comemorativă la muzeu"};
-    std::vector<std::string> poze_artist = {"profil_mucha.jpg", "premiu_expo_paris.jpg", "diploma_muzeu.jpg", "premiu_anual.jpg"};
+    // artist
+    auto artist = std::make_shared<Artist>(
+        "Ion", "Popescu", "Română", 45, 1978, 0, "Art Nouveau", 2025, "ionpopescu", "ion@email.com"
+    );
+    // imagini
+    artist->setImagini({"ion1.jpg", "ion2.jpg", "ion3.jpg"});
+    // tablou
+    std::map<std::string,int> culori = { {"roșu", 3}, {"albastru", 2}, {"galben", 1} };
+    std::map<std::string,int> pensule = { {"rotundă", 2}, {"plată", 1} };
+    std::pair<int,int> dimensiune = { 60, 80 }; // 60x80 cm
 
-    Artist a1("Alphonse", "Mucha", "Ceh", 79, 1860, 1939, "Art Nouveau", 12, 8, 3, 1900,
-              "", "", {}, "Fundația Mucha", "", "", activitati_reprezentant);
-    a1.setImagini(poze_artist);
+    auto tablou = std::make_shared<Tablou>(
+        "Floarea Soarelui",
+        "Ulei pe pânză",
+        2020,
+        true, // rar
+        culori,
+        pensule,
+        dimensiune,
+        artist
+    );
 
-    Artist a2("Luca", "Popescu", "Român", 35, 1989, 0, "Modernism Digital", 7, 3, 1, 2015,
-              "lucap", "luca.popescu@gmail.com", activitati_artist);
-    a2.setImagini({"profil_luca.jpg", "premiu_local.jpg"});
+    // tablou - artist
+    artist->adaugaTablou(tablou);
 
-    std::cout << "\n=== Test bibliografie ===\n";
-    a1.afiseaza_bibliografie();
-    a2.afiseaza_bibliografie();
+    // profilul artistului - minimal
+    std::cout << "\n---- PROFIL ARTIST - Detalii Minimale ----\n";
+    artist->afiseaza_profil_artist(NivelDetaliu::Minimal);
 
-    std::cout << "\n=== Test profil ===\n";
-    a1.afiseaza_informatii_artist();
-    a2.afiseaza_informatii_artist();
+    // profilul artistului - complet
+    std::cout << "\n---- PROFIL ARTIST - Detalii Complete ----\n";
+    artist->afiseaza_profil_artist(NivelDetaliu::Complet);
 
-    std::cout << "\n=== Test imagini ===\n";
-    a1.afiseaza_imagini();
-    a2.afiseaza_imagini();
+    // detalii tablou - minimal
+    std::cout << "\n---- TABLOU - Detalii Minimale ----\n";
+    tablou->afiseaza_tablou_zoom(NivelDetaliu::Minimal);
+
+    // detalii tabloul - complet
+    std::cout << "\n---- TABLOU - Detalii Complete ----\n";
+    tablou->afiseaza_tablou_zoom(NivelDetaliu::Complet);
 
     return 0;
 }
