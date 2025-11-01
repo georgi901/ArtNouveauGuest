@@ -2,6 +2,7 @@
 #include "../headers/Tablou.h"
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 
 Artist::Artist(const std::string& nume,
@@ -51,25 +52,25 @@ int Artist::nrTablouri() const { return static_cast<int>(tablouri.size()); }
 
 int Artist::nrTablouriColectionate() const {
     int count = 0;
-    for (auto& t : tablouri) if (t->este_colectionat()) count++;
+    for (const auto& t : tablouri) if (t->este_colectionat()) count++;
     return count;
 }
 
 int Artist::nrTablouriRare() const {
     int count = 0;
-    for (auto& t : tablouri) if (t->este_rar()) count++;
+    for (const auto& t : tablouri) if (t->este_rar()) count++;
     return count;
 }
 
 std::vector<std::shared_ptr<Tablou>> Artist::getTablouriRare() const {
     std::vector<std::shared_ptr<Tablou>> rez;
-    for(auto& t : tablouri) if(t->este_rar()) rez.push_back(t);
+    for(const auto& t : tablouri) if(t->este_rar()) rez.push_back(t);
     return rez;
 }
 
 std::vector<std::shared_ptr<Tablou>> Artist::getTablouriColectionate() const {
     std::vector<std::shared_ptr<Tablou>> rez;
-    for(auto& t : tablouri) if(t->este_colectionat()) rez.push_back(t);
+    for( const auto& t : tablouri) if(t->este_colectionat()) rez.push_back(t);
     return rez;
 }
 
