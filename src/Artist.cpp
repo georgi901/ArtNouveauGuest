@@ -13,7 +13,7 @@ Artist::Artist(const std::string& nume,
                int an_nastere,
                int an_deces,
                const std::string& perioada_artistica,
-               int data_inscriere,
+               const std::string& data_inscriere,
                const std::string& username,
                const std::string& email,
                const std::vector<std::string>& istoric,
@@ -111,7 +111,7 @@ void Artist::afiseaza_imagini(NivelDetaliu nivel) const {
         return;
     }
 
-    if(nivel == NivelDetaliu::Minimal) {
+    if(nivel >= NivelDetaliu::Minimal) {
         std::cout << "Poză cu artistul: " << imagini_artist[0] << "\n";
     }
     else if(nivel == NivelDetaliu::Complet) {
@@ -127,7 +127,7 @@ void Artist::adaugaInLista(const std::shared_ptr<Artist>& artist) {
 }
 
 void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
-    std::cout << "--- PROFIL ARTIST ---\n";
+    std::cout << "--------------------------- PROFIL ARTIST ------------------------------\n";
     std::cout << "Nume complet: " << nume << " " << prenume << "\n";
     std::cout << "Naționalitate: " << nationalitate << "\n";
 
@@ -143,7 +143,7 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
             std::cout << "Decedat (" << an_nastere << " - " << an_deces << ")\n";
             std::cout << "Tablourile din galerie au fost adăugate de către un reprezentant: " << pers_reprezentant << "\n";
         }
-        std::cout << "\n---- IMAGINE ARTIST ----\n";
+        std::cout << "\n------------------------------- IMAGINE ARTIST --------------------------\n";
         afiseaza_imagini(nivel);
         return;
     }
@@ -179,7 +179,7 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
     std::cout << "Perioadă artistică: " << perioada_artistica << "\n";
     std::cout << "Artistul a evoluat în cadrul acestei perioade prin explorarea stilurilor și tehnicilor specifice.\n";
 
-    std::cout << "\n------ GALERIE ȘI POPULARITATE ------\n";
+    std::cout << "\n--------------------------- POPULARITATE ----------------------------\n";
     std::cout << "Total tablouri: " << nrTablouri() << "\n";
     std::cout << "Tablouri colecționate: " << nrTablouriColectionate() << "\n";
     std::cout << "Tablouri rare: " << nrTablouriRare() << "\n";
@@ -192,9 +192,9 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
     std::cout << "\n---- IMAGINI ARTIST ----\n";
     afiseaza_imagini(nivel);
 
-    std::cout << "------------------------------------\n";
+    std::cout << "--------------------------------------------------------------------------\n";
     if (!tablouri.empty()) {
-        std::cout << "\n--- TABLOURI ALE ARTISTULUI ---\n";
+        std::cout << "\n------------------- TABLOURI ALE ARTISTULUI ------------------------\n";
         for (const auto& t : tablouri) {
             t->afiseaza_imagini(nivel);
         }

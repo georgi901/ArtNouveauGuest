@@ -5,19 +5,21 @@
 
 
 void Galerie::afiseazaArtiști() const {
-    std::cout << "\n=== Lista artiștilor ===\n";
+    std::cout << "\n----------------------------- Lista artiștilor --------------------------------\n";
     for (const auto& artist : artisti) {
+        std::cout << "\n-------------------------------------------------------------------------------\n";
         std::cout << artist->getNume() << " " << artist->getPrenume()
           << " - " << artist->getTitlu() << " (" << artist->getVarsta() << " ani)\n";
     }
 }
 
 void Galerie::afiseazaTablouri() const {
-    std::cout << "\n=== Lista tablourilor ===\n";
+    std::cout <<     "\n----------------------------- Lista tablourilor -------------------------------\n";
     for (const auto& tablou : tablouri) {
+        std::cout << "\n-------------------------------------------------------------------------------\n";
         auto artist = tablou->getArtist();
-        std::cout << tablou->getTitlu() << " de "
-                  << (artist ? artist->getTitlu() : "Necunoscut") << "\n";
+        std::cout <<" - "<< tablou->getTitlu() <<" - "<< " de "
+                  << (artist ? artist->getNume(): "Necunoscut") << " " << (artist ? artist->getPrenume(): "Necunoscut") <<"\n";
     }
 }
 
@@ -47,16 +49,25 @@ std::shared_ptr<Tablou> Galerie::cautaTablou(const std::string& titlu) const {
 
 
 std::ostream& operator<<(std::ostream& out, const Galerie& g) {
-    out << "\n--- GALERIE ---\n";
+    out << "========================================================================================\n";
+    out << "\n----------------------------------- GALERIE ---------------------------------------\n";
     out << "Galerie: " << g.nume << "\n";
     out << "Subiect: " << g.subiect << "\n";
     out << "An infiintare: " << g.an_infiintare << "\n";
-
-    out << "--- Artiști ---\n";
-    for (const auto& a : g.artisti) out << *a << "\n";
-
-    out << "--- Tablouri ---\n";
-    for (const auto& t : g.tablouri) out << *t << "\n";
-
+    out << "========================================================================================\n";
+    out << "-------------------------------------- ARTIȘTI ----------------------------------------\n";
+    for (const auto& a : g.artisti) {
+        out << "===========================================================\n";
+        out << *a << "\n";
+        out << "===========================================================\n";
+    }
+    out << "========================================================================================\n";
+    out << "-------------------------------------- TABLOURI ---------------------------------------\n";
+    for (const auto& t : g.tablouri) {
+        out << "===========================================================\n";
+        out << *t << "\n";
+        out << "===========================================================\n";
+    }
+    out << "========================================================================================\n";
     return out;
 }

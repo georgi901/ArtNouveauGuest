@@ -9,7 +9,7 @@ void initializeazaDate(Galerie& galerie) {
 
     auto mucha = std::make_shared<Artist>(
         "Mucha", "Alfons", "Ceh", 78, 1860, 1939,
-        "Art Nouveau", 20200101,
+        "Art Nouveau", "01.01.2020",
         "", "", std::vector<std::string>{},
         "Jiří Mucha", "jiri_mucha", "jiri@mucha.cz",
         std::vector<std::string>{"A adăugat tabloul 'Zodiac'", "A adăugat tabloul 'Seasons'"}
@@ -19,7 +19,7 @@ void initializeazaDate(Galerie& galerie) {
 
     auto klimt = std::make_shared<Artist>(
         "Klimt", "Gustav", "Austriac", 55, 1862, 1918,
-        "Art Nouveau", 20200115,
+        "Art Nouveau", "15.01.2020",
         "", "", std::vector<std::string>{},
         "Emilie Flöge", "emilie_f", "emilie@klimt.at",
         std::vector<std::string>{"A adăugat tabloul 'Sărutul'"}
@@ -28,7 +28,7 @@ void initializeazaDate(Galerie& galerie) {
 
     auto beardsley = std::make_shared<Artist>(
         "Beardsley", "Aubrey", "Britanic", 25, 1872, 1898,
-        "Art Nouveau", 20200201,
+        "Art Nouveau", "01.02.2020",
         "", "", std::vector<std::string>{},
         "Mabel Beardsley", "mabel_b", "mabel@beardsley.uk",
         std::vector<std::string>{"A adăugat tabloul 'Salome'"}
@@ -36,8 +36,8 @@ void initializeazaDate(Galerie& galerie) {
     beardsley->adaugaImagine("beardsley_portret.jpg");
 
     auto lalique = std::make_shared<Artist>(
-        "Lalique", "René", "Francez", 85, 1860, 1945,
-        "Art Nouveau", 20230505,
+        "Lalique", "Rene", "Francez", 85, 1860, 1945,
+        "Art Nouveau", "05.05.2023",
         "", "", std::vector<std::string>{},
         "Marie Lalique", "marie_l", "marie@lalique.fr",
         std::vector<std::string>{"A adăugat designul 'Dragonfly Woman'"}
@@ -46,7 +46,7 @@ void initializeazaDate(Galerie& galerie) {
 
     auto sophia = std::make_shared<Artist>(
         "Chen", "Sophia", "Taiwaneză", 38, 1987, 0,
-        "Art Nouveau Contemporan", 20210315,
+        "Art Nouveau Contemporan", "15.03.2021",
         "sophia_art_nouveau", "sophia@chenart.com",
         std::vector<std::string>{"Înregistrare în galerie", "A adăugat 'Floral Dreams'", "Participare la expoziție"}
     );
@@ -55,15 +55,15 @@ void initializeazaDate(Galerie& galerie) {
 
     auto elena = std::make_shared<Artist>(
         "Popescu", "Elena", "Română", 42, 1983, 0,
-        "Art Nouveau Contemporan", 20220620,
+        "Art Nouveau Contemporan", "20.06.2020",
         "elena_nouveau", "elena.popescu@artmail.ro",
         std::vector<std::string>{"Înregistrare în galerie", "A adăugat 'Romanian Legends'", "Colaborare cu muzeul local"}
     );
     elena->adaugaImagine("elena_photo.jpg");
 
     auto marcus = std::make_shared<Artist>(
-        "Bergström", "Marcus", "Suedez", 35, 1990, 0,
-        "Art Nouveau Contemporan", 20230910,
+        "Bergstrom", "Marcus", "Suedez", 35, 1990, 0,
+        "Art Nouveau Contemporan", "10.09.2023",
         "marcus_nouveau_design", "marcus@bergstrom.se",
         std::vector<std::string>{"Înregistrare în galerie", "A creat 'Nordic Flora'"}
     );
@@ -98,7 +98,6 @@ void initializeazaDate(Galerie& galerie) {
     );
     seasons->adaugaImagine("seasons_complet.jpg");
 
-    // Tablou pentru Klimt
     auto sarutul = std::make_shared<Tablou>(
         "Sărutul",
         "Ulei pe pânză cu frunze de aur",
@@ -113,7 +112,6 @@ void initializeazaDate(Galerie& galerie) {
     sarutul->adaugaImagine("sarutul_complet.jpg");
     sarutul->adaugaImagine("sarutul_detalii.jpg");
 
-    // Tablou pentru Beardsley
     auto salome = std::make_shared<Tablou>(
         "Salome",
         "Cerneală indiană",
@@ -127,7 +125,6 @@ void initializeazaDate(Galerie& galerie) {
     );
     salome->adaugaImagine("salome_complet.jpg");
 
-    // Tablou pentru Lalique
     auto dragonfly = std::make_shared<Tablou>(
         "Dragonfly Woman",
         "Design bijuterie - smalț și aur",
@@ -235,7 +232,7 @@ int main() {
     initializeazaDate(galerie);
 
     auto utilizator = std::make_shared<Utilizator>(
-        "Popescu Ion", "ion_pop", "ion@email.com", 35, 20230101
+        "Popescu Ion", "ion_pop", "ion@email.com", 35, "01.01.2023"
     );
 
     int optiune;
@@ -358,7 +355,7 @@ int main() {
                 {
                     auto artist = galerie.cautaArtist(nume);
                     if (artist) {
-                        std::cout << "\n=== STATISTICI " << artist->getNume() << " ===\n";
+                        std::cout << "\n======= STATISTICI " << artist->getNume() << " =======\n";
                         std::cout << "Total tablouri: " << artist->nrTablouri() << "\n";
                         std::cout << "Tablouri colecționate: " << artist->nrTablouriColectionate() << "\n";
                         std::cout << "Tablouri rare: " << artist->nrTablouriRare() << "\n";
@@ -377,7 +374,7 @@ int main() {
                     auto artist = galerie.cautaArtist(nume);
                     if (artist) {
                         auto rare = artist->getTablouriRare();
-                        std::cout << "\n=== TABLOURI RARE - " << artist->getNume() << " ===\n";
+                        std::cout << "\n======== TABLOURI RARE - " << artist->getNume() << " ========\n";
                         if (rare.empty()) {
                             std::cout << "Nu există tablouri rare.\n";
                         } else {

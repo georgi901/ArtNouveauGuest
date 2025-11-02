@@ -27,7 +27,7 @@ void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
         return;
     }
 
-    if(nivel == NivelDetaliu::Minimal) {
+    if(nivel >= NivelDetaliu::Minimal) {
         std::cout << "Tabloul: " << imagini_tablou[0] << "\n";
     }
     else if(nivel == NivelDetaliu::Complet) {
@@ -39,7 +39,7 @@ void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
 }
 
 void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
-    std::cout << "\n---- TABLOU: " << titlu << " ----\n";
+    std::cout << "\n------------------- TABLOU: " << titlu << " ------------------\n";
 
     if (nivel >= NivelDetaliu::Minimal ) {
         std::cout << "Tehnica: " << tehnica
@@ -47,7 +47,7 @@ void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
                   << " | Dimensiune: " << dimensiune.first << "x" << dimensiune.second << " cm\n";
         std::cout << "Colecționat: " << (colectionat ? "Da" : "Nu")
                   << " | Raritate: " << (rar ? "Da" : "Nu") << "\n";
-        std::cout << "\n---- TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----\n";
+        std::cout << "\n---------------- TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----------------\n";
         afiseaza_imagini(nivel);
 
         auto ptr_artist = artist.lock();
@@ -60,7 +60,7 @@ void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
     }
 
     if (nivel >= NivelDetaliu::Complet) {
-
+        std::cout << "\n---------------- ZOOM TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----------------\n";
         std::cout << "\nCulori folosite:\n";
         for (const auto& [culoare, nr] : culori)
             std::cout << "  • " << culoare << ": " << nr << " tuburi\n";
@@ -68,8 +68,7 @@ void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
         std::cout << "\nTipuri de pensule folosite:\n";
         for (const auto& [tip, nr] : pensule)
             std::cout << "  • " << tip << ": " << nr << "\n";
-
-        std::cout << "\n---- ZOOM TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----\n";
+        std::cout << "\n---- TABLOU CU ZOOM "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----\n";
         afiseaza_imagini(nivel);
     }
 }

@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <limits>
 #include "Tablou.h"
 #include "Artist.h"
 
@@ -15,13 +16,13 @@ private:
     const std::string username;
     const std::string email;
     const int varsta;
-    const int data_inregistrare;
+    const std::string data_inregistrare;
     std::vector<std::string> istoric_activitati;
     std::vector<std::shared_ptr<Tablou>> colectie;
     void adaugaActivitate(const std::string& activitate);
 
 public:
-    Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, int d);
+    Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d);
     void adaugaTablou(const std::shared_ptr<Tablou>& tablou);
     std::shared_ptr<Tablou> cautaTablou(const std::string& titlu) const;
     void afiseazaColectie() const;

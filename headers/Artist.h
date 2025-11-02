@@ -22,7 +22,7 @@ private:
     const int an_deces;
     std::string perioada_artistica;
     std::vector<std::string> imagini_artist;
-    const int data_inscriere;
+    const std::string data_inscriere;
     std::string username;
     std::string email;
     std::vector<std::string> istoric;
@@ -42,7 +42,7 @@ public:
          an_nastere(0),
          an_deces(0),
          perioada_artistica("Necunoscută"),
-         data_inscriere(0){}
+         data_inscriere("Necunoscut"){}
     Artist(const std::string& nume,
            const std::string& prenume,
            const std::string& nationalitate,
@@ -50,7 +50,7 @@ public:
            int an_nastere,
            int an_deces,
            const std::string& perioada_artistica,
-           int data_inscriere = 0,
+           const std::string& data_inscriere = "",
            const std::string& username = "",
            const std::string& email = "",
            const std::vector<std::string>& istoric = {},

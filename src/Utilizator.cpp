@@ -4,7 +4,7 @@
 #include "../headers/Tablou.h"
 
 
-Utilizator::Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, int d)
+Utilizator::Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d)
     : nume(n), username(u), email(e), varsta(v), data_inregistrare(d) {}
 
 
@@ -24,7 +24,7 @@ std::shared_ptr<Tablou> Utilizator::cautaTablou(const std::string& titlu) const 
 }
 
 void Utilizator::afiseazaColectie() const {
-    std::cout << "\n=== Colecția lui " << nume << " ===\n";
+    std::cout << "\n--------------------- Colecția lui " << nume << " ----------------------\n";
     for (auto& t : colectie) {
         std::cout << *t << "\n";
     }
@@ -37,7 +37,7 @@ void Utilizator::adaugaActivitate(const std::string& activitate) {
 
 
 std::ostream& operator<<(std::ostream& out, const Utilizator& u) {
-    out << "\n--- PROFIL UTILIZATOR ---\n";
+    out << "\n------------------------------- PROFIL UTILIZATOR --------------------------------\n";
     out << "Nume: " << u.nume << "\n";
     out << "Username: " << u.username << "\n";
     out << "Email: " << u.email << "\n";
