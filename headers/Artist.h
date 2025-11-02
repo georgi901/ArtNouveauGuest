@@ -76,7 +76,6 @@ public:
 
     const std::string& getNume() const { return nume; }
     const std::string& getPrenume() const { return prenume; }
-    const std::string& getNationalitate() const { return nationalitate; }
     int getVarsta() const { return varsta; }
 
 

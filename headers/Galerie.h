@@ -22,8 +22,6 @@ public:
     Galerie(const std::string& n, const std::string& subj, int an)
     : nume(n), subiect(subj), an_infiintare(an) {}
 
-
-    const std::vector<std::shared_ptr<Artist>>& getArtisti() const { return artisti; }
     const std::vector<std::shared_ptr<Tablou>>& getTablouri() const { return tablouri; }
 
     void adaugaTablou(const std::shared_ptr<Tablou>& t) { tablouri.push_back(t); }

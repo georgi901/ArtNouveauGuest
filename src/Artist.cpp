@@ -43,9 +43,6 @@ void Artist::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
     tablou->setArtist(shared_from_this());
 }
 
-const std::vector<std::shared_ptr<Tablou>>& Artist::getTablouri() const {
-    return tablouri;
-}
 
 int Artist::nrTablouri() const { return static_cast<int>(tablouri.size()); }
 
@@ -64,12 +61,6 @@ int Artist::nrTablouriRare() const {
 std::vector<std::shared_ptr<Tablou>> Artist::getTablouriRare() const {
     std::vector<std::shared_ptr<Tablou>> rez;
     for(const auto& t : tablouri) if(t->este_rar()) rez.push_back(t);
-    return rez;
-}
-
-std::vector<std::shared_ptr<Tablou>> Artist::getTablouriColectionate() const {
-    std::vector<std::shared_ptr<Tablou>> rez;
-    for( const auto& t : tablouri) if(t->este_colectionat()) rez.push_back(t);
     return rez;
 }
 
@@ -122,9 +113,7 @@ void Artist::afiseaza_imagini(NivelDetaliu nivel) const {
     }
 }
 
-void Artist::adaugaInLista(const std::shared_ptr<Artist>& artist) {
-    lista_artistilor.push_back(artist);
-}
+
 
 void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
     std::cout << "--------------------------- PROFIL ARTIST ------------------------------\n";

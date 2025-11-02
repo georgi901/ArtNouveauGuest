@@ -80,7 +80,6 @@ public:
     bool este_rar() const { return rar; }
     const std::string& getTitlu() const { return titlu; }
     int getAnRealizare() const { return an_realizare; }
-    const std::pair<int,int> getDimensiune() const { return dimensiune; }
     void afiseaza_tablou_zoom(NivelDetaliu nivel ) const;
     void afiseaza_imagini(NivelDetaliu nivel) const;
     void adaugaImagine(const std::string& cale_imagine) {

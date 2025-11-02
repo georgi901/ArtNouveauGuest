@@ -41,7 +41,21 @@ void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
 void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
     std::cout << "\n------------------- TABLOU: " << titlu << " ------------------\n";
 
-    if (nivel >= NivelDetaliu::Minimal ) {
+
+    if (nivel >= NivelDetaliu::Complet) {
+        std::cout << "\n---------------- ZOOM TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----------------\n";
+        std::cout << "\nCulori folosite:\n";
+        for (const auto& [culoare, nr] : culori)
+            std::cout << "  • " << culoare << ": " << nr << " tuburi\n";
+
+        std::cout << "\nTipuri de pensule folosite:\n";
+        for (const auto& [tip, nr] : pensule)
+            std::cout << "  • " << tip << ": " << nr << "\n";
+        std::cout << "\n---- TABLOU CU ZOOM "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----\n";
+        afiseaza_imagini(nivel);
+    }
+
+    else if (nivel >= NivelDetaliu::Minimal ) {
         std::cout << "Tehnica: " << tehnica
                   << " | An realizare: " << an_realizare
                   << " | Dimensiune: " << dimensiune.first << "x" << dimensiune.second << " cm\n";
@@ -57,19 +71,6 @@ void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
         } else {
             std::cout << "Artist: Necunoscut\n";
         }
-    }
-
-    if (nivel >= NivelDetaliu::Complet) {
-        std::cout << "\n---------------- ZOOM TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----------------\n";
-        std::cout << "\nCulori folosite:\n";
-        for (const auto& [culoare, nr] : culori)
-            std::cout << "  • " << culoare << ": " << nr << " tuburi\n";
-
-        std::cout << "\nTipuri de pensule folosite:\n";
-        for (const auto& [tip, nr] : pensule)
-            std::cout << "  • " << tip << ": " << nr << "\n";
-        std::cout << "\n---- TABLOU CU ZOOM "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----\n";
-        afiseaza_imagini(nivel);
     }
 }
 
