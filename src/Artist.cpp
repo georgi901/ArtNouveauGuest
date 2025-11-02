@@ -111,14 +111,14 @@ void Artist::afiseaza_imagini(NivelDetaliu nivel) const {
         return;
     }
 
-    if(nivel >= NivelDetaliu::Minimal) {
-        std::cout << "Poză cu artistul: " << imagini_artist[0] << "\n";
-    }
-    else if(nivel == NivelDetaliu::Complet) {
+    if(nivel == NivelDetaliu::Complet) {
         std::cout << "Imagini cu artistul:\n";
         for (const auto& img : imagini_artist) {
             std::cout << img << "\n";
         }
+    }
+    else if(nivel >= NivelDetaliu::Minimal) {
+        std::cout << "Poză cu artistul: " << imagini_artist[0] << "\n";
     }
 }
 
