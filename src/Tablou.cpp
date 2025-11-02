@@ -8,7 +8,7 @@ Tablou::Tablou(const std::string& titlu,
                const std::map<std::string,int>& culori,
                const std::map<std::string,int>& pensule,
                const std::pair<int,int>& dimensiune,
-               std::shared_ptr<Artist> artist,
+               const std::shared_ptr<Artist>& artist,
                bool colectionat)
     : titlu(titlu),
       tehnica(tehnica),
@@ -21,19 +21,19 @@ Tablou::Tablou(const std::string& titlu,
       artist(artist)
 {}
 
-void Artist::afiseaza_imagini(NivelDetaliu nivel) const {
-    if(imagini_artist.empty()) {
+void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
+    if(imagini_tablou.empty()) {
         std::cout << "Nu există imagini cu acest tablou.\n";
         return;
     }
 
     if(nivel == NivelDetaliu::Minimal) {
-        std::cout << "Tabloul: " << imagini_artist[0] << "\n";
+        std::cout << "Tabloul: " << imagini_tablou[0] << "\n";
     }
     else if(nivel == NivelDetaliu::Complet) {
         std::cout << "Imagini cu detaliile tabloului:\n";
-        for(size_t i = 1; i < imagini_artist.size(); ++i) {
-            std::cout << "  " << imagini_artist[i] << "\n";
+        for(size_t i = 1; i < imagini_tablou.size(); ++i) {
+            std::cout << "  " << imagini_tablou[i] << "\n";
         }
     }
 }

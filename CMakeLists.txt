@@ -53,6 +53,10 @@ add_executable(oop
         src/Artist.cpp
         headers/Tablou.h
         src/Tablou.cpp
+        headers/Galerie.h
+        src/Galerie.cpp
+        headers/Utilizator.h
+        src/Utilizator.cpp
     main.cpp
 )
 target_include_directories(oop PRIVATE headers)
