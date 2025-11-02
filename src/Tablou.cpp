@@ -42,7 +42,7 @@ void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
     std::cout << "\n------------------- TABLOU: " << titlu << " ------------------\n";
 
 
-    if (nivel >= NivelDetaliu::Complet) {
+    if (nivel == NivelDetaliu::Complet) {
         std::cout << "\n---------------- ZOOM TABLOU "<< dimensiune.first << "x" << dimensiune.second << " cm"<<" ----------------\n";
         std::cout << "\nCulori folosite:\n";
         for (const auto& [culoare, nr] : culori)
