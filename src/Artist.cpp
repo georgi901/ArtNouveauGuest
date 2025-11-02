@@ -78,21 +78,24 @@ double Artist::calculeaza_scor_stelute() const {
     int total = nrTablouri();
     if (total == 0) return 0;
 
-    if (total < 3) {
-        int scor = nrTablouriColectionate() * 2;
-        if (nrTablouriRare() > 0) scor += 1;
-        return std::min(1, scor);
-    }
-
     int colectate = nrTablouriColectionate();
     int rare = nrTablouriRare();
 
+    // pentru artiști cu puține tablouri
+    if (total < 3) {
+        int scor = colectate * 2;
+        if (rare > 0) scor += 1;
+        return std::min(5, scor);
+    }
+
+    // pentru artiști cu mai multe tablouri
     double scor_baza = static_cast<double>(colectate) / total * 4.0;
     double bonus_raritate = (rare > 0) ? 0.5 : 0.0;
-
     double scor_final = std::min(5.0, scor_baza + bonus_raritate);
+
     return static_cast<int>(std::round(scor_final));
 }
+
 
 const std::string Artist::getTitlu() const {
     double scor = calculeaza_scor_stelute();

@@ -129,7 +129,7 @@ public:
         imagini_artist = imagini;
     }
     void setPerioadaArtistica(const std::string& perioada) { perioada_artistica = perioada; }
-    const std::string getPerioadaArtistica() const { return perioada_artistica; }
+    const std::string& getPerioadaArtistica() const { return perioada_artistica; }
     void afiseaza_imagini(NivelDetaliu nivel) const;
 };
 

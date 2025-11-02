@@ -71,7 +71,7 @@ public:
     bool este_colectionat() const { return colectionat; }
     void set_colectionat(bool val) { colectionat = val; }
     bool este_rar() const { return rar; }
-    const std::string getTitlu() const { return titlu; }
+    const std::string& getTitlu() const { return titlu; }
     const std::pair<int,int> getDimensiune() const { return dimensiune; }
     void afiseaza_tablou_zoom(NivelDetaliu nivel ) const;
     void setImagini(const std::vector<std::string>& imagini) {
