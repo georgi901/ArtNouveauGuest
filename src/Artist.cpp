@@ -81,7 +81,7 @@ double Artist::calculeaza_scor_stelute() const {
     int colectate = nrTablouriColectionate();
     int rare = nrTablouriRare();
 
-    // pentru artiști cu puține tablouri
+    // pentru artiști cu mai puține tablouri
     if (total < 3) {
         int scor = colectate * 2;
         if (rare > 0) scor += 1;
@@ -117,8 +117,8 @@ void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
     }
     else if(nivel == NivelDetaliu::Complet) {
         std::cout << "Imagini cu artistul:\n";
-        for(size_t i = 0; i < imagini_tablou.size(); ++i) {
-            std::cout << "  " << imagini_tablou[i] << "\n";
+        for (const auto& img : imagini_tablou) {
+            std::cout << img << "\n";
         }
     }
 }
