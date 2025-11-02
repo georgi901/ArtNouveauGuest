@@ -9,6 +9,91 @@ Galeria oferă funcționalități de filtrare și căutare avansată, permițân
 În mini-jocul „Artistic Delight”, utilizatorul poate picta diferite tablouri folosind pensule și culori virtuale dorind să recreeze tabloul original, iar progresul este evaluat printr-un scor de asemănare cu originalul. De asemenea, mini-jocul „Quick Art Look”, inspirat de jocurile de memorie, provoacă utilizatorul să asocieze corect tablourile cu artiștii, timpul influențând scorul și ulterior punctele disponibile pentru achiziția tablourilor.
 
 
+## Implementare Tema 1
+
+Pentru **Tema 1** am realizat sistemul de bază al aplicației, concentrându-mă pe gestionarea artiștilor, tablourilor și colecțiilor utilizatorilor în galerie.
+
+### Funcționalități Implementate
+
+#### **Sistem de Artiști**
+- Gestionare artiști clasici (decedați) și contemporani (în viață)
+- Informații complete: nume, naționalitate, perioada artistică, ani de viață
+- Sistem diferențiat:
+  - Artiști în viață au cont propriu (username, email, istoric)
+  - Artiști decedați sunt reprezentați de o persoană desemnată
+- **Calcul automat popularitate**: scor 0-5 stele bazat pe tablouri colecționate și rare
+- **Atribuire titluri**: Novice → Aspirant → Talentat → Expert → Maestru
+- Galerie de imagini și afișare în două moduri (minimal/complet)
+
+#### **Catalog de Tablouri**
+- Detalii complete: titlu, tehnică, an realizare, dimensiuni
+- Informații tehnice pentru pictare: culori folosite și tipuri de pensule
+- Status: colecționat/necolecționat, rar/comun
+- Galerie de imagini cu funcție "zoom"
+- Legătură cu artistul creator
+
+#### **Galeria**
+- Management complet al artiștilor și operelor
+- Funcții de căutare (artist după nume, tablou după titlu)
+- Afișare completă a colecției
+
+#### **Sistem de Colecționare**
+- Profil utilizator cu colecție personală
+- Adăugare tablouri în colecție (marchează automat ca "colecționat")
+- Istoric activități automat
+- Vizualizare colecție completă
+
+### Implementări Tehnice
+
+#### Cerințe Tema 1: 
+
+- **4 clase cu compunere**: Artist, Tablou, Galerie, Utilizator
+- **Constructori cu parametri** pentru toate clasele
+
+- **Cerințe**:
+  - Constructor de copiere
+  - Operator= pentru clasa Tablou
+  - Destructor 
+
+- **operator<<** pentru toate clasele
+
+- **Funcționalități complexe**:
+  - Calcul popularitate artiști
+  - Sistem atribuire titluri bazat pe scor
+  - Afișare diferențiată (minimal/complet)
+
+- **Scenariu complet** cu meniu interactiv (11 opțiuni)
+
+- **Smart pointers**: `shared_ptr`, `weak_ptr` pentru gestionare memorie
+
+- **Fișiere**: `tastatura.txt`
+
+### Testare
+
+**Opțiunea 11** din meniu testează implementarea regulii celor 3:
+- Constructor de copiere
+- Operator de atribuire
+- Destructor
+
+Output așteptat include mesaje debug pentru fiecare funcție apelată.
+
+###  Structura Proiectului
+```
+ArtNouveauGuest/
+├── headers/          # Fișiere .h
+├── src/              # Fișiere .cpp
+├── main.cpp          # Meniu și scenarii de utilizare
+└──  tastatura.txt     # Input pentru testare automată
+```
+
+### Dataset Inițial
+
+Galeria conține:
+- **7 artiști**: Mucha, Klimt, Beardsley, Lalique (clasici) + 3 contemporani
+- **8 tablouri**: opere celebre (Zodiac, Sărutul, Salome) + lucrări moderne
+
+
+
 ## Detalii Proiect:
 
 
@@ -40,7 +125,7 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 
 ### Tema 0
 
-- [ ] Nume proiect (poate fi schimbat ulterior)
+- [X] Nume proiect (poate fi schimbat ulterior)
 - [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
 
 ## Tema 1
