@@ -70,7 +70,7 @@ Pentru **Tema 1** am realizat sistemul de bază al aplicației, concentrându-m�
 
 ### Testare
 
-**Opțiunea 11** din meniu testează implementarea regulii celor 3:
+**Opțiunea 11** din meniu testează cerințele:
 - Constructor de copiere
 - Operator de atribuire
 - Destructor
