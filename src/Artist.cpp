@@ -201,7 +201,7 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
     }
 }
 std::shared_ptr<Tablou> Artist::cautaTablou(const std::string& titlu) const {
-    for (auto& t : tablouri) {
+    for (const auto& t : tablouri) {
         if (t->getTitlu() == titlu)
             return t;
     }

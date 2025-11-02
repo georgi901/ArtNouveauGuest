@@ -25,7 +25,7 @@ std::shared_ptr<Tablou> Utilizator::cautaTablou(const std::string& titlu) const 
 
 void Utilizator::afiseazaColectie() const {
     std::cout << "\n--------------------- Colecția lui " << nume << " ----------------------\n";
-    for (auto& t : colectie) {
+    for (const auto& t : colectie) {
         std::cout << *t << "\n";
     }
 }
