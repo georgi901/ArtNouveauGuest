@@ -1,2 +1,18 @@
-5
-11 22 33 44 55
+Secolul XX
+ionpopescu
+ion@galerie.ro
+2
+expo1.jpg
+expo2.jpg
+2
+Prima expoziție
+A doua expoziție
+Maria Ionescu
+mariai
+maria@reprezentant.ro
+2
+Negocieri contracte
+Selectie tablouri
+1
+1
+tablou.jpg
