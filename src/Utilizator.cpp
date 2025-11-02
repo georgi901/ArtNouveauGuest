@@ -16,7 +16,7 @@ void Utilizator::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
 }
 
 std::shared_ptr<Tablou> Utilizator::cautaTablou(const std::string& titlu) const {
-    for (auto& t : colectie) {
+    for (const auto& t : colectie) {
         if (t->getTitlu() == titlu)
             return t;
     }
