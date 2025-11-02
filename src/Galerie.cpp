@@ -4,7 +4,7 @@
 #include "../headers/Tablou.h"
 
 
-void Galerie::afiseazaArtiști() const {
+void Galerie::afiseazaArtisti() const {
     std::cout << "\n----------------------------- Lista artiștilor --------------------------------\n";
     for (const auto& artist : artisti) {
         std::cout << "\n-------------------------------------------------------------------------------\n";

@@ -27,7 +27,7 @@ public:
     const std::vector<std::shared_ptr<Tablou>>& getTablouri() const { return tablouri; }
 
     void adaugaTablou(const std::shared_ptr<Tablou>& t) { tablouri.push_back(t); }
-    void afiseazaArtiști() const;
+    void afiseazaArtisti() const;
     void afiseazaTablouri() const;
     std::shared_ptr<Artist> cautaArtist(const std::string& nume) const;
     void adaugaArtist(const std::shared_ptr<Artist>& a) { artisti.push_back(a); }

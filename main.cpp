@@ -245,7 +245,7 @@ int main() {
 
         switch(optiune) {
             case 1:
-                galerie.afiseazaArtiști();
+                galerie.afiseazaArtisti();
                 break;
 
             case 2:
