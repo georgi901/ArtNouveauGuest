@@ -1,18 +1,29 @@
-Secolul XX
-ionpopescu
-ion@galerie.ro
-2
-expo1.jpg
-expo2.jpg
-2
-Prima expoziție
-A doua expoziție
-Maria Ionescu
-mariai
-maria@reprezentant.ro
-2
-Negocieri contracte
-Selectie tablouri
 1
-1
-tablou.jpg
+
+2
+
+3
+Mucha
+
+4
+Klimt
+
+5
+Zodiac
+
+6
+Sarutul
+
+7
+
+8
+
+9
+Mucha
+
+10
+Klimt
+
+11
+
+0
