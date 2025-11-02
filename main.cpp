@@ -8,7 +8,7 @@ int main() {
     // creare artist
     auto artist = std::make_shared<Artist>(
         "Ion", "Popescu", "Română", 45, 1978, 2007 , "Impresionism", 2025 ,
-        "ionpopescu", "ion@galerie.ro" );
+        "ionppescu", "ion@galerie.ro" );
 
     // creare tablou
     std::map<std::string,int> culori = {{"Albastru", 3}, {"Roșu", 2}};
