@@ -5,46 +5,55 @@
 #include "headers/Tablou.h"
 
 int main() {
-    // artist
+    // creare artist
     auto artist = std::make_shared<Artist>(
-        "Ion", "Popescu", "Română", 45, 1978, 0, "Art Nouveau", 2025, "ionpopescu", "ion@email.com"
-    );
-    // imagini
-    artist->setImagini({"ion1.jpg", "ion2.jpg", "ion3.jpg"});
-    // tablou
-    std::map<std::string,int> culori = { {"roșu", 3}, {"albastru", 2}, {"galben", 1} };
-    std::map<std::string,int> pensule = { {"rotundă", 2}, {"plată", 1} };
-    std::pair<int,int> dimensiune = { 60, 80 }; // 60x80 cm
+        "Ion", "Popescu", "Română", 45, 1978, 2007 , "Impresionism", 2025 ,
+        "ionpopescu", "ion@galerie.ro" );
 
+    // creare tablou
+    std::map<std::string,int> culori = {{"Albastru", 3}, {"Roșu", 2}};
+    std::map<std::string,int> pensule = {{"Rotundă", 2}, {"Plat", 1}};
     auto tablou = std::make_shared<Tablou>(
-        "Floarea Soarelui",
-        "Ulei pe pânză",
-        2020,
-        true, // rar
-        culori,
-        pensule,
-        dimensiune,
-        artist
+        "Răsărit", "Ulei pe pânză", 2001, true, culori, pensule, std::make_pair(50,70), artist
     );
 
-    // tablou - artist
+    // legare tablou la artist
     artist->adaugaTablou(tablou);
 
-    // profilul artistului - minimal
-    std::cout << "\n---- PROFIL ARTIST - Detalii Minimale ----\n";
-    artist->afiseaza_profil_artist(NivelDetaliu::Minimal);
+    // citire date suplimentare de la tastatură
+    std::cout << "\nCompletează date suplimentare pentru artist:\n";
+    std::cin >> *artist;
 
-    // profilul artistului - complet
-    std::cout << "\n---- PROFIL ARTIST - Detalii Complete ----\n";
-    artist->afiseaza_profil_artist(NivelDetaliu::Complet);
+    std::cout << "\nCompletează date suplimentare pentru tablou:\n";
+    std::cin >> *tablou;
 
-    // detalii tablou - minimal
-    std::cout << "\n---- TABLOU - Detalii Minimale ----\n";
-    tablou->afiseaza_tablou_zoom(NivelDetaliu::Minimal);
+    // afisare folosind operatorul <<
+    std::cout << "\n--- Artist (implicit Complet) ---\n";
+    std::cout << *artist;
 
-    // detalii tabloul - complet
-    std::cout << "\n---- TABLOU - Detalii Complete ----\n";
-    tablou->afiseaza_tablou_zoom(NivelDetaliu::Complet);
+    std::cout << "\n--- Tablou (implicit Complet) ---\n";
+    std::cout << *tablou;
+
+    // afisare folosind metodele statice
+    std::cout << "\n--- Artist (Minimal) ---\n";
+    Artist::afiseaza_artist(std::cout, *artist, NivelDetaliu::Minimal);
+
+    std::cout << "\n--- Artist (Complet) ---\n";
+    Artist::afiseaza_artist(std::cout, *artist, NivelDetaliu::Complet);
+
+    std::cout << "\n--- Tablou (Minimal) ---\n";
+    Tablou::afiseaza_tablou(std::cout, *tablou, NivelDetaliu::Minimal);
+
+    std::cout << "\n--- Tablou (Complet) ---\n";
+    Tablou::afiseaza_tablou(std::cout, *tablou, NivelDetaliu::Complet);
+
+    // verificare metode utile
+    std::cout << "\nNumăr tablouri ale artistului: " << artist->nrTablouri() << "\n";
+    std::cout << "Număr tablouri colecționate: " << artist->nrTablouriColectionate() << "\n";
+    std::cout << "Număr tablouri rare: " << artist->nrTablouriRare() << "\n";
+
+    std::cout << "\nTitlu artist: " << artist->getTitlu() << "\n";
+    std::cout << "Scor popularitate: " << artist->calculeaza_scor_stelute() << " ★\n";
 
     return 0;
 }

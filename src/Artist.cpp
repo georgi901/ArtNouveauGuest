@@ -76,19 +76,25 @@ std::vector<std::shared_ptr<Tablou>> Artist::getTablouriColectionate() const {
 
 double Artist::calculeaza_scor_stelute() const {
     int total = nrTablouri();
-    if (total == 0) return 0.0;
+    if (total == 0) return 0;
+
+    if (total < 3) {
+        int scor = nrTablouriColectionate() * 2;
+        if (nrTablouriRare() > 0) scor += 1;
+        return std::min(1, scor);
+    }
 
     int colectate = nrTablouriColectionate();
     int rare = nrTablouriRare();
 
-    double scor_baza = static_cast<double>(colectate) / total;
-    double raritate = (rare > 0) ? 0.5 : 0.0;
-    double scor_final = std::min(5.0, scor_baza * 4 + raritate);
+    double scor_baza = static_cast<double>(colectate) / total * 4.0;
+    double bonus_raritate = (rare > 0) ? 0.5 : 0.0;
 
+    double scor_final = std::min(5.0, scor_baza + bonus_raritate);
     return static_cast<int>(std::round(scor_final));
 }
 
-std::string Artist::getTitlu() const {
+const std::string Artist::getTitlu() const {
     double scor = calculeaza_scor_stelute();
     if(scor < 1) return "Novice";
     else if(scor < 2) return "Aspirant";
@@ -187,6 +193,15 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
             t->afiseaza_imagini(nivel);
         }
     }
+}
+
+std::ostream& Artist::afiseaza_artist(std::ostream& out, const Artist& a, NivelDetaliu nivel) {
+    a.afiseaza_profil_artist(nivel);
+    return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const Artist& a) {
+    return Artist::afiseaza_artist(out, a, NivelDetaliu::Complet);
 }
 
 

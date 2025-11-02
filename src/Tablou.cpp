@@ -74,3 +74,11 @@ void Tablou::afiseaza_tablou_zoom(NivelDetaliu nivel) const {
     }
 }
 
+std::ostream& Tablou::afiseaza_tablou(std::ostream& out, const Tablou& t, NivelDetaliu nivel) {
+    t.afiseaza_tablou_zoom(nivel);
+    return out;
+}
+std::ostream& operator<<(std::ostream& out, const Tablou& t) {
+    return Tablou::afiseaza_tablou(out, t, NivelDetaliu::Complet);
+}
+
