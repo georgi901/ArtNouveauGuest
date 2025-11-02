@@ -19,14 +19,14 @@ enum class NivelDetaliu {
 
 class Tablou {
 private:
-    const std::string titlu;
-    const std::string tehnica;
-    const int an_realizare;
+    std::string titlu;
+    std::string tehnica;
+    int an_realizare;
     bool colectionat;
     bool rar;
-    const std::map<std::string,int> culori;
-    const std::map<std::string,int> pensule;
-    const std::pair<int,int> dimensiune;
+    std::map<std::string,int> culori;
+    std::map<std::string,int> pensule;
+    std::pair<int,int> dimensiune;
     std::weak_ptr<Artist> artist;
     std::vector<std::string> imagini_tablou;
 
@@ -50,7 +50,6 @@ public:
            const std::pair<int,int>& dimensiune,
            const std::shared_ptr<Artist>& artist,
            bool colectionat = false);
-    ~Tablou() = default;
     friend std::istream& operator>>(std::istream& in, Tablou& t) {
         std::cout << "Tablou: " << t.titlu << "\n";
         std::cout << "Număr de imagini: ";
@@ -68,8 +67,9 @@ public:
         return in;
     }
     friend std::ostream& operator<<(std::ostream& os, const Tablou& tablou);
-
-
+    Tablou(const Tablou& other);
+    Tablou& operator=(const Tablou& other);
+    ~Tablou() = default;
     static std::ostream& afiseaza_tablou(std::ostream& out, const Tablou& t, NivelDetaliu nivel);
     const std::shared_ptr<Artist> getArtist() const { return artist.lock(); }
     void setArtist(const std::shared_ptr<Artist>& art) {

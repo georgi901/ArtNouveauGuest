@@ -23,6 +23,7 @@ private:
 
 public:
     Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d);
+    ~Utilizator() = default;
     void adaugaTablou(const std::shared_ptr<Tablou>& tablou);
     std::shared_ptr<Tablou> cautaTablou(const std::string& titlu) const;
     void afiseazaColectie() const;

@@ -8,7 +8,6 @@ Utilizator::Utilizator(const std::string& n, const std::string& u, const std::st
     : nume(n), username(u), email(e), varsta(v), data_inregistrare(d) {}
 
 
-
 void Utilizator::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
     colectie.push_back(tablou);
     tablou->set_colectionat(true);

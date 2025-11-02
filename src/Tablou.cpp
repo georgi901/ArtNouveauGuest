@@ -21,6 +21,40 @@ Tablou::Tablou(const std::string& titlu,
       artist(artist)
 {}
 
+Tablou::Tablou(const Tablou& other)
+    : titlu(other.titlu),
+      tehnica(other.tehnica),
+      an_realizare(other.an_realizare),
+      colectionat(other.colectionat),
+      rar(other.rar),
+      culori(other.culori),
+      pensule(other.pensule),
+      dimensiune(other.dimensiune),
+      artist(other.artist),
+      imagini_tablou(other.imagini_tablou)
+{
+    std::cout << "Constructor de copiere Tablou apelat pentru: " << titlu << "\n";
+}
+
+Tablou& Tablou::operator=(const Tablou& other) {
+    std::cout << "Operator= de copiere Tablou apelat\n";
+
+        titlu = other.titlu;
+        tehnica = other.tehnica;
+        an_realizare = other.an_realizare;
+        colectionat = other.colectionat;
+        rar = other.rar;
+        culori = other.culori;
+        pensule = other.pensule;
+        dimensiune = other.dimensiune;
+        artist = other.artist;
+        imagini_tablou = other.imagini_tablou;
+
+        std::cout << "Copiere finalizată pentru tabloul: " << titlu << "\n";
+
+    return *this;
+}
+
 void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
     if(imagini_tablou.empty()) {
         std::cout << "Nu există imagini cu acest tablou.\n";

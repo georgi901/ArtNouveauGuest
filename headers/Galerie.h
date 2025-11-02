@@ -21,7 +21,7 @@ public:
     Galerie() : an_infiintare(0) {}
     Galerie(const std::string& n, const std::string& subj, int an)
     : nume(n), subiect(subj), an_infiintare(an) {}
-
+    ~Galerie() = default;
     void adaugaTablou(const std::shared_ptr<Tablou>& t) { tablouri.push_back(t); }
     void afiseazaArtisti() const;
     void afiseazaTablouri() const;

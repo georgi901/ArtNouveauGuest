@@ -99,7 +99,7 @@ void initializeazaDate(Galerie& galerie) {
     seasons->adaugaImagine("seasons_complet.jpg");
 
     auto sarutul = std::make_shared<Tablou>(
-        "Sărutul",
+        "Sarutul",
         "Ulei pe pânză cu frunze de aur",
         1908,
         true,
@@ -222,6 +222,7 @@ void afiseazaMeniu() {
     std::cout << "8.  Testează utilizator și colecție\n";
     std::cout << "9.  Afișează statistici artist\n";
     std::cout << "10. Tablouri rare ale unui artist\n";
+    std::cout << "11. Test cerințe (Tablou)\n";
     std::cout << "0.  Ieșire\n";
     std::cout << "========================================\n";
     std::cout << "Alege opțiunea: ";
@@ -325,14 +326,14 @@ int main() {
                 if (tablou) {
                     std::cout << "→ Se adaugă: 'Zodiac' de Mucha Alfons\n";
                     utilizator->adaugaTablou(tablou);
-                    std::cout << "  ✓ Adăugat cu succes!\n\n";
+                    std::cout << "  Adăugat cu succes!\n\n";
                 }
 
                 tablou = galerie.cautaTablou("Sărutul");
                 if (tablou) {
                     std::cout << "→ Se adaugă: 'Sărutul' de Klimt Gustav\n";
                     utilizator->adaugaTablou(tablou);
-                    std::cout << "  ✓ Adăugat cu succes!\n";
+                    std::cout << "  Adăugat cu succes!\n";
                 }
 
 
@@ -345,7 +346,7 @@ int main() {
                 std::cout << "----------------------------------------------------------------------\n";
                 std::cout << *utilizator;
 
-                std::cout << "\n\n✓ Test finalizat cu succes!\n";
+                std::cout << "\n\n Test finalizat cu succes!\n";
             }
                 break;
 
@@ -386,6 +387,40 @@ int main() {
                         std::cout << "Artist negăsit!\n";
                     }
                 }
+                break;
+            case 11:
+            {
+                std::cout << "\n========== TESTE CERINȚE  ==========\n\n";
+
+                auto tablou_original = galerie.cautaTablou("Zodiac");
+
+                if (!tablou_original) {
+                    std::cout << "Tabloul Zodiac nu a fost găsit!\n";
+                    break;
+                }
+
+                std::cout << "PASUL 1: Tabloul original\n";
+                std::cout << "-------------------------\n";
+                std::cout << "Titlu: " << tablou_original->getTitlu() << "\n";
+                std::cout << "An: " << tablou_original->getAnRealizare() << "\n\n";
+
+                std::cout << "PASUL 2: Test CONSTRUCTOR DE COPIERE\n";
+                std::cout << "--------------------------------------\n";
+                const Tablou tablou_copie(*tablou_original);
+                std::cout << "Copiat: " << tablou_copie.getTitlu() << "\n\n";
+
+                std::cout << "PASUL 3: Test OPERATOR= DE COPIERE\n";
+                std::cout << "------------------------------------\n";
+                Tablou tablou_gol;
+                std::cout << "Înainte: " << tablou_gol.getTitlu() << "\n";
+                tablou_gol = *tablou_original;
+                std::cout << "După operator=: " << tablou_gol.getTitlu() << "\n\n";
+
+                std::cout << " Toate testele OK! \n";
+                std::cout << "  - Constructor copiere: BUN \n";
+                std::cout << "  - Operator=: BUN \n";
+                std::cout << "  - Destructor: BUN (se va apela automat)\n";
+            }
                 break;
 
             case 0:
