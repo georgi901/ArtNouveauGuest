@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 
+std::vector<std::shared_ptr<Artist>> Artist::lista_artistilor = {};
 
 Artist::Artist(const std::string& nume,
                const std::string& prenume,
@@ -36,8 +37,6 @@ Artist::Artist(const std::string& nume,
       email_reprezentant(email_reprezentant),
       istoric_reprezentant(istoric_reprezentant)
 {}
-
-
 
 void Artist::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
     tablouri.push_back(tablou);
@@ -106,21 +105,25 @@ const std::string Artist::getTitlu() const {
     else return "Maestru";
 }
 
-void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
-    if(imagini_tablou.empty()) {
+void Artist::afiseaza_imagini(NivelDetaliu nivel) const {
+    if(imagini_artist.empty()) {
         std::cout << "Nu există imagini pentru acest artist.\n";
         return;
     }
 
     if(nivel == NivelDetaliu::Minimal) {
-        std::cout << "Poză cu artistul: " << imagini_tablou[0] << "\n";
+        std::cout << "Poză cu artistul: " << imagini_artist[0] << "\n";
     }
     else if(nivel == NivelDetaliu::Complet) {
         std::cout << "Imagini cu artistul:\n";
-        for (const auto& img : imagini_tablou) {
+        for (const auto& img : imagini_artist) {
             std::cout << img << "\n";
         }
     }
+}
+
+void Artist::adaugaInLista(const std::shared_ptr<Artist>& artist) {
+    lista_artistilor.push_back(artist);
 }
 
 void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
@@ -183,7 +186,7 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
     std::cout << "Data înscrierii în galerie: " << data_inscriere << "\n";
 
     double scor = calculeaza_scor_stelute();
-    std::cout << "Scor popularitate: " << scor << " ★\n";
+    std::cout << "Scor popularitate: " << scor << " stele\n";
     std::cout << "Titlu atribuit: " << getTitlu() << "\n";
 
     std::cout << "\n---- IMAGINI ARTIST ----\n";
@@ -196,6 +199,13 @@ void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
             t->afiseaza_imagini(nivel);
         }
     }
+}
+std::shared_ptr<Tablou> Artist::cautaTablou(const std::string& titlu) const {
+    for (auto& t : tablouri) {
+        if (t->getTitlu() == titlu)
+            return t;
+    }
+    return nullptr;
 }
 
 std::ostream& Artist::afiseaza_artist(std::ostream& out, const Artist& a, NivelDetaliu nivel) {

@@ -10,8 +10,6 @@
 #include <memory>
 #include <vector>
 
-
-
 class Artist;
 
 enum class NivelDetaliu {
@@ -33,6 +31,16 @@ private:
     std::vector<std::string> imagini_tablou;
 
 public:
+    Tablou()
+      : titlu("Necunoscut"),
+        tehnica("Necunoscut"),
+        an_realizare(0),
+        colectionat(false),
+        rar(false),
+        culori({}),
+        pensule({}),
+        dimensiune({0, 0})
+    {}
     Tablou(const std::string& titlu,
            const std::string& tehnica,
            int an_realizare,
@@ -40,16 +48,11 @@ public:
            const std::map<std::string,int>& culori,
            const std::map<std::string,int>& pensule,
            const std::pair<int,int>& dimensiune,
-           std::shared_ptr<Artist> artist,
+           const std::shared_ptr<Artist>& artist,
            bool colectionat = false);
     ~Tablou() = default;
     friend std::istream& operator>>(std::istream& in, Tablou& t) {
         std::cout << "Tablou: " << t.titlu << "\n";
-
-        std::cout << "Tablou colecționat? (1=Da / 0=Nu): ";
-        in >> t.colectionat;
-        in.ignore();
-
         std::cout << "Număr de imagini: ";
         size_t n;
         in >> n;
@@ -65,19 +68,24 @@ public:
         return in;
     }
     friend std::ostream& operator<<(std::ostream& os, const Tablou& tablou);
+
+
     static std::ostream& afiseaza_tablou(std::ostream& out, const Tablou& t, NivelDetaliu nivel);
-    void setArtist(const std::shared_ptr<Artist>& a) { artist = a; }
     const std::shared_ptr<Artist> getArtist() const { return artist.lock(); }
+    void setArtist(const std::shared_ptr<Artist>& art) {
+        artist = art;
+    }
     bool este_colectionat() const { return colectionat; }
     void set_colectionat(bool val) { colectionat = val; }
     bool este_rar() const { return rar; }
     const std::string& getTitlu() const { return titlu; }
+    int getAnRealizare() const { return an_realizare; }
     const std::pair<int,int> getDimensiune() const { return dimensiune; }
     void afiseaza_tablou_zoom(NivelDetaliu nivel ) const;
-    void setImagini(const std::vector<std::string>& imagini) {
-        imagini_tablou = imagini;
-    }
     void afiseaza_imagini(NivelDetaliu nivel) const;
+    void adaugaImagine(const std::string& cale_imagine) {
+        imagini_tablou.push_back(cale_imagine);
+    }
 };
 
 #endif //ARTNOUVEAUGUEST_TABLOU_H
