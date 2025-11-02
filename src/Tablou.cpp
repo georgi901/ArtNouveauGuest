@@ -27,14 +27,14 @@ void Tablou::afiseaza_imagini(NivelDetaliu nivel) const {
         return;
     }
 
-    if(nivel >= NivelDetaliu::Minimal) {
-        std::cout << "Tabloul: " << imagini_tablou[0] << "\n";
-    }
-    else if(nivel == NivelDetaliu::Complet) {
+    if(nivel == NivelDetaliu::Complet) {
         std::cout << "Imagini cu detaliile tabloului:\n";
         for(size_t i = 1; i < imagini_tablou.size(); ++i) {
             std::cout << "  " << imagini_tablou[i] << "\n";
         }
+    }
+    else if(nivel >= NivelDetaliu::Minimal) {
+        std::cout << "Tabloul: " << imagini_tablou[0] << "\n";
     }
 }
 
