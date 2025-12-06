@@ -17,7 +17,7 @@ private:
     int pct_disponibile;
     int pct_necesare;
 public:
-    PuncteInsuficienteException ( int pct_disponibile , int pct_necesare );
+    explicit PuncteInsuficienteException ( int pct_disponibile , int pct_necesare );
     int getPctDisponibile() const;
     int getPctNecesare() const;
     int getPctLipsa() const;
@@ -27,7 +27,7 @@ class TablouIndisponibilException : public GalerieException {
 private:
     std::string titlu_tablou;
 public:
-    TablouIndisponibilException(const std::string& titlu);
+    explicit TablouIndisponibilException(const std::string& titlu);
     const std::string& getTitlu() const;
 };
 
@@ -35,7 +35,7 @@ class JocInvalidException : public GalerieException {
 private:
     std::string nume_joc;
 public:
-    JocInvalidException(const std::string& nume_joc);
+    explicit JocInvalidException(const std::string& nume_joc);
     const std::string& getNumeJoc() const;
 };
 
