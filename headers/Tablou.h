@@ -44,6 +44,7 @@ public:
     Tablou(const std::string& titlu,
            const std::string& tehnica,
            int an_realizare,
+
            bool rar,
            const std::map<std::string,int>& culori,
            const std::map<std::string,int>& pensule,
@@ -79,12 +80,14 @@ public:
     void set_colectionat(bool val) { colectionat = val; }
     bool este_rar() const { return rar; }
     const std::string& getTitlu() const { return titlu; }
+    const std::string& getTehnica() const { return tehnica; }
     int getAnRealizare() const { return an_realizare; }
     void afiseaza_tablou_zoom(NivelDetaliu nivel ) const;
     void afiseaza_imagini(NivelDetaliu nivel) const;
     void adaugaImagine(const std::string& cale_imagine) {
         imagini_tablou.push_back(cale_imagine);
     }
+    const std::map<std::string, int>& getCulori() const { return culori; }
 };
 
 #endif //ARTNOUVEAUGUEST_TABLOU_H

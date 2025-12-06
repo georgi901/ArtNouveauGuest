@@ -20,6 +20,7 @@ private:
     std::vector<std::string> istoric_activitati;
     std::vector<std::shared_ptr<Tablou>> colectie;
     void adaugaActivitate(const std::string& activitate);
+    int puncte;
 
 public:
     Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d);
@@ -59,6 +60,9 @@ public:
         return in;
     }
 
+    void adaugaPuncte(int p) { puncte += p; }
+    int getPuncte() const { return puncte; }
+    void cumpăraTablou(std::shared_ptr<Tablou> tablou, int cost);
 
 };
 

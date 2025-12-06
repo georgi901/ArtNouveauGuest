@@ -2,10 +2,11 @@
 #include "../headers/Galerie.h"
 #include "../headers/Utilizator.h"
 #include "../headers/Tablou.h"
+#include "../headers/Exceptii.h"
 
 
 Utilizator::Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d)
-    : nume(n), username(u), email(e), varsta(v), data_inregistrare(d) {}
+    : nume(n), username(u), email(e), varsta(v), data_inregistrare(d), puncte(0) {}
 
 
 void Utilizator::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
@@ -42,6 +43,7 @@ std::ostream& operator<<(std::ostream& out, const Utilizator& u) {
     out << "Email: " << u.email << "\n";
     out << "Varsta: " << u.varsta << "\n";
     out << "Data inregistrare: " << u.data_inregistrare << "\n";
+    out << "Puncte: " << u.puncte << "\n";
     out << "Tablouri in colectie: " << u.colectie.size() << "\n";
 
     if (!u.istoric_activitati.empty()) {
@@ -52,5 +54,19 @@ std::ostream& operator<<(std::ostream& out, const Utilizator& u) {
     return out;
 }
 
+
+void Utilizator::cumpăraTablou(std::shared_ptr<Tablou> tablou, int cost) {
+    if (puncte < cost) {
+        throw PuncteInsuficienteException(puncte, cost);
+    }
+
+    if (tablou->este_colectionat()) {
+        throw TablouIndisponibilException(tablou->getTitlu());
+    }
+
+    puncte -= cost;
+    adaugaTablou(tablou);
+    adaugaActivitate("A cumpărat tabloul " + tablou->getTitlu() + " pentru " + std::to_string(cost) + " puncte");
+}
 
 

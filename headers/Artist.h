@@ -66,7 +66,6 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Artist& artist);
     static std::ostream& afiseaza_artist(std::ostream& out, const Artist& a, NivelDetaliu nivel);
 
-
     void adaugaTablou(const std::shared_ptr<Tablou>& tablou);
     void adaugaImagine(const std::string& cale_imagine) {
         imagini_artist.push_back(cale_imagine);

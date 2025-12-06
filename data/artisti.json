@@ -1,0 +1,105 @@
+[
+  {
+    "nume": "Mucha",
+    "prenume": "Alfons",
+    "nationalitate": "Ceh",
+    "varsta": 78,
+    "an_nastere": 1860,
+    "an_deces": 1939,
+    "perioada": "Art Nouveau",
+    "data_inscriere": "01.01.2020",
+    "reprezentant": {
+      "nume": "Jiri Mucha",
+      "username": "jiri_mucha",
+      "email": "jiri@mucha.cz"
+    },
+    "imagini": ["mucha_portret.jpg", "mucha_atelier.jpg"]
+  },
+  {
+    "nume": "Klimt",
+    "prenume": "Gustav",
+    "nationalitate": "Austriac",
+    "varsta": 55,
+    "an_nastere": 1862,
+    "an_deces": 1918,
+    "perioada": "Art Nouveau",
+    "data_inscriere": "15.01.2020",
+    "reprezentant": {
+      "nume": "Emilie Floge",
+      "username": "emilie_f",
+      "email": "emilie@klimt.at"
+    },
+    "imagini": ["klimt_portret.jpg"]
+  },
+  {
+    "nume": "Beardsley",
+    "prenume": "Aubrey",
+    "nationalitate": "Britanic",
+    "varsta": 25,
+    "an_nastere": 1872,
+    "an_deces": 1898,
+    "perioada": "Art Nouveau",
+    "data_inscriere": "01.02.2020",
+    "reprezentant": {
+      "nume": "Mabel Beardsley",
+      "username": "mabel_b",
+      "email": "mabel@beardsley.uk"
+    },
+    "imagini": ["beardsley_portret.jpg"]
+  },
+  {
+    "nume": "Lalique",
+    "prenume": "Rene",
+    "nationalitate": "Francez",
+    "varsta": 85,
+    "an_nastere": 1860,
+    "an_deces": 1945,
+    "perioada": "Art Nouveau",
+    "data_inscriere": "05.05.2023",
+    "reprezentant": {
+      "nume": "Marie Lalique",
+      "username": "marie_l",
+      "email": "marie@lalique.fr"
+    },
+    "imagini": ["lalique_foto.jpg"]
+  },
+  {
+    "nume": "Chen",
+    "prenume": "Sophia",
+    "nationalitate": "Taiwaneza",
+    "varsta": 38,
+    "an_nastere": 1987,
+    "an_deces": 0,
+    "perioada": "Art Nouveau Contemporan",
+    "data_inscriere": "15.03.2021",
+    "username": "sophia_art_nouveau",
+    "email": "sophia@chenart.com",
+    "imagini": ["sophia_portrait.jpg", "sophia_studio.jpg"]
+  },
+  {
+    "nume": "Popescu",
+    "prenume": "Elena",
+    "nationalitate": "Romana",
+    "varsta": 42,
+    "an_nastere": 1983,
+    "an_deces": 0,
+    "perioada": "Art Nouveau Contemporan",
+    "data_inscriere": "20.06.2020",
+    "username": "elena_nouveau",
+    "email": "elena.popescu@artmail.ro",
+    "imagini": ["elena_photo.jpg"]
+  },
+  {
+    "nume": "Bergstrom",
+    "prenume": "Marcus",
+    "nationalitate": "Suedez",
+    "varsta": 35,
+    "an_nastere": 1990,
+    "an_deces": 0,
+    "perioada": "Art Nouveau Contemporan",
+    "data_inscriere": "10.09.2023",
+    "username": "marcus_nouveau_design",
+    "email": "marcus@bergstrom.se",
+    "imagini": ["marcus_pic.jpg"]
+  }
+]

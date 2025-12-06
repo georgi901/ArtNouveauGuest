@@ -1,0 +1,158 @@
+[
+  {
+    "titlu": "Zodiac",
+    "tehnica": "Litografie",
+    "an_realizare": 1896,
+    "rar": true,
+    "colectionat": true,
+    "dimensiune": [66, 66],
+    "artist": "Mucha",
+    "culori": {
+      "Auriu": 5,
+      "Albastru": 4,
+      "Verde": 3
+    },
+    "pensule": {
+      "Detaliu fin": 5,
+      "Ornamental": 4
+    },
+    "imagini": ["zodiac_complet.jpg", "zodiac_detaliu1.jpg", "zodiac_detaliu2.jpg"]
+  },
+  {
+    "titlu": "The Seasons",
+    "tehnica": "Litografie",
+    "an_realizare": 1896,
+    "rar": true,
+    "colectionat": false,
+    "dimensiune": [72, 52],
+    "artist": "Mucha",
+    "culori": {
+      "Pastel": 6,
+      "Auriu": 3,
+      "Verde": 4
+    },
+    "pensule": {
+      "Decorativ": 4,
+      "Floral": 5
+    },
+    "imagini": ["seasons_complet.jpg"]
+  },
+  {
+    "titlu": "Sarutul",
+    "tehnica": "Ulei pe panza cu frunze de aur",
+    "an_realizare": 1908,
+    "rar": true,
+    "colectionat": true,
+    "dimensiune": [180, 180],
+    "artist": "Klimt",
+    "culori": {
+      "Auriu": 10,
+      "Galben": 5,
+      "Maro": 3
+    },
+    "pensule": {
+      "Geometric": 5,
+      "Ornamental": 6
+    },
+    "imagini": ["sarutul_complet.jpg", "sarutul_detalii.jpg"]
+  },
+  {
+    "titlu": "Salome",
+    "tehnica": "Cerneala indiana",
+    "an_realizare": 1894,
+    "rar": true,
+    "colectionat": false,
+    "dimensiune": [23, 28],
+    "artist": "Beardsley",
+    "culori": {
+      "Negru": 8,
+      "Alb": 10
+    },
+    "pensule": {
+      "Penita": 10,
+      "Detaliu fin": 8
+    },
+    "imagini": ["salome_complet.jpg"]
+  },
+  {
+    "titlu": "Dragonfly Woman",
+    "tehnica": "Design bijuterie - smalt si aur",
+    "an_realizare": 1897,
+    "rar": false,
+    "colectionat": false,
+    "dimensiune": [15, 23],
+    "artist": "Lalique",
+    "culori": {
+      "Verde smarald": 4,
+      "Auriu": 5,
+      "Albastru": 2
+    },
+    "pensule": {
+      "Miniaturist": 8,
+      "Detaliu": 9
+    },
+    "imagini": ["dragonfly_complet.jpg"]
+  },
+  {
+    "titlu": "Floral Dreams",
+    "tehnica": "Acrilic si frunze de aur pe panza",
+    "an_realizare": 2023,
+    "rar": false,
+    "colectionat": true,
+    "dimensiune": [120, 90],
+    "artist": "Chen",
+    "culori": {
+      "Auriu": 6,
+      "Roz pastel": 5,
+      "Verde menta": 4,
+      "Alb perlat": 3
+    },
+    "pensule": {
+      "Ornamental": 5,
+      "Detaliu fin": 6,
+      "Plat": 2
+    },
+    "imagini": ["floral_dreams_complet.jpg", "floral_dreams_detaliu.jpg"]
+  },
+  {
+    "titlu": "Romanian Legends",
+    "tehnica": "Tempera si ornamente metalice",
+    "an_realizare": 2024,
+    "rar": true,
+    "colectionat": false,
+    "dimensiune": [100, 80],
+    "artist": "Popescu",
+    "culori": {
+      "Rosu": 7,
+      "Auriu": 8,
+      "Negru": 3,
+      "Verde": 4
+    },
+    "pensule": {
+      "Decorativ": 6,
+      "Traditional": 5,
+      "Detaliu": 7
+    },
+    "imagini": ["romanian_legends_full.jpg"]
+  },
+  {
+    "titlu": "Nordic Flora",
+    "tehnica": "Acuarela si cerneala pe hartie",
+    "an_realizare": 2023,
+    "rar": false,
+    "colectionat": true,
+    "dimensiune": [70, 100],
+    "artist": "Bergstrom",
+    "culori": {
+      "Albastru nordic": 6,
+      "Verde padure": 5,
+      "Gri argintiu": 3
+    },
+    "pensule": {
+      "Floral": 8,
+      "Detaliu botanesc": 7,
+      "Liniar": 4
+    },
+    "imagini": ["nordic_flora_complete.jpg", "nordic_flora_details.jpg"]
+  }
+]

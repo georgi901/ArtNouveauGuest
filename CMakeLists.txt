@@ -57,9 +57,26 @@ add_executable(oop
         src/Galerie.cpp
         headers/Utilizator.h
         src/Utilizator.cpp
+        headers/Exceptii.h
+        src/Exceptii.cpp
+        headers/MIniJoc.h
+        src/MiniJoc.cpp
+        headers/ArtisticDelight.h
+        src/ArtisticDelight.cpp
+        headers/QuickArtLook.h
+        src/QuickArtLook.cpp
+        headers/ArtQuiz.h
+        src/ArtQuiz.cpp
     main.cpp
 )
+
 target_include_directories(oop PRIVATE headers)
+
+include(FetchContent)
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
+target_link_libraries(oop PRIVATE nlohmann_json::nlohmann_json)
+file(COPY ${CMAKE_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR})
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
 # NOTE: RUN_SANITIZERS is optional, if it's not present it will default to true
