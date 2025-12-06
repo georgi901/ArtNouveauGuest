@@ -8,7 +8,7 @@ class GalerieException : public std::exception {
 protected:
     std::string mesaj;
 public:
-    GalerieException(const std::string& msj);
+    explicit GalerieException(const std::string& msj);
     const char* what()const noexcept override ;
 };
 
