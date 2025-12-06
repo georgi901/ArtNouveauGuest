@@ -56,7 +56,7 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
         }
 
         auto artist = std::make_shared<Artist>(
-            nume, prenume, nationalitate, varsta, anNastere, anDeces,
+            nume_artist, prenume, nationalitate, varsta, anNastere, anDeces,
             perioada, dataInscriere,
             username, email, std::vector<std::string>{},
             persReprezentant, usernameRepr, emailRepr,
@@ -144,9 +144,9 @@ void Galerie::incarcaTablouriDinFisier(const std::string& caleFisier) {
 
     fin.close();
 }
-std::shared_ptr<MiniJoc> Galerie::cautaJoc(const std::string& nume) const {
+std::shared_ptr<MiniJoc> Galerie::cautaJoc(const std::string& nume_joc) const {
     for (const auto& joc : jocuri) {
-        if (joc->getNume() == nume) {
+        if (joc->getNume() == nume_joc) {
             return joc;
         }
     }

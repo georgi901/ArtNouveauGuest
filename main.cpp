@@ -363,7 +363,51 @@ int main() {
                     std::cout << "  Prins ca GalerieException: " << e.what() << "\n";
                 }
 
-                std::cout << "\n✓ Toate testele OK!\n";
+                std::cout << "\n5. Test funcții adiționale:\n";
+
+                // MiniJoc static functions
+                std::cout << "Total jocuri: " << MiniJoc::getTotalJocuri() << "\n";
+                std::cout << "Total puncte: " << MiniJoc::getTotalPuncte() << "\n";
+                MiniJoc::afiseazaStatistici();
+                MiniJoc::reseteazaStatistici();
+
+                // Galerie
+                galerie.joacaJoc("Artistic Delight");
+
+                // Test pe un joc specific
+                auto joc_test = galerie.cautaJoc("Artistic Delight");
+                if (joc_test) {
+                    std::cout << "Descriere: " << joc_test->getDescriere() << "\n";
+                    std::cout << "Dificultate: " << static_cast<int>(joc_test->getDificultate()) << "\n";
+                    std::cout << "Puncte maxime: " << joc_test->getPuncteMaxime() << "\n";
+                    std::cout << "Puncte obtinute: " << joc_test->getPuncteObtinute() << "\n";
+                    std::cout << "Finalizat: " << joc_test->esteFinalizat() << "\n";
+                }
+
+                // Test utilizator
+                utilizator->cumparaTablou(nullptr, 0);  // va arunca excepție, pune în try-catch
+
+                // ArtQuiz functions
+                auto quiz = std::dynamic_pointer_cast<ArtQuiz>(galerie.cautaJoc("Art Quiz"));
+                if (quiz) {
+                    std::cout << "Raspunsuri corecte: " << quiz->getRaspunsuriCorecte() << "\n";
+                    std::cout << "Raspunsuri gresite: " << quiz->getRaspunsuriGresite() << "\n";
+                    std::cout << "Intrebari ramase: " << quiz->getIntrebariRamase() << "\n";
+                }
+
+                // QuickArtLook
+                auto qal = std::dynamic_pointer_cast<QuickArtLook>(galerie.cautaJoc("Quick Art Look"));
+                if (qal) {
+                    std::cout << "Timp ramas: " << qal->getTimpRamas() << "\n";
+                }
+
+                // ArtisticDelight
+                auto ad = std::dynamic_pointer_cast<ArtisticDelight>(galerie.cautaJoc("Artistic Delight"));
+                if (ad) {
+                    std::cout << "Culori folosite: " << ad->getCulorifolosite().size() << "\n";
+                }
+
+                std::cout << "\n Toate testele OK!\n";
             }
                 break;
 

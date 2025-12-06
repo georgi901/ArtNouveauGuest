@@ -44,7 +44,7 @@ public:
     }
 
     void adaugaJoc(const std::shared_ptr<MiniJoc>& joc) { jocuri.push_back(joc); }
-    std::shared_ptr<MiniJoc> cautaJoc(const std::string& nume) const;
+    std::shared_ptr<MiniJoc> cautaJoc(const std::string& nume_joc) const;
     void afiseazaJocuri() const;
     void joacaJoc(const std::string& nume_joc);
     void afiseazaSugestiiArtisticDelight();
