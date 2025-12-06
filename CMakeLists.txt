@@ -59,7 +59,7 @@ add_executable(oop
         src/Utilizator.cpp
         headers/Exceptii.h
         src/Exceptii.cpp
-        headers/MIniJoc.h
+        headers/MiniJoc.h
         src/MiniJoc.cpp
         headers/ArtisticDelight.h
         src/ArtisticDelight.cpp

@@ -21,7 +21,7 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
     json data;
     try {
         fin >> data;
-    } catch (const json::parse_error &e) {
+    } catch (const json::parse_error& ) {
         throw IncarcareDataException(caleFisier, "parsare");
     }
 
@@ -87,7 +87,7 @@ void Galerie::incarcaTablouriDinFisier(const std::string& caleFisier) {
     json data;
     try {
         fin >> data;
-    } catch (const json::parse_error& e) {
+    } catch (const json::parse_error& ) {
         throw IncarcareDataException(caleFisier, "parsare");
     }
     for (const auto& tablouJson : data) {
@@ -239,15 +239,15 @@ void Galerie::afiseazaTablouri() const {
 }
 
 
-std::shared_ptr<Artist> Galerie::cautaArtist(const std::string& num) const {
+std::shared_ptr<Artist> Galerie::cautaArtist(const std::string& nume_cautat) const {
     for (const auto& artist : artisti) {
         std::string nume_complet = artist->getNume() + " " + artist->getPrenume();
         std::string nume_complet_inversat = artist->getPrenume() + " " + artist->getNume();
 
-        if (artist->getNume() == num ||
-            artist->getPrenume() == num ||
-            nume_complet == num ||
-            nume_complet_inversat == num) {
+        if (artist->getNume() == nume_cautat ||
+            artist->getPrenume() == nume_cautat ||
+            nume_complet == nume_cautat ||
+            nume_complet_inversat == nume_cautat) {
             return artist;
             }
     }

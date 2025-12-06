@@ -78,7 +78,7 @@ void ArtQuiz::genereazaIntrebari() {
     std::shuffle(intrebari.begin(), intrebari.end(), g);
 
     // Limitează numărul de întrebări în funcție de dificultate
-    size_t max_intrebari;
+    size_t max_intrebari = intrebari.size();
     switch(dificultate) {
         case Dificultate::Usor:  max_intrebari = 5; break;
         case Dificultate::Mediu: max_intrebari = 8; break;

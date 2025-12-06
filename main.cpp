@@ -23,7 +23,7 @@ std::shared_ptr<Utilizator> incarcaUtilizatorDinFisier(const std::string& caleFi
     nlohmann::json data;
     try {
         fin >> data;
-    } catch (const nlohmann::json::parse_error& e) {
+    } catch (const nlohmann::json::parse_error& ) {
         throw IncarcareDataException(caleFisier, "parsare");
     }
 
@@ -424,7 +424,7 @@ int main() {
 
         // ========== QUICK ART LOOK ==========
         else if (auto qal = std::dynamic_pointer_cast<QuickArtLook>(joc)) {
-            std::string titlu, artist;
+            std::string titlu_tablou, artist_nume;
             int total_perechi = qal->getPerechilCorecte() + qal->getPerechileGresite();
             // Calculăm totalul din perechile existente
             total_perechi = 8;  // sau adaugă un getter
@@ -441,12 +441,12 @@ int main() {
                 std::cout << "\n----------------------------------\n";
                 std::cout << "Corecte: " << qal->getPerechilCorecte() << "/" << total_perechi << "\n";
                 std::cout << "Titlu tablou: ";
-                std::getline(std::cin, titlu);
+                std::getline(std::cin, titlu_tablou);
 
                 std::cout << "Nume artist: ";
-                std::getline(std::cin, artist);
+                std::getline(std::cin, artist_nume);
 
-                qal->verificaPereche(titlu, artist);
+                qal->verificaPereche(titlu, artist_nume);
                 incercari++;
             }
 

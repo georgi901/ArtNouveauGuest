@@ -32,7 +32,7 @@ public:
 
     void afiseazaArtisti() const;
     void afiseazaTablouri() const;
-    std::shared_ptr<Artist> cautaArtist(const std::string& nume) const;
+    std::shared_ptr<Artist> cautaArtist(const std::string& nume_cautat) const;
     void adaugaArtist(const std::shared_ptr<Artist>& a) { artisti.push_back(a); }
     std::shared_ptr<Tablou> cautaTablou(const std::string& titlu) const;
     friend std::ostream& operator<<(std::ostream& out, const Galerie& g);
