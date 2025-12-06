@@ -62,7 +62,7 @@ public:
 
     void adaugaPuncte(int p) { puncte += p; }
     int getPuncte() const { return puncte; }
-    void cumpăraTablou(std::shared_ptr<Tablou> tablou, int cost);
+    void cumparaTablou(std::shared_ptr<Tablou> tablou, int cost);
 
 };
 

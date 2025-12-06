@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& out, const Utilizator& u) {
 }
 
 
-void Utilizator::cumpăraTablou(std::shared_ptr<Tablou> tablou, int cost) {
+void Utilizator::cumparaTablou(std::shared_ptr<Tablou> tablou, int cost) {
     if (puncte < cost) {
         throw PuncteInsuficienteException(puncte, cost);
     }
