@@ -26,7 +26,7 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
     }
 
     for (const auto &artistJson: data) {
-        std::string nume = artistJson["nume"];
+        std::string nume_artist = artistJson["nume"];
         std::string prenume = artistJson["prenume"];
         std::string nationalitate = artistJson["nationalitate"];
         int varsta = artistJson["varsta"];

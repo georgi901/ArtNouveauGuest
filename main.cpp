@@ -288,6 +288,8 @@ int main() {
             {
                 std::cout << "\n========== TESTE CERINȚE  ==========\n\n";
 
+                std::cout << "\n========== TESTE CERINȚE  ==========\n\n";
+
                 auto tablou_original = galerie.cautaTablou("Zodiac");
 
                 if (!tablou_original) {
@@ -302,21 +304,24 @@ int main() {
 
                 std::cout << "PASUL 2: Test CONSTRUCTOR DE COPIERE\n";
                 std::cout << "--------------------------------------\n";
-                const Tablou tablou_copie(*tablou_original);
-                std::cout << "Copiat: " << tablou_copie.getTitlu() << "\n\n";
+
+                auto tablou_copie = std::make_unique<Tablou>(*tablou_original);
+                std::cout << "Copiat: " << tablou_copie->getTitlu() << "\n\n";
 
                 std::cout << "PASUL 3: Test OPERATOR= DE COPIERE\n";
                 std::cout << "------------------------------------\n";
-                Tablou tablou_gol;
-                std::cout << "Înainte: " << tablou_gol.getTitlu() << "\n";
-                tablou_gol = *tablou_original;
-                std::cout << "După operator=: " << tablou_gol.getTitlu() << "\n\n";
+
+                auto tablou_gol = std::make_unique<Tablou>();
+                std::cout << "Înainte: " << tablou_gol->getTitlu() << "\n";
+                *tablou_gol = *tablou_original;
+                std::cout << "După operator=: " << tablou_gol->getTitlu() << "\n\n";
 
                 std::cout << " Toate testele OK! \n";
                 std::cout << "  - Constructor copiere: BUN \n";
                 std::cout << "  - Operator=: BUN \n";
                 std::cout << "  - Destructor: BUN (se va apela automat)\n";
             }
+                break;
             case 12:
             {
                 std::cout << "\n===== TEST EXCEPTII =====\n\n";
