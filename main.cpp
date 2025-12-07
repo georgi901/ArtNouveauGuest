@@ -9,6 +9,7 @@
 #include "headers/ArtisticDelight.h"
 #include "headers/QuickArtLook.h"
 #include "headers/ArtQuiz.h"
+#include "headers/ArtPuzzle.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -120,6 +121,16 @@ int main() {
         }
     }
     galerie.adaugaJoc(joc2);
+
+    auto joc3 = std::make_shared<ArtQuiz>("Art Quiz", Dificultate::Greu);
+    for (const auto& tablou : galerie.getTablouri()) {
+        joc3->adaugaTablou(tablou);
+    }
+    galerie.adaugaJoc(joc3);
+
+    auto joc4 = std::make_shared<ArtPuzzle>("Art Puzzle", Dificultate::Usor);
+    joc4->seteazaTablou(galerie.cautaTablou("Sarutul"));
+    galerie.adaugaJoc(joc4);
 
 
     std::cout << " Jocuri create cu succes!\n";
@@ -498,6 +509,30 @@ int main() {
                             std::cout << "\nFelicitari! Ai asociat toate perechile!\n";
                         } else {
                             std::cout << "\nJoc terminat! Ai asociat " << qal->getPerechilCorecte() << "/" << total_perechi << " perechi.\n";
+                        }
+                    }
+
+                    // ArtPuzzle
+                    auto puzzle = std::dynamic_pointer_cast<ArtPuzzle>(joc);
+                    if (puzzle) {
+                        puzzle->afiseazaPuzzle();
+
+                        while (!puzzle->esteRezolvat() && puzzle->getMutariRamase() > 0) {
+                            std::cout << "Introdu pozitiile de schimbat (poz1 poz2) sau -1 -1 pentru ieșire: ";
+                            int poz1, poz2;
+                            std::cin >> poz1 >> poz2;
+
+                            if (poz1 == -1 || poz2 == -1) {
+                                std::cout << "Ai ieșit din joc.\n";
+                                break;
+                            }
+
+                            puzzle->mutaFragment(poz1, poz2);
+                            puzzle->afiseazaPuzzle();
+                        }
+
+                        if (puzzle->esteRezolvat()) {
+                            std::cout << "Felicitări! Ai rezolvat puzzle-ul!\n";
                         }
                     }
 

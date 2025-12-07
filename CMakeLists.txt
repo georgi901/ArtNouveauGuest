@@ -67,6 +67,8 @@ add_executable(oop
         src/QuickArtLook.cpp
         headers/ArtQuiz.h
         src/ArtQuiz.cpp
+        headers/ArtPuzzle.h
+        src/ArtPuzzle.cpp
         main.cpp
 )
 
