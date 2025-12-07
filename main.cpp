@@ -531,6 +531,10 @@ int main() {
                             puzzle->afiseazaPuzzle();
                         }
 
+                        std::cout << "\n=== REZULTAT ===\n";
+                        std::cout << "Mutari efectuate: " << puzzle->getMutariEfectuate() << "\n";
+                        std::cout << "Numar fragmente: " << puzzle->getNumarFragmente() << "\n";
+
                         if (puzzle->esteRezolvat()) {
                             std::cout << "Felicitări! Ai rezolvat puzzle-ul!\n";
                         }
