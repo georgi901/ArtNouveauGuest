@@ -491,6 +491,9 @@ int main() {
                         }
 
                         // Mesaj final
+                        std::cout << "Perechi corecte: " << qal->getPerechilCorecte() << "/" << total_perechi << "\n";
+                        std::cout << "Perechi gresite: " << qal->getPerechileGresite() << "\n";
+
                         if (qal->getPerechilCorecte() == total_perechi) {
                             std::cout << "\nFelicitari! Ai asociat toate perechile!\n";
                         } else {
