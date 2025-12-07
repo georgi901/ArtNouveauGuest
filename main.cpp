@@ -122,16 +122,6 @@ int main() {
     galerie.adaugaJoc(joc2);
 
 
-    auto joc3 = std::make_shared<ArtQuiz>("Art Quiz", Dificultate::Greu);
-    for (const auto& tablou : galerie.getTablouri()) {
-        joc3->adaugaTablou(tablou);
-    }
-    galerie.adaugaJoc(joc3);
-
-    auto joc4 = std::make_shared<ArtPuzzle>("Art Puzzle", Dificultate::Usor);
-    joc4->seteazaTablou(galerie.cautaTablou("Sarutul"));
-    galerie.adaugaJoc(joc4);
-
     std::cout << " Jocuri create cu succes!\n";
 
 
