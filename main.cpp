@@ -9,7 +9,6 @@
 #include "headers/ArtisticDelight.h"
 #include "headers/QuickArtLook.h"
 #include "headers/ArtQuiz.h"
-#include "headers/ArtPuzzle.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
