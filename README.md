@@ -1,16 +1,34 @@
+---
 # ArtNouveauGuest 🖼️
-
+---
 ## Descriere: 
+## ArtNouveauGuest
 
-ArtNouveauGuest este o aplicație interactivă de tip galerie virtuală, dedicată exclusiv tablourilor în stilul Art Nouveau. Aplicația combină explorarea artistică cu mini-jocuri interactive și elementele de strategie. Fiecare tablou din galerie poate fi vizualizat cu detalii complete, incluzând titlul, artistul, perioada istorică, tehnica folosită și prețul virtual în puncte, dacă opera este disponibilă pentru achiziție. Utilizatorul poate explora operele în mod individual, folosind opțiuni de zoom și vizualizare a detaliilor, pentru a înțelege mai bine compoziția fiecărei lucrări.
+**ArtNouveauGuest** este o aplicație interactivă de tip galerie virtuală, dedicată exclusiv tablourilor în stilul Art Nouveau. Aplicația combină explorarea artistică cu mini-jocuri interactive și elemente de strategie.
 
-Galeria oferă funcționalități de filtrare și căutare avansată, permițând utilizatorului să selecteze operele după artist, temă, tehnică sau valoarea în puncte. Un element central al aplicației este sistemul de puncte și colecționare. Utilizatorul acumulează puncte prin participarea la mini jocuri interactive și finalizarea provocărilor. Aceste puncte permit achiziționarea virtuală a tablourilor, construind astfel o colecție personală, care poate include atât opere comune, cât și tablouri rare sau deosebite. 
+## Descriere
 
-În mini-jocul „Artistic Delight”, utilizatorul poate picta diferite tablouri folosind pensule și culori virtuale dorind să recreeze tabloul original, iar progresul este evaluat printr-un scor de asemănare cu originalul. De asemenea, mini-jocul „Quick Art Look”, inspirat de jocurile de memorie, provoacă utilizatorul să asocieze corect tablourile cu artiștii, timpul influențând scorul și ulterior punctele disponibile pentru achiziția tablourilor.
+Fiecare tablou din galerie poate fi vizualizat cu detalii complete, incluzând titlul, artistul, perioada istorică, tehnica folosită și prețul virtual în puncte, dacă opera este disponibilă pentru achiziție. Utilizatorul poate explora operele în mod individual, folosind opțiuni de zoom și vizualizare a detaliilor, pentru a înțelege mai bine compoziția fiecărei lucrări.
 
+Galeria oferă funcționalități de filtrare și căutare avansată, permițând utilizatorului să selecteze operele după artist, temă, tehnică sau valoarea în puncte. Un element central al aplicației este sistemul de puncte și colecționare. Utilizatorul acumulează puncte prin participarea la mini-jocuri interactive și finalizarea provocărilor. Aceste puncte permit achiziționarea virtuală a tablourilor, construind astfel o colecție personală, care poate include atât opere comune, cât și tablouri rare sau deosebite.
 
+### Mini-Jocuri
+
+Aplicația include patru mini-jocuri tematice:
+
+- **„Artistic Delight"** — utilizatorul ghicește culorile folosite în tabloul original, încercând să recreeze paleta de culori a artistului. Progresul este evaluat printr-un scor de asemănare, iar bonusurile sunt acordate pentru încercările rămase.
+
+- **„Quick Art Look"** — inspirat de jocurile de memorie, provoacă utilizatorul să asocieze corect tablourile cu artiștii lor. Numărul de perechi variază în funcție de dificultate, iar răspunsurile greșite duc la penalizări.
+
+- **„Art Quiz"** — testează cunoștințele utilizatorului despre artă prin întrebări variate: cine a pictat un anumit tablou, în ce an a fost realizat, ce tehnică a fost folosită sau dacă tabloul este considerat rar. Dificultatea influențează numărul de întrebări și penalizările pentru răspunsurile greșite.
+
+- **„Art Puzzle"** — provoacă utilizatorul să rearanjeze fragmentele unui tablou celebru în ordinea corectă. Cu un număr limitat de mutări disponibile, jucătorul trebuie să gândească strategic pentru a maximiza punctajul, primind bonusuri pentru mutările nefolosite.
+
+Fiecare mini-joc oferă trei niveluri de dificultate — Ușor, Mediu și Greu — care influențează complexitatea provocărilor și punctajul maxim obtenabil.
+
+---
 ## Implementare Tema 1
-
+---
 Pentru **Tema 1** am realizat sistemul de bază al aplicației, concentrându-mă pe gestionarea artiștilor, tablourilor și colecțiilor utilizatorilor în galerie.
 
 ### Funcționalități Implementate
@@ -92,7 +110,175 @@ Galeria conține:
 - **7 artiști**: Mucha, Klimt, Beardsley, Lalique (clasici) + 3 contemporani
 - **8 tablouri**: opere celebre (Zodiac, Sărutul, Salome) + lucrări moderne
 
+---
+## Implementare Tema 2
+---
 
+Pentru **Tema 2** am extins aplicația cu un sistem de mini-jocuri interactive bazat pe moștenire și polimorfism, adăugând gestionarea excepțiilor și încărcarea datelor din fișiere JSON.
+
+### Funcționalități Implementate
+
+#### Ierarhie Mini-Jocuri
+
+Am creat o ierarhie de clase pentru mini-jocuri cu clasa de bază abstractă `MiniJoc` și 4 clase derivate:
+
+**MiniJoc** (clasă de bază abstractă)
+- Atribute comune: nume, descriere, dificultate, puncte obținute/maxime
+- Funcții virtuale pure pentru comportament specific fiecărui joc
+- Funcții non-virtuale (Non-Virtual Interface) pentru control centralizat
+- Membri statici: `total_jocuri_jucate`, `total_puncte_acordate`
+
+**ArtisticDelight** — joc de ghicit culori
+- Utilizatorul ghicește culorile folosite în tabloul original
+- Evaluare scor de asemănare cu paleta originală
+- Sistem de sugestii (prima literă a culorii)
+- Bonus pentru încercări rămase
+
+**QuickArtLook** — joc de asociere tablou-artist
+- Asociere tablouri cu artiștii corecți
+- Număr de perechi variabil în funcție de dificultate (3/5/8)
+- Penalizări pentru răspunsuri greșite
+
+**ArtQuiz** — quiz despre artă
+- Întrebări generate automat: artist, an, tehnică, raritate
+- Număr de întrebări variabil (5/8/12 în funcție de dificultate)
+- Verificare răspunsuri case-insensitive
+
+**ArtPuzzle** — puzzle cu fragmente de tablou (commit final)
+- Rearanjare fragmente în ordinea corectă
+- Număr limitat de mutări (6/15/25)
+- Bonus pentru mutări nefolosite
+
+#### Sistem de Excepții
+
+Ierarhie proprie de excepții derivată din `std::exception`:
+
+- **GalerieException** (clasă de bază)
+- **PuncteInsuficienteException** — când utilizatorul nu are destule puncte pentru achiziție
+- **TablouIndisponibilException** — când tabloul nu există sau nu e disponibil
+- **JocInvalidException** — când jocul cerut nu există
+- **IncarcareDataException** — erori la citirea fișierelor JSON
+
+#### Încărcare Date din JSON
+
+- Fișiere: `artisti.json`, `tablouri.json`, `utilizatori.json`
+- Biblioteca nlohmann/json integrată prin CMake FetchContent
+- Tratare erori de parsare cu excepții personalizate
+
+#### Sistem de Puncte Extins
+
+- Utilizatorul acumulează puncte din mini-jocuri
+- Funcție `cumparaTablou()` cu verificare puncte (aruncă excepție dacă insuficiente)
+- Afișare puncte în profil utilizator
+
+### Implementări Tehnice - Tema 2
+
+- **Moșteniri**: 1 clasă de bază (`MiniJoc`) + 4 clase derivate
+- **Funcții virtuale pure**:
+  - `initializeaza_implementare()` — inițializare specifică fiecărui joc
+  - `calculeaza_puncte_implementare()` — calculare puncte specifică temei
+  - `afiseaza_reguli_implementare()` — afișare reguli
+  - `clone()` — constructor virtual
+  - `getTipJoc()` — returnează tipul jocului
+- **Non-Virtual Interface**: funcții publice non-virtuale apelează funcții protected virtuale
+- **Pointer la clasă de bază**: `Galerie` conține `vector<shared_ptr<MiniJoc>>`
+- **Apel polimorfic**: `joc->initializeaza()`, `joc->calculeazaPuncte()` prin pointer de bază
+- **Copy-and-swap**: implementat în clasa `Galerie`
+- **dynamic_cast**: `std::dynamic_pointer_cast<ArtisticDelight>` pentru funcționalități specifice
+- **Smart pointers**: `shared_ptr`, `unique_ptr` pentru gestionare memorie
+- **Membri statici**: `MiniJoc::total_jocuri_jucate`, `MiniJoc::total_puncte_acordate`
+- **Excepții**: ierarhie proprie cu 4 clase specifice
+- **STL**: `vector`, `map`, `string`, `algorithm`
+- **Commit final**: clasa `ArtPuzzle` adăugată fără modificarea codului existent
+
+### Testare Tema 2
+
+- **Opțiunea 12** — Test excepții
+- **Opțiunea 13** — Afișează jocuri disponibile
+- **Opțiunea 14** — Joacă un joc (interactiv)
+- **Opțiunea 15** — Test MiniJoc + dynamic_cast + polimorfism
+
+---
+
+## Structura Proiectului
+```
+ArtNouveauGuest/
+├── headers/
+│   ├── Artist.h
+│   ├── Tablou.h
+│   ├── Galerie.h
+│   ├── Utilizator.h
+│   ├── MiniJoc.h
+│   ├── ArtisticDelight.h
+│   ├── QuickArtLook.h
+│   ├── ArtQuiz.h
+│   ├── ArtPuzzle.h
+│   └── Exceptii.h
+├── src/
+│   ├── Artist.cpp
+│   ├── Tablou.cpp
+│   ├── Galerie.cpp
+│   ├── Utilizator.cpp
+│   ├── MiniJoc.cpp
+│   ├── ArtisticDelight.cpp
+│   ├── QuickArtLook.cpp
+│   ├── ArtQuiz.cpp
+│   ├── ArtPuzzle.cpp
+│   └── Exceptii.cpp
+├── data/
+│   ├── artisti.json
+│   ├── tablouri.json
+│   └── utilizatori.json
+├── main.cpp
+├── CMakeLists.txt
+└── README.md
+```
+
+## Dataset
+
+Galeria conține:
+- **7 artiști**: Mucha, Klimt, Beardsley, Lalique (clasici) + 3 contemporani
+- **8 tablouri**: opere celebre (Zodiac, Sărutul, Salome) + lucrări moderne
+- **4 mini-jocuri**: Artistic Delight, Quick Art Look, Art Quiz, Art Puzzle
+
+## Meniu Principal
+```
+========================================
+      GALERIE DE ARTĂ - MENIU
+========================================
+1.  Afișează toți artiștii
+2.  Afișează toate tablourile
+3.  Caută artist (profil minimal)
+4.  Caută artist (profil complet)
+5.  Caută tablou (detalii minime)
+6.  Caută tablou (detalii complete)
+7.  Afișează galeria completă
+8.  Testează utilizator și colecție
+9.  Afișează statistici artist
+10. Tablouri rare ale unui artist
+11. Test cerințe (Tablou)
+12. Test excepții
+13. Afișează jocuri disponibile
+14. Joacă un joc
+15. Test MiniJoc + dynamic_cast + Copy and Swap
+0.  Ieșire
+========================================
+```
+
+## Compilare și Rulare
+```bash
+mkdir build
+cd build
+cmake ..
+make
+./oop
+```
+
+## Tehnologii Utilizate
+
+- **nlohmann/json** pentru parsare JSON
+- **Smart Pointers** (shared_ptr, unique_ptr, weak_ptr)
+- **STL** (vector, map, string, algorithm)
 
 ## Detalii Proiect:
 
@@ -151,34 +337,34 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 ## Tema 2
 
 #### Cerințe
-- [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
-- [ ] moșteniri:
+- [X] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
+- [X] moșteniri:
   - minim o clasă de bază și **3 clase derivate** din aceeași ierarhie
   - ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită
-  - [ ] funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
+  - [X] funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
     - minim o funcție virtuală va fi **specifică temei** (i.e. nu simple citiri/afișări sau preluate din biblioteci i.e. draw/update/render)
     - constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei
     - afișare virtuală, interfață non-virtuală
-  - [ ] apelarea constructorului din clasa de bază din constructori din derivate
-  - [ ] clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază
-    - [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
-    - [ ] `dynamic_cast`/`std::dynamic_pointer_cast` pentru downcast cu sens
-    - [ ] smart pointers (recomandat, opțional)
-- [ ] excepții
-  - [ ] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim **3** clase pentru erori specifice distincte
+  - [X] apelarea constructorului din clasa de bază din constructori din derivate
+  - [X] clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază
+    - [X] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
+    - [X] `dynamic_cast`/`std::dynamic_pointer_cast` pentru downcast cu sens
+    - [X] smart pointers (recomandat, opțional)
+- [X] excepții
+  - [X] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim **3** clase pentru erori specifice distincte
     - clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)
-  - [ ] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
+  - [X] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
   - această ierarhie va fi complet independentă de ierarhia cu funcții virtuale
-- [ ] funcții și atribute `static`
-- [ ] STL
-- [ ] cât mai multe `const`
-- [ ] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
-- [ ] minim 75-80% din codul propriu să fie C++
-- [ ] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
+- [X] funcții și atribute `static`
+- [X] STL
+- [X] cât mai multe `const`
+- [X] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
+- [X] minim 75-80% din codul propriu să fie C++
+- [X] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
   - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
   - noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie)
-- [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
-- [ ] code review #2 2 proiecte
+- [X] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
+- [X] code review #2 2 proiecte
 
 ## Tema 3
 
