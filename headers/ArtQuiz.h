@@ -1,6 +1,5 @@
 #ifndef ARTNOUVEAUGUEST_ARTQUIZ_H
 #define ARTNOUVEAUGUEST_ARTQUIZ_H
-
 #include "MiniJoc.h"
 #include "Tablou.h"
 #include <vector>

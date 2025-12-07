@@ -1,6 +1,5 @@
 #ifndef ARTNOUVEAUGUEST_GALERIE_H
 #define ARTNOUVEAUGUEST_GALERIE_H
-
 #pragma once
 #include <iostream>
 #include <vector>
