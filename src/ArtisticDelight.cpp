@@ -152,19 +152,17 @@ void ArtisticDelight::initializeaza_implementare() {
 }
 
 int ArtisticDelight::calculeaza_puncte_implementare() {
-    evalueazaAsemanare();
-
     int puncte = static_cast<int>((scor_asemanare / 100.0) * puncte_maxime);
 
     int bonus = incercari_ramase * 5;
-    puncte += bonus;
+    int total = puncte + bonus;
 
-    puncte = std::min(puncte, puncte_maxime);
+    std::cout << "Scor asemanare: " << scor_asemanare << "%" << std::endl;
+    std::cout << "Puncte baza: " << puncte << std::endl;
+    std::cout << "Bonus incercari ramase (" << incercari_ramase << " incercari): +" << bonus << std::endl;
+    std::cout << "Total: " << total << std::endl;
 
-    std::cout << "Scor asemănare: " << scor_asemanare << "%" << std::endl;
-    std::cout << "Bonus încercări rămase: +" << bonus << std::endl;
-
-    return puncte;
+    return total;
 }
 
 void ArtisticDelight::afiseaza_reguli_implementare() const {

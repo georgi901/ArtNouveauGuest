@@ -6,13 +6,13 @@
 #include "Artist.h"
 #include <vector>
 #include <memory>
+#include <utility>
 
 class QuickArtLook : public MiniJoc {
 private:
     std::vector<std::pair<std::shared_ptr<Tablou>, std::shared_ptr<Artist>>> perechi;
     int perechi_corecte;
     int perechi_gresite;
-    int timp_ramas;  // secunde
 
 protected:
     void initializeaza_implementare() override;
@@ -35,7 +35,7 @@ public:
 
     int getPerechilCorecte() const { return perechi_corecte; }
     int getPerechileGresite() const { return perechi_gresite; }
-    int getTimpRamas() const { return timp_ramas; }
+    int getTotalPerechi() const { return perechi.size(); }
 };
 
 #endif //ARTNOUVEAUGUEST_QUICKARTLOOK_HH

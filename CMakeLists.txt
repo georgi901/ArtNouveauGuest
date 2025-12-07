@@ -67,7 +67,7 @@ add_executable(oop
         src/QuickArtLook.cpp
         headers/ArtQuiz.h
         src/ArtQuiz.cpp
-    main.cpp
+        main.cpp
 )
 
 target_include_directories(oop PRIVATE headers)

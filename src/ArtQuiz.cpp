@@ -80,9 +80,9 @@ void ArtQuiz::genereazaIntrebari() {
     // Limitează numărul de întrebări în funcție de dificultate
     size_t max_intrebari = intrebari.size();
     switch(dificultate) {
-        case Dificultate::Usor:  max_intrebari = 5; break;
-        case Dificultate::Mediu: max_intrebari = 8; break;
-        case Dificultate::Greu:  max_intrebari = 12; break;
+        case Dificultate::Usor:  max_intrebari = 3; break;
+        case Dificultate::Mediu: max_intrebari = 5; break;
+        case Dificultate::Greu:  max_intrebari = 7; break;
     }
 
     if (intrebari.size() > max_intrebari) {
@@ -114,7 +114,7 @@ bool ArtQuiz::raspunde(const std::string& raspuns) {
 
     const auto& q = intrebari[intrebare_curenta];
 
-    // Compară răspunsurile (case-insensitive pentru flexibilitate)
+    // Compară răspunsurile
     std::string raspuns_lower = raspuns;
     std::string corect_lower = q.raspuns_corect;
 

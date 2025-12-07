@@ -9,6 +9,7 @@
 #include "headers/ArtisticDelight.h"
 #include "headers/QuickArtLook.h"
 #include "headers/ArtQuiz.h"
+#include "headers/ArtPuzzle.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -59,7 +60,7 @@ void afiseazaMeniu() {
     std::cout << "12. Test exceptii\n";
     std::cout << "13. Afișează jocuri disponibile\n";
     std::cout << "14. Joacă un joc\n";
-    std::cout << "15. Test MiniJoc + dynamic_cast\n";
+    std::cout << "15. Test MiniJoc + dynamic_cast + Copy and swap\n";
     std::cout << "0.  Ieșire\n";
     std::cout << "========================================\n";
     std::cout << "Alege opțiunea: ";
@@ -91,14 +92,14 @@ int main() {
         std::cout << "========================================\n";
 
     } catch (const IncarcareDataException& e) {
-        std::cerr << "\nEROARE FATALĂ: " << e.what() << "\n";
+        std::cerr << "\nEROARE : " << e.what() << "\n";
         std::cerr << "Tip eroare: " << e.getTipEroare() << "\n";
         std::cerr << "Detalii: " << e.getDetalii() << "\n\n";
         std::cerr << "Programul nu poate continua fără date!\n";
         std::cerr << "Asigură-te că fișierele JSON există în folderul 'data/'.\n\n";
         return 1;
     } catch (const GalerieException& e) {
-        std::cerr << "\nEROARE FATALĂ: " << e.what() << "\n";
+        std::cerr << "\nEROARE : " << e.what() << "\n";
         std::cerr << "Programul nu poate continua!\n\n";
         return 1;
     }
@@ -127,6 +128,10 @@ int main() {
         joc3->adaugaTablou(tablou);
     }
     galerie.adaugaJoc(joc3);
+
+    auto joc4 = std::make_shared<ArtPuzzle>("Art Puzzle", Dificultate::Usor);
+    joc4->seteazaTablou(galerie.cautaTablou("Sarutul"));
+    galerie.adaugaJoc(joc4);
 
     std::cout << " Jocuri create cu succes!\n";
 
@@ -288,8 +293,6 @@ int main() {
             {
                 std::cout << "\n========== TESTE CERINȚE  ==========\n\n";
 
-                std::cout << "\n========== TESTE CERINȚE  ==========\n\n";
-
                 auto tablou_original = galerie.cautaTablou("Zodiac");
 
                 if (!tablou_original) {
@@ -395,12 +398,6 @@ int main() {
                     std::cout << "Intrebari ramase: " << quiz->getIntrebariRamase() << "\n";
                 }
 
-                // QuickArtLook
-                auto qal = std::dynamic_pointer_cast<QuickArtLook>(galerie.cautaJoc("Quick Art Look"));
-                if (qal) {
-                    std::cout << "Timp ramas: " << qal->getTimpRamas() << "\n";
-                }
-
                 // ArtisticDelight
                 auto ad = std::dynamic_pointer_cast<ArtisticDelight>(galerie.cautaJoc("Artistic Delight"));
                 if (ad) {
@@ -416,110 +413,114 @@ int main() {
                 break;
 
             case 14:
-{
-    std::cout << "Introdu numele jocului: ";
-    std::getline(std::cin, nume);
+            {
+                std::cout << "Introdu numele jocului: ";
+                std::getline(std::cin, nume);
 
 
-    try {
-        auto joc = galerie.cautaJoc(nume);
-        if (!joc) {
-            throw JocInvalidException(nume);
-        }
+                try {
+                    auto joc = galerie.cautaJoc(nume);
+                    if (!joc) {
+                        throw JocInvalidException(nume);
+                    }
 
-        joc->afiseazaRegulile();
-        joc->initializeaza();
+                    joc->afiseazaRegulile();
+                    joc->initializeaza();
 
-        // ========== ART QUIZ ==========
-        if (auto quiz = std::dynamic_pointer_cast<ArtQuiz>(joc)) {
-            std::string raspuns;
-            while (quiz->areIntrebariRamase()) {
-                quiz->afiseazaIntrebareCurenta();
-                std::getline(std::cin, raspuns);
-                quiz->raspunde(raspuns);
-                quiz->urmatoraIntrebare();
-            }
-            std::cout << "\n✓ Quiz terminat!\n";
-        }
+                    // ART QUIZ
+                    if (auto quiz = std::dynamic_pointer_cast<ArtQuiz>(joc)) {
+                        std::string raspuns;
+                        while (quiz->areIntrebariRamase()) {
+                            quiz->afiseazaIntrebareCurenta();
+                            std::getline(std::cin, raspuns);
+                            quiz->raspunde(raspuns);
+                            quiz->urmatoraIntrebare();
+                        }
+                        std::cout << "\n Quiz terminat!\n";
+                    }
 
-        // ========== ARTISTIC DELIGHT ==========
-        else if (auto ad = std::dynamic_pointer_cast<ArtisticDelight>(joc)) {
-            std::string culoare;
-            std::cout << "\nGhicește culorile tabloului!\n";
-            std::cout << "(scrie 'sugestie' pentru ajutor)\n\n";
+                    // ARTISTIC DELIGHT
+                    else if (auto ad = std::dynamic_pointer_cast<ArtisticDelight>(joc)) {
+                        std::string culoare;
+                        std::cout << "\nGhicește culorile tabloului!\n";
+                        std::cout << "(scrie 'sugestie' pentru ajutor)\n\n";
 
-            while (ad->getIncercariRamase() > 0 && ad->getScorAsemanare() < 100) {
-                std::cout << "\n----------------------------------\n";
-                std::cout << "Încercări rămase: " << ad->getIncercariRamase() << "\n";
-                std::cout << "Scor actual: " << ad->getScorAsemanare() << "%\n";
-                std::cout << "Introdu o culoare: ";
-                std::getline(std::cin, culoare);
+                        while (ad->getIncercariRamase() > 0 && ad->getScorAsemanare() < 100) {
+                            std::cout << "\n----------------------------------\n";
+                            std::cout << "Încercări rămase: " << ad->getIncercariRamase() << "\n";
+                            std::cout << "Scor actual: " << ad->getScorAsemanare() << "%\n";
+                            std::cout << "Introdu o culoare: ";
+                            std::getline(std::cin, culoare);
 
-                if (culoare == "sugestie") {
-                    ad->arataSugestie();
-                    continue;
+                            if (culoare == "sugestie") {
+                                ad->arataSugestie();
+                                continue;
+                            }
+
+                            ad->picteaza(culoare);
+                        }
+
+                        // Mesaj final
+                        if (ad->getScorAsemanare() >= 100) {
+                            std::cout << "\n Felicitări! Ai ghicit toate culorile!\n";
+                        } else {
+                            std::cout << "\n Nu mai ai încercări! Scor final: " << ad->getScorAsemanare() << "%\n";
+                        }
+                    }
+
+                    // QUICK ART LOOK
+                    else if (auto qal = std::dynamic_pointer_cast<QuickArtLook>(joc)) {
+                        qal->afiseazaTablele();
+                        qal->afiseazaArtisti();
+
+                        std::cout << "\nAsociaza fiecare tablou cu artistul corect!\n";
+                        std::cout << "(Scrie 'exit' pentru a iesi)\n\n";
+
+                        int total_perechi = qal->getTotalPerechi();
+                        int incercari = 0;
+                        int max_incercari = total_perechi + 3;
+
+                        while (qal->getPerechilCorecte() < total_perechi && incercari < max_incercari) {
+                            std::cout << "----------------------------------\n";
+                            std::cout << "Corecte: " << qal->getPerechilCorecte() << "/" << total_perechi << "\n";
+
+                            std::string titlu_tablou, artist_nume;
+
+                            std::cout << "Titlu tablou: ";
+                            std::getline(std::cin, titlu_tablou);
+
+                            if (titlu_tablou == "exit") {
+                                std::cout << "Ai iesit din joc.\n";
+                                break;
+                            }
+
+                            std::cout << "Nume artist: ";
+                            std::getline(std::cin, artist_nume);
+
+                            qal->verificaPereche(titlu_tablou, artist_nume);
+                            incercari++;
+                        }
+
+                        // Mesaj final
+                        if (qal->getPerechilCorecte() == total_perechi) {
+                            std::cout << "\nFelicitari! Ai asociat toate perechile!\n";
+                        } else {
+                            std::cout << "\nJoc terminat! Ai asociat " << qal->getPerechilCorecte() << "/" << total_perechi << " perechi.\n";
+                        }
+                    }
+
+
+                    int puncte = joc->calculeazaPuncte();
+                    utilizator->adaugaPuncte(puncte);
+                    std::cout << "\n========================================\n";
+                    std::cout << "   Ai câștigat " << puncte << " puncte!\n";
+                    std::cout << "   Total puncte: " << utilizator->getPuncte() << "\n";
+                    std::cout << "========================================\n";
+                } catch (const JocInvalidException &e) {
+                    std::cerr << "Eroare: " << e.what() << "\n";
                 }
-
-                ad->picteaza(culoare);
             }
-
-            // Mesaj final
-            if (ad->getScorAsemanare() >= 100) {
-                std::cout << "\n Felicitări! Ai ghicit toate culorile!\n";
-            } else {
-                std::cout << "\n Nu mai ai încercări! Scor final: " << ad->getScorAsemanare() << "%\n";
-            }
-        }
-
-        // ========== QUICK ART LOOK ==========
-        else if (auto qal = std::dynamic_pointer_cast<QuickArtLook>(joc)) {
-            std::string titlu_tablou, artist_nume;
-            int total_perechi = qal->getPerechilCorecte() + qal->getPerechileGresite();
-            // Calculăm totalul din perechile existente
-            total_perechi = 8;  // sau adaugă un getter
-
-            qal->afiseazaTablele();
-            qal->afiseazaArtisti();
-
-            std::cout << "\nAsociază fiecare tablou cu artistul corect!\n\n";
-
-            int incercari = 0;
-            int max_incercari = total_perechi + 3;
-
-            while (qal->getPerechilCorecte() < total_perechi && incercari < max_incercari) {
-                std::cout << "\n----------------------------------\n";
-                std::cout << "Corecte: " << qal->getPerechilCorecte() << "/" << total_perechi << "\n";
-                std::cout << "Titlu tablou: ";
-                std::getline(std::cin, titlu_tablou);
-
-                std::cout << "Nume artist: ";
-                std::getline(std::cin, artist_nume);
-
-                qal->verificaPereche(titlu, artist_nume);
-                incercari++;
-            }
-
-            // Mesaj final
-            if (qal->getPerechilCorecte() == total_perechi) {
-                std::cout << "\n Felicitări! Ai asociat toate perechile!\n";
-            } else {
-                std::cout << "\n Joc terminat! Ai asociat " << qal->getPerechilCorecte() << "/" << total_perechi << " perechi.\n";
-            }
-        }
-
-
-        int puncte = joc->calculeazaPuncte();
-        utilizator->adaugaPuncte(puncte);
-        std::cout << "\n========================================\n";
-        std::cout << "   Ai câștigat " << puncte << " puncte!\n";
-        std::cout << "   Total puncte: " << utilizator->getPuncte() << "\n";
-        std::cout << "========================================\n";
-
-    } catch (const JocInvalidException& e) {
-        std::cerr << "Eroare: " << e.what() << "\n";
-    }
-}
-    break;
+                break;
 
             case 15:
             {
@@ -530,7 +531,7 @@ int main() {
                 auto joc = galerie.cautaJoc("Artistic Delight");
                 if (joc) {
                     std::cout << "Tip joc: " << joc->getTipJoc() << "\n";  // funcție virtuală
-                    joc->afiseazaRegulile();  // NVI pattern
+                    joc->afiseazaRegulile();
                 }
 
                 // Test dynamic_cast

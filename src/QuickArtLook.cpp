@@ -7,26 +7,18 @@
 QuickArtLook::QuickArtLook(const std::string& nume, Dificultate dif)
     : MiniJoc(nume, "Asociază tablourile cu artiștii corecți!", dif),
       perechi_corecte(0),
-      perechi_gresite(0),
-      timp_ramas(0)
+      perechi_gresite(0)
 {
-    switch(dif) {
-        case Dificultate::Usor:  timp_ramas = 60; break;
-        case Dificultate::Mediu: timp_ramas = 45; break;
-        case Dificultate::Greu:  timp_ramas = 30; break;
-    }
-
-    std::cout << " QuickArtLook constructor: " << nume << std::endl;
+    std::cout << "QuickArtLook constructor: " << nume << std::endl;
 }
 
 QuickArtLook::QuickArtLook(const QuickArtLook& other)
     : MiniJoc(other),
       perechi(other.perechi),
       perechi_corecte(other.perechi_corecte),
-      perechi_gresite(other.perechi_gresite),
-      timp_ramas(other.timp_ramas)
+      perechi_gresite(other.perechi_gresite)
 {
-    std::cout << "[DEBUG] QuickArtLook copy constructor" << std::endl;
+    std::cout << " QuickArtLook copy constructor" << std::endl;
 }
 
 std::unique_ptr<MiniJoc> QuickArtLook::clone() const {
@@ -103,16 +95,20 @@ void QuickArtLook::initializeaza_implementare() {
     perechi_corecte = 0;
     perechi_gresite = 0;
 
-    switch(dificultate) {
-        case Dificultate::Usor:  timp_ramas = 60; break;
-        case Dificultate::Mediu: timp_ramas = 45; break;
-        case Dificultate::Greu:  timp_ramas = 30; break;
-    }
-
     amestecaPerechile();
 
-    std::cout << "Quick Art Look inițializat!" << std::endl;
-    std::cout << "Timp disponibil: " << timp_ramas << " secunde" << std::endl;
+    size_t max_perechi = 3;
+    switch(dificultate) {
+        case Dificultate::Usor:  max_perechi = 3; break;
+        case Dificultate::Mediu: max_perechi = 5; break;
+        case Dificultate::Greu:  max_perechi = 8; break;
+    }
+
+    if (perechi.size() > max_perechi) {
+        perechi.resize(max_perechi);
+    }
+
+    std::cout << "Quick Art Look initializat!" << std::endl;
     std::cout << "Perechi de ghicit: " << perechi.size() << std::endl;
 }
 
@@ -121,33 +117,31 @@ int QuickArtLook::calculeaza_puncte_implementare() {
         return 0;
     }
 
-    // Puncte bazate pe răspunsuri corecte
     double procent_corect = static_cast<double>(perechi_corecte) / perechi.size() * 100.0;
     int puncte = static_cast<int>((procent_corect / 100.0) * puncte_maxime);
 
-    // Penalizare pentru răspunsuri greșite
     int penalizare = perechi_gresite * 10;
     puncte -= penalizare;
-
-    // Bonus pentru timp rămas
-    int bonus_timp = timp_ramas / 2;
-    puncte += bonus_timp;
 
     puncte = std::max(0, std::min(puncte, puncte_maxime));
 
     std::cout << "Corecte: " << perechi_corecte << "/" << perechi.size() << std::endl;
-    std::cout << "Greșite: " << perechi_gresite << std::endl;
-    std::cout << "Bonus timp: +" << bonus_timp << std::endl;
+    std::cout << "Gresite: " << perechi_gresite << " (penalizare: -" << penalizare << ")" << std::endl;
 
     return puncte;
 }
 
 void QuickArtLook::afiseaza_reguli_implementare() const {
+    size_t max_perechi = 3;
+    switch(dificultate) {
+        case Dificultate::Usor:  max_perechi = 3; break;
+        case Dificultate::Mediu: max_perechi = 5; break;
+        case Dificultate::Greu:  max_perechi = 8; break;
+    }
     std::cout << "QUICK ART LOOK - Reguli:" << std::endl;
-    std::cout << "1. Vei vedea o listă de tablouri și o listă de artiști." << std::endl;
-    std::cout << "2. Trebuie să asociezi fiecare tablou cu artistul corect." << std::endl;
-    std::cout << "3. Scrie titlul tabloului și numele artistului." << std::endl;
-    std::cout << "4. Ai timp limitat!" << std::endl;
-    std::cout << "5. Răspunsurile greșite scad din punctaj." << std::endl;
-    std::cout << "Timp disponibil: " << timp_ramas << " secunde" << std::endl;
+    std::cout << "1. Vei vedea o lista de tablouri si o lista de artisti." << std::endl;
+    std::cout << "2. Trebuie sa asociezi fiecare tablou cu artistul corect." << std::endl;
+    std::cout << "3. Scrie titlul tabloului si numele artistului." << std::endl;
+    std::cout << "4. Raspunsurile gresite scad din punctaj." << std::endl;
+    std::cout << "Perechi de ghicit: " <<  max_perechi << std::endl;
 }
