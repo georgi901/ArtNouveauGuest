@@ -280,6 +280,201 @@ make
 - **Smart Pointers** (shared_ptr, unique_ptr, weak_ptr)
 - **STL** (vector, map, string, algorithm)
 
+  ---
+## Implementare Tema 3
+---
+
+Pentru **Tema 3** am extins aplicația cu design patterns (Singleton, Factory), clase șablon generice și funcții șablon, îmbunătățind arhitectura și reutilizabilitatea codului.
+
+### Funcționalități Implementate
+
+#### Design Patterns
+
+**Singleton Pattern (Galerie)**
+- Asigură existența unei singure instanțe a galeriei în întreaga aplicație
+- Acces global prin `Galerie::getInstance()`
+- Implementare thread-safe cu mutex
+- Elimină posibilitatea de creare accidentală a mai multor galerii
+- Reprezintă "sursa unică de adevăr" pentru toate datele galeriei
+
+**Factory Pattern (JocFactory)**
+- Creează instanțe de mini-jocuri fără a cunoaște clasa concretă
+- Metodă statică: `JocFactory::creeazaJoc(tipJoc, dificultate)`
+- Suportă toate tipurile de jocuri: "ArtisticDelight", "QuickArtLook", "ArtQuiz", "ArtPuzzle"
+- Permite adăugarea de jocuri noi fără modificarea codului existent
+- Încapsulează logica de instanțiere într-un singur loc
+
+#### Clasă Șablon Generic
+
+**Collection\<T\>** — container generic pentru orice tip de date
+- Funcționează cu orice clasă (`Artist`, `Tablou`, `MiniJoc`, etc.)
+- Metodă `adauga(T element)` — adaugă elemente în colecție
+- Metodă `filtreaza(Predicate pred)` — filtrează după predicate
+- Metodă `cautaDupaPredicate(Predicate pred)` — caută primul element ce îndeplinește condiția
+- Iteratori pentru parcurgere (`begin()`, `end()`)
+- Gestionare internă cu `std::vector<T>`
+
+#### Funcții Șablon (Utils.h)
+
+Set de funcții generice reutilizabile:
+
+**`cautaDupaNume<T>(container, nume)`**
+- Caută elemente după nume în orice container
+- Returnează pointer către element sau `nullptr`
+
+**`filtreazaElemente<T>(container, predicate)`**
+- Filtrează elemente folosind un predicat
+- Returnează un nou vector cu elementele filtrate
+
+**`numaraElemente<T>(container, predicate)`**
+- Numără elementele care îndeplinesc o condiție
+- Returnează `size_t`
+
+**`transforma<T, R>(container, transformer)`**
+- Transformă o colecție de tip `T` într-una de tip `R`
+- Folosește o funcție de transformare custom
+
+#### Documentație Doxygen
+
+- Comentarii Doxygen complete pentru toate clasele și funcțiile
+- Parametri documentați cu `@param`
+- Valori returnate specificate cu `@return`
+- Descrieri clare ale funcționalităților
+- Exemple de utilizare în comentarii
+- Generare automată documentație HTML
+
+#### Code Formatting
+
+- Fișier `.clang-format` pentru formatare automată
+- Standard C++17
+- Indentare consistentă (4 spații)
+- Stilul de formatare: LLVM
+- Aplicabil pe întreg proiectul
+
+### Implementări Tehnice - Tema 3
+
+- **Singleton Pattern**: implementat cu Meyer's Singleton (thread-safe prin C++11)
+- **Factory Pattern**: metodă statică de fabrică cu switch pentru tipuri de jocuri
+- **Clasă șablon**: `Collection<T>` cu cel puțin 3 metode template
+- **Funcții șablon**: minimum 4 funcții generice în `Utils.h`
+- **Documentație Doxygen**: comentarii complete pentru toate clasele și funcțiile publice
+- **Code formatter**: configurare `.clang-format` pentru consistență stilistică
+- **Smart pointers**: folosire consistentă `shared_ptr`, `unique_ptr`
+- **Lambda expressions**: în funcțiile de filtrare și transformare
+- **STL algorithms**: `std::find_if`, `std::count_if`, `std::transform`
+
+### Testare Tema 3
+
+**Opțiunea 16** — Test complet Milestone 3
+
+Testează:
+- Singleton Pattern (verifică că `getInstance()` returnează aceeași instanță)
+- Factory Pattern (creează toate tipurile de jocuri)
+- Clasă șablon (testează `Collection<T>` cu tipuri diferite)
+- Funcții șablon (testează toate funcțiile din `Utils.h`)
+
+Output așteptat include confirmarea că toate testele au trecut cu succes.
+
+---
+
+## Structura Proiectului (Final - Tema 3)
+```
+ArtNouveauGuest/
+├── headers/
+│   ├── Artist.h
+│   ├── Tablou.h
+│   ├── Galerie.h              # Modificat cu Singleton Pattern
+│   ├── Utilizator.h
+│   ├── MiniJoc.h
+│   ├── ArtisticDelight.h
+│   ├── QuickArtLook.h
+│   ├── ArtQuiz.h
+│   ├── ArtPuzzle.h
+│   ├── Exceptii.h
+│   ├── Collection.h           # NOU - Clasă șablon
+│   ├── Utils.h                # NOU - Funcții șablon
+│   └── JocFactory.h           # NOU - Factory Pattern
+├── src/
+│   ├── Artist.cpp
+│   ├── Tablou.cpp
+│   ├── Galerie.cpp            # Modificat cu Singleton
+│   ├── Utilizator.cpp
+│   ├── MiniJoc.cpp
+│   ├── ArtisticDelight.cpp
+│   ├── QuickArtLook.cpp
+│   ├── ArtQuiz.cpp
+│   ├── ArtPuzzle.cpp
+│   ├── Exceptii.cpp
+│   └── JocFactory.cpp         # NOU
+├── data/
+│   ├── artisti.json
+│   ├── tablouri.json
+│   └── utilizatori.json
+├── .clang-format              # NOU - Configurare formatter
+├── Doxyfile                   # NOU - Config Doxygen
+├── main.cpp                   # Modificat cu opțiunea 16
+├── CMakeLists.txt             # Modificat (adăugat JocFactory.cpp)
+└── README.md
+```
+
+## Dataset
+
+Galeria conține:
+- **7 artiști**: Mucha, Klimt, Beardsley, Lalique (clasici) + 3 contemporani
+- **8 tablouri**: opere celebre (Zodiac, Sărutul, Salome) + lucrări moderne
+- **4 mini-jocuri**: Artistic Delight, Quick Art Look, Art Quiz, Art Puzzle
+
+## Meniu Principal (Actualizat)
+```
+========================================
+      GALERIE DE ARTĂ - MENIU
+========================================
+1.  Afișează toți artiștii
+2.  Afișează toate tablourile
+3.  Caută artist (profil minimal)
+4.  Caută artist (profil complet)
+5.  Caută tablou (detalii minime)
+6.  Caută tablou (detalii complete)
+7.  Afișează galeria completă
+8.  Testează utilizator și colecție
+9.  Afișează statistici artist
+10. Tablouri rare ale unui artist
+11. Test cerințe (Tablou)
+12. Test excepții
+13. Afișează jocuri disponibile
+14. Joacă un joc
+15. Test MiniJoc + dynamic_cast + Copy and Swap
+16. Test Milestone 3 (Design Patterns & Templates)
+0.  Ieșire
+========================================
+```
+
+## Compilare și Rulare
+```bash
+mkdir build
+cd build
+cmake ..
+make
+./oop
+```
+
+## Tehnologii Utilizate
+
+- **C++17** standard
+- **nlohmann/json** pentru parsare JSON
+- **Smart Pointers** (shared_ptr, unique_ptr, weak_ptr)
+- **STL** (vector, map, string, algorithm)
+- **Doxygen** pentru documentație automată
+- **clang-format** pentru formatare consistentă
+
+## Versioning
+
+- **v0.1** — Milestone 1: Clase de bază, compunere, smart pointers
+- **v0.2** — Milestone 2: Moștenire, polimorfism, excepții, JSON
+- **v0.3** — Milestone 3: Design Patterns, Templates, Doxygen
+
+---
+
 ## Detalii Proiect:
 
 
@@ -369,13 +564,13 @@ O cerință nu se consideră îndeplinită dacă este realizată doar prin cod g
 ## Tema 3
 
 #### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o clasă șablon cu sens; minim **2 instanțieri**
-  - [ ] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
-- [ ] minim 85% din codul propriu să fie C++
+- [X] 2 șabloane de proiectare (design patterns)
+- [X] o clasă șablon cu sens; minim **2 instanțieri**
+  - [X] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
+- [X] minim 85% din codul propriu să fie C++
 <!-- - [ ] o specializare pe funcție/clasă șablon -->
-- [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.3` sau `v1.0`
-- [ ] code review #3 2 proiecte
+- [X] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.3` sau `v1.0`
+- [X] code review #3 2 proiecte
 
 ## Instrucțiuni de compilare
 
