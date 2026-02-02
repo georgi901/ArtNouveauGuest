@@ -788,6 +788,15 @@ int main() {
             {
                 std::cout << "\n===== TEST FUNCȚII TEMPLATE NEUTILIZATE =====\n\n";
 
+                 // Test înregistrare joc personalizat
+                 std::cout << "Test înregistrare tip nou de joc:\n";
+                 JocFactory::inregistreazaJoc("JocPersonalizat", [](Dificultate d) {
+                     return std::make_unique<ArtQuiz>("Joc Personalizat", d);
+                 });
+
+                 auto jocNou = JocFactory::creeazaJoc("JocPersonalizat", Dificultate::Mediu);
+                 std::cout << "Joc creat: " << jocNou->getNume() << "\n";
+
                 // Test Collection - funcții neutilizate
                 Collection<Tablou> colTest;
                 for (const auto& t : galerie.getTablouri()) {

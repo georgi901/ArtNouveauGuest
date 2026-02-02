@@ -20,20 +20,20 @@ std::map<std::string, JocFactory::FunctieCreator>& JocFactory::obtineRegistru() 
     // Variabilă locală statică - construită la prima utilizare
     static std::map<std::string, FunctieCreator> registru;
 
-    // Inițializează tipurile implicite la primul acces
-    if (!initializat_) {
-        initializeazaTipuriImplicite();
-    }
-
     return registru;
 }
 
 void JocFactory::initializeazaTipuriImplicite() {
-    if (initializat_) {
+    // Protecție dublă împotriva reinițializării și recursiei
+    static bool in_progress = false;
+
+    // Dacă deja inițializat SAU în proces de inițializare, ieși
+    if (initializat_ || in_progress) {
         return;
     }
 
-    // IMPORTANT: Setăm flag-ul ÎNAINTE de a accesa registrul pentru a preveni recursie infinită
+    // Marchează că procesul a început
+    in_progress = true;
     initializat_ = true;
 
     auto& registru = obtineRegistru();
@@ -53,9 +53,13 @@ void JocFactory::initializeazaTipuriImplicite() {
     registru["ArtPuzzle"] = [](Dificultate d) { return std::make_unique<ArtPuzzle>("Art Puzzle", d); };
 
     std::cout << "[JocFactory] Tipuri implicite înregistrate: " << registru.size() << " tipuri disponibile.\n";
+    in_progress = false;
 }
 
 std::unique_ptr<MiniJoc> JocFactory::creeazaJoc(const std::string& tip, Dificultate dificultate) {
+    if (!initializat_) {
+        initializeazaTipuriImplicite();
+    }
     auto& registru = obtineRegistru();
 
     auto it = registru.find(tip);
@@ -68,12 +72,18 @@ std::unique_ptr<MiniJoc> JocFactory::creeazaJoc(const std::string& tip, Dificult
 }
 
 void JocFactory::inregistreazaJoc(const std::string& tip, FunctieCreator creator) {
+    if (!initializat_) {
+        initializeazaTipuriImplicite();
+    }
     auto& registru = obtineRegistru();
     registru[tip] = std::move(creator);
     std::cout << "[JocFactory] Tip nou de joc înregistrat: " << tip << "\n";
 }
 
 std::vector<std::string> JocFactory::obtineTipuriDisponibile() {
+    if (!initializat_) {
+        initializeazaTipuriImplicite();
+    }
     std::vector<std::string> tipuri;
     for (const auto& pereche : obtineRegistru()) {
         tipuri.push_back(pereche.first);
@@ -82,6 +92,9 @@ std::vector<std::string> JocFactory::obtineTipuriDisponibile() {
 }
 
 bool JocFactory::esteTipInregistrat(const std::string& tip) {
+    if (!initializat_) {
+        initializeazaTipuriImplicite();
+    }
     auto& registru = obtineRegistru();
     return registru.find(tip) != registru.end();
 }
