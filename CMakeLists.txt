@@ -69,6 +69,10 @@ add_executable(oop
         src/ArtQuiz.cpp
         headers/ArtPuzzle.h
         src/ArtPuzzle.cpp
+        headers/JocFactory.h
+        src/JocFactory.cpp
+        headers/Collection.h
+        headers/Utils.h
         main.cpp
 )
 

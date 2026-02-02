@@ -1,0 +1,9 @@
+var searchData=
+[
+  ['obtine_0',['obtine',['../class_collection.html#ae44572f5863ea4bc8398c0239416eaa0',1,'Collection']]],
+  ['obtineregistru_1',['obtineRegistru',['../class_joc_factory.html#acd77af8730c29c798927f989164595d9',1,'JocFactory']]],
+  ['obtinetipuridisponibile_2',['obtineTipuriDisponibile',['../class_joc_factory.html#aa12578104c2a997c88d34b4d7766542f',1,'JocFactory']]],
+  ['obtinetoate_3',['obtineToate',['../class_collection.html#a0478723819bce82bbda7b0ed6b4e79ec',1,'Collection']]],
+  ['operator_3c_3c_4',['operator&lt;&lt;',['../_mini_joc_8h.html#a3a051ff501a142f4f49679429ae6a9ea',1,'operator&lt;&lt;(std::ostream &amp;os, const Dificultate &amp;dif):&#160;MiniJoc.cpp'],['../_artist_8cpp.html#ae1316e2bfee2121beb0ceb0228cae9ce',1,'operator&lt;&lt;(std::ostream &amp;out, const Artist &amp;a):&#160;Artist.cpp'],['../_galerie_8cpp.html#a200a98a2dcf379fce29fb5bd979f7c1b',1,'operator&lt;&lt;(std::ostream &amp;out, const Galerie &amp;g):&#160;Galerie.cpp'],['../_mini_joc_8cpp.html#a3a051ff501a142f4f49679429ae6a9ea',1,'operator&lt;&lt;(std::ostream &amp;os, const Dificultate &amp;dif):&#160;MiniJoc.cpp'],['../_mini_joc_8cpp.html#a857aa2e02e17185e25ede90a1e86336a',1,'operator&lt;&lt;(std::ostream &amp;os, const MiniJoc &amp;joc):&#160;MiniJoc.cpp'],['../_tablou_8cpp.html#ab0e1bb0444dca947e0ddebf5ff2c441f',1,'operator&lt;&lt;(std::ostream &amp;out, const Tablou &amp;t):&#160;Tablou.cpp'],['../_utilizator_8cpp.html#aa2c57ae07cf90b5fdf509d9381736a68',1,'operator&lt;&lt;(std::ostream &amp;out, const Utilizator &amp;u):&#160;Utilizator.cpp']]],
+  ['operator_3d_5',['operator=',['../class_galerie.html#ac483d72dbc2b6e3ddfe99255b873db25',1,'Galerie::operator=()'],['../class_mini_joc.html#abd66d6a855259e4367303a94bc86377f',1,'MiniJoc::operator=()'],['../class_tablou.html#a90859a4d94ed56b734e71d27eb9db85b',1,'Tablou::operator=()']]]
+];

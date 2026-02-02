@@ -1,0 +1,28 @@
+var class_mini_joc =
+[
+    [ "MiniJoc", "class_mini_joc.html#a357f0c6c3b06e08973ab22aee5654a8e", null ],
+    [ "~MiniJoc", "class_mini_joc.html#aa8d6818750590776895898be3c728723", null ],
+    [ "MiniJoc", "class_mini_joc.html#a4575d22e4843d1d17d19366c696550fa", null ],
+    [ "afiseaza_reguli_implementare", "class_mini_joc.html#a36d8f6b321b91547c2ac58b0a49fb3f7", null ],
+    [ "afiseazaRegulile", "class_mini_joc.html#a4a59868422747ca9341d8cd004af8ccb", null ],
+    [ "calculeaza_puncte_implementare", "class_mini_joc.html#ab118cf73ec15430b3d60646f2ece662d", null ],
+    [ "calculeazaPuncte", "class_mini_joc.html#af5469354471f6488b3a3c1182b0dc382", null ],
+    [ "clone", "class_mini_joc.html#afc10e621f902356baaac13b6b6b99898", null ],
+    [ "esteFinalizat", "class_mini_joc.html#a1e7efa4d77afaaa72a17db867d32aaf3", null ],
+    [ "getDescriere", "class_mini_joc.html#ac564ab244e5a9cccf206ea2768b23b66", null ],
+    [ "getDificultate", "class_mini_joc.html#a0f223ab4fc38eaa4dc099efa5d3eff72", null ],
+    [ "getNume", "class_mini_joc.html#aed1ea8d2485890717d76eff50999642c", null ],
+    [ "getPuncteMaxime", "class_mini_joc.html#aa1d9fca83733fb5ee67f3f5406709b2a", null ],
+    [ "getPuncteObtinute", "class_mini_joc.html#af0b3a711dc0731bf28b191777e79c801", null ],
+    [ "getTipJoc", "class_mini_joc.html#a8a05ddd4bda8ccfb4d02d508b2e55612", null ],
+    [ "initializeaza", "class_mini_joc.html#a5722821ba9079b46e4afbb9951515c80", null ],
+    [ "initializeaza_implementare", "class_mini_joc.html#a5acc1c6fe68aa096c8960b5c186ebca7", null ],
+    [ "operator=", "class_mini_joc.html#abd66d6a855259e4367303a94bc86377f", null ],
+    [ "operator<<", "class_mini_joc.html#a857aa2e02e17185e25ede90a1e86336a", null ],
+    [ "descriere", "class_mini_joc.html#abfc9f8a66afb0a6c3616b6c8d8c46f9a", null ],
+    [ "dificultate", "class_mini_joc.html#a0b863c84bd3cef930dd845300e95d7a4", null ],
+    [ "finalizat", "class_mini_joc.html#a34963104ff3e50d3bd229ae9adc069db", null ],
+    [ "nume_joc", "class_mini_joc.html#a14c1c15568bede464bdc646bb657a676", null ],
+    [ "puncte_maxime", "class_mini_joc.html#a7c2855bd1006d16aa8d2093a77231c28", null ],
+    [ "puncte_obtinute", "class_mini_joc.html#a9fc20b161f93e4673ae8bcd631cf6ce1", null ]
+];

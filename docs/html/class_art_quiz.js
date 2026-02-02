@@ -1,0 +1,25 @@
+var class_art_quiz =
+[
+    [ "ArtQuiz", "class_art_quiz.html#aec4548e18e173244effedbc4fa5dac54", null ],
+    [ "ArtQuiz", "class_art_quiz.html#afae961b2ca906d13e673ec0d7cb0b1d2", null ],
+    [ "~ArtQuiz", "class_art_quiz.html#a1772d55c39dcd896dd1dc169cbf5dd8d", null ],
+    [ "adaugaTablou", "class_art_quiz.html#ab5a7e5fb12931d1f747f45ed64fae2f5", null ],
+    [ "afiseaza_reguli_implementare", "class_art_quiz.html#a289e2651e32fe1565ce94d18839cd884", null ],
+    [ "afiseazaIntrebareCurenta", "class_art_quiz.html#aa30b70392cbfde1974700b05f182e3f5", null ],
+    [ "areIntrebariRamase", "class_art_quiz.html#ada664008b814f5c5ec90e1408b8377d5", null ],
+    [ "calculeaza_puncte_implementare", "class_art_quiz.html#a3ff2d1790b2b41b457ee7b530910c019", null ],
+    [ "clone", "class_art_quiz.html#ae1edee51c5ca395dcd60d459e9453ea6", null ],
+    [ "genereazaIntrebari", "class_art_quiz.html#ad70ed0c100163a427418b65031b02047", null ],
+    [ "getIntrebariRamase", "class_art_quiz.html#ab8b7ba3600916547a00f8f89f76709a3", null ],
+    [ "getRaspunsuriCorecte", "class_art_quiz.html#ae3503b596544ba70c88ecb5efe97cbe2", null ],
+    [ "getRaspunsuriGresite", "class_art_quiz.html#a0d8cd3c4bf195d93cbcfb5cf3085ecf1", null ],
+    [ "getTipJoc", "class_art_quiz.html#ad0a2160bceb093eeb2bb79363829e5a4", null ],
+    [ "initializeaza_implementare", "class_art_quiz.html#a11fa626d1719db90f868fcdfdc8c82c4", null ],
+    [ "raspunde", "class_art_quiz.html#afbb4d5be6c96f6580c8a023422ad15d2", null ],
+    [ "urmatoraIntrebare", "class_art_quiz.html#a9a08e45df98febf204452946cb660e3e", null ],
+    [ "intrebare_curenta", "class_art_quiz.html#ac1beb2dc1597331d0c2d97a694a71b2e", null ],
+    [ "intrebari", "class_art_quiz.html#a7e85abac0dbd902cc6d8be62d38cd6c1", null ],
+    [ "raspunsuri_corecte", "class_art_quiz.html#abc04829e75a6c43c5a0974664ec1441b", null ],
+    [ "raspunsuri_gresite", "class_art_quiz.html#a8bab7c3708364866428094e2a22d37a9", null ],
+    [ "tablouri_quiz", "class_art_quiz.html#a22a7bd22a198294b7b1f7ba33d4eb9c1", null ]
+];

@@ -1,27 +1,35 @@
+/**
+ * @file ArtQuiz.cpp
+ * @brief Implementarea clasei ArtQuiz.
+ *
+ * Conține implementarea jocului de tip quiz cu întrebări despre
+ * tablourile și artiștii din galerie.
+ */
+
 #include "../headers/ArtQuiz.h"
-#include "Artist.h"
-#include <iostream>
+
 #include <algorithm>
+#include <iostream>
 #include <random>
 #include <sstream>
 
+#include "Artist.h"
+
 ArtQuiz::ArtQuiz(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Răspunde la întrebări despre tablourile din galerie!", dif),
-      intrebare_curenta(0),
-      raspunsuri_corecte(0),
-      raspunsuri_gresite(0)
-{
+    : MiniJoc(nume, "Răspunde la întrebări despre tablourile din galerie!", dif)
+    , intrebare_curenta(0)
+    , raspunsuri_corecte(0)
+    , raspunsuri_gresite(0) {
     std::cout << "ArtQuiz constructor: " << nume << std::endl;
 }
 
 ArtQuiz::ArtQuiz(const ArtQuiz& other)
-    : MiniJoc(other),
-      tablouri_quiz(other.tablouri_quiz),
-      intrebari(other.intrebari),
-      intrebare_curenta(other.intrebare_curenta),
-      raspunsuri_corecte(other.raspunsuri_corecte),
-      raspunsuri_gresite(other.raspunsuri_gresite)
-{
+    : MiniJoc(other)
+    , tablouri_quiz(other.tablouri_quiz)
+    , intrebari(other.intrebari)
+    , intrebare_curenta(other.intrebare_curenta)
+    , raspunsuri_corecte(other.raspunsuri_corecte)
+    , raspunsuri_gresite(other.raspunsuri_gresite) {
     std::cout << "ArtQuiz copy constructor" << std::endl;
 }
 
@@ -34,7 +42,9 @@ std::string ArtQuiz::getTipJoc() const {
 }
 
 void ArtQuiz::adaugaTablou(std::shared_ptr<Tablou> tablou) {
-    tablouri_quiz.push_back(tablou);
+    if (tablou) {
+        tablouri_quiz.push_back(tablou);
+    }
 }
 
 void ArtQuiz::genereazaIntrebari() {
@@ -43,13 +53,11 @@ void ArtQuiz::genereazaIntrebari() {
     for (const auto& tablou : tablouri_quiz) {
         auto artist = tablou->getArtist();
 
-
         Intrebare q1;
         q1.text = "Cine a pictat tabloul '" + tablou->getTitlu() + "'?";
         q1.raspuns_corect = artist ? artist->getNume() : "Necunoscut";
         q1.puncte = 10;
         intrebari.push_back(q1);
-
 
         Intrebare q2;
         q2.text = "În ce an a fost realizat tabloul '" + tablou->getTitlu() + "'?";
@@ -57,13 +65,11 @@ void ArtQuiz::genereazaIntrebari() {
         q2.puncte = 15;
         intrebari.push_back(q2);
 
-
         Intrebare q3;
         q3.text = "Ce tehnică a fost folosită pentru '" + tablou->getTitlu() + "'?";
         q3.raspuns_corect = tablou->getTehnica();
         q3.puncte = 20;
         intrebari.push_back(q3);
-
 
         Intrebare q4;
         q4.text = "Tabloul '" + tablou->getTitlu() + "' este considerat rar? (da/nu)";
@@ -72,17 +78,22 @@ void ArtQuiz::genereazaIntrebari() {
         intrebari.push_back(q4);
     }
 
-
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(intrebari.begin(), intrebari.end(), g);
 
     // Limitează numărul de întrebări în funcție de dificultate
     size_t max_intrebari = intrebari.size();
-    switch(dificultate) {
-        case Dificultate::Usor:  max_intrebari = 3; break;
-        case Dificultate::Mediu: max_intrebari = 5; break;
-        case Dificultate::Greu:  max_intrebari = 7; break;
+    switch (dificultate) {
+        case Dificultate::Usor:
+            max_intrebari = 3;
+            break;
+        case Dificultate::Mediu:
+            max_intrebari = 5;
+            break;
+        case Dificultate::Greu:
+            max_intrebari = 7;
+            break;
     }
 
     if (intrebari.size() > max_intrebari) {
@@ -157,7 +168,6 @@ void ArtQuiz::initializeaza_implementare() {
 
 int ArtQuiz::calculeaza_puncte_implementare() {
     int puncte_totale = 0;
-
 
     if (!intrebari.empty()) {
         int puncte_per_intrebare = puncte_maxime / intrebari.size();

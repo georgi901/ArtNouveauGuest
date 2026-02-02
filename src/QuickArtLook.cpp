@@ -1,23 +1,29 @@
+/**
+ * @file QuickArtLook.cpp
+ * @brief Implementarea clasei QuickArtLook.
+ *
+ * Conține implementarea jocului de asociere între tablouri și artiști,
+ * inclusiv amestecarea și verificarea perechilor.
+ */
+
 #include "../headers/QuickArtLook.h"
-#include "../headers/MiniJoc.h"
-#include <iostream>
+
 #include <algorithm>
+#include <iostream>
 #include <random>
 
+#include "../headers/MiniJoc.h"
+
 QuickArtLook::QuickArtLook(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Asociază tablourile cu artiștii corecți!", dif),
-      perechi_corecte(0),
-      perechi_gresite(0)
-{
+    : MiniJoc(nume, "Asociază tablourile cu artiștii corecți!", dif), perechi_corecte(0), perechi_gresite(0) {
     std::cout << "QuickArtLook constructor: " << nume << std::endl;
 }
 
 QuickArtLook::QuickArtLook(const QuickArtLook& other)
-    : MiniJoc(other),
-      perechi(other.perechi),
-      perechi_corecte(other.perechi_corecte),
-      perechi_gresite(other.perechi_gresite)
-{
+    : MiniJoc(other)
+    , perechi(other.perechi)
+    , perechi_corecte(other.perechi_corecte)
+    , perechi_gresite(other.perechi_gresite) {
     std::cout << " QuickArtLook copy constructor" << std::endl;
 }
 
@@ -30,6 +36,9 @@ std::string QuickArtLook::getTipJoc() const {
 }
 
 void QuickArtLook::adaugaPereche(std::shared_ptr<Tablou> tablou, std::shared_ptr<Artist> artist) {
+    if (!tablou || !artist) {
+        return;
+    }
     perechi.push_back({tablou, artist});
     std::cout << "Pereche adăugată: " << tablou->getTitlu() << " - " << artist->getNume() << std::endl;
 }
@@ -66,8 +75,7 @@ bool QuickArtLook::verificaPereche(const std::string& titlu_tablou, const std::s
             std::string nume_complet = pereche.second->getNume() + " " + pereche.second->getPrenume();
             std::string nume_complet_inv = pereche.second->getPrenume() + " " + pereche.second->getNume();
 
-            if (nume_artist == pereche.second->getNume() ||
-                nume_artist == nume_complet ||
+            if (nume_artist == pereche.second->getNume() || nume_artist == nume_complet ||
                 nume_artist == nume_complet_inv) {
                 perechi_corecte++;
                 std::cout << "✓ Corect! " << titlu_tablou << " este de " << nume_complet << std::endl;
@@ -98,10 +106,16 @@ void QuickArtLook::initializeaza_implementare() {
     amestecaPerechile();
 
     size_t max_perechi = 3;
-    switch(dificultate) {
-        case Dificultate::Usor:  max_perechi = 3; break;
-        case Dificultate::Mediu: max_perechi = 5; break;
-        case Dificultate::Greu:  max_perechi = 8; break;
+    switch (dificultate) {
+        case Dificultate::Usor:
+            max_perechi = 3;
+            break;
+        case Dificultate::Mediu:
+            max_perechi = 5;
+            break;
+        case Dificultate::Greu:
+            max_perechi = 8;
+            break;
     }
 
     if (perechi.size() > max_perechi) {
@@ -133,15 +147,21 @@ int QuickArtLook::calculeaza_puncte_implementare() {
 
 void QuickArtLook::afiseaza_reguli_implementare() const {
     size_t max_perechi = 3;
-    switch(dificultate) {
-        case Dificultate::Usor:  max_perechi = 3; break;
-        case Dificultate::Mediu: max_perechi = 5; break;
-        case Dificultate::Greu:  max_perechi = 8; break;
+    switch (dificultate) {
+        case Dificultate::Usor:
+            max_perechi = 3;
+            break;
+        case Dificultate::Mediu:
+            max_perechi = 5;
+            break;
+        case Dificultate::Greu:
+            max_perechi = 8;
+            break;
     }
     std::cout << "QUICK ART LOOK - Reguli:" << std::endl;
     std::cout << "1. Vei vedea o lista de tablouri si o lista de artisti." << std::endl;
     std::cout << "2. Trebuie sa asociezi fiecare tablou cu artistul corect." << std::endl;
     std::cout << "3. Scrie titlul tabloului si numele artistului." << std::endl;
     std::cout << "4. Raspunsurile gresite scad din punctaj." << std::endl;
-    std::cout << "Perechi de ghicit: " <<  max_perechi << std::endl;
+    std::cout << "Perechi de ghicit: " << max_perechi << std::endl;
 }

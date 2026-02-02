@@ -1,0 +1,60 @@
+# .clang-format - Configurare pentru formatarea codului
+# Rulare: clang-format -i <fisier>
+# Formatarea tuturor fișierelor: find headers src -name "*.h" -o -name "*.cpp" | xargs clang-format -i
+
+---
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 120
+
+# Stil acolade
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+
+# Indentare
+AccessModifierOffset: -4
+IndentCaseLabels: true
+IndentCaseBlocks: false
+NamespaceIndentation: None
+
+# Aliniere
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignTrailingComments: true
+
+# Spațiere
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# Aliniere pointeri
+PointerAlignment: Left
+DerivePointerAlignment: false
+
+# Sortare include-uri
+SortIncludes: true
+IncludeBlocks: Regroup
+
+# Întreruperi
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+AlwaysBreakTemplateDeclarations: Yes
+
+# Altele
+Cpp11BracedListStyle: true
+FixNamespaceComments: true
+MaxEmptyLinesToKeep: 1
+ReflowComments: true
+---

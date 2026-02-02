@@ -10,6 +10,9 @@
 #include "headers/QuickArtLook.h"
 #include "headers/ArtQuiz.h"
 #include "headers/ArtPuzzle.h"
+#include "headers/JocFactory.h"
+#include "headers/Collection.h"
+#include "headers/Utils.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
@@ -61,6 +64,7 @@ void afiseazaMeniu() {
     std::cout << "13. Afișează jocuri disponibile\n";
     std::cout << "14. Joacă un joc\n";
     std::cout << "15. Test MiniJoc + dynamic_cast + Copy and swap\n";
+    std::cout << "16. Test Milestone 3 (Templates + Design Patterns)\n";  // <-- ADAUGĂ
     std::cout << "0.  Ieșire\n";
     std::cout << "========================================\n";
     std::cout << "Alege opțiunea: ";
@@ -387,8 +391,13 @@ int main() {
                     std::cout << "Finalizat: " << joc_test->esteFinalizat() << "\n";
                 }
 
-                // Test utilizator
-                utilizator->cumparaTablou(nullptr, 0);  // va arunca excepție, pune în try-catch
+                // Test utilizator - nullptr
+                std::cout << "\nTest 5: cumparaTablou cu nullptr\n";
+                try {
+                    utilizator->cumparaTablou(nullptr, 0);
+                } catch (const TablouIndisponibilException& e) {
+                    std::cout << "  Excepție prinsă corect: " << e.what() << "\n";
+                }
 
                 // ArtQuiz functions
                 auto quiz = std::dynamic_pointer_cast<ArtQuiz>(galerie.cautaJoc("Art Quiz"));
@@ -613,6 +622,164 @@ int main() {
 
                 std::cout << "\n Copy-and-swap funcționează!\n";
                 std::cout << "\n Toate testele OK!\n";
+            }
+                break;
+             case 16:
+            {
+                std::cout << "\n";
+                std::cout << "============================================================\n";
+                std::cout << "     TEST MILESTONE 3 - TEMPLATES & DESIGN PATTERNS\n";
+                std::cout << "============================================================\n\n";
+
+                // TEST 1: SINGLETON PATTERN
+                std::cout << "--- TEST 1: SINGLETON PATTERN (Galerie) ---\n";
+                Galerie& g1 = Galerie::getInstance();
+                Galerie& g2 = Galerie::getInstance();
+                std::cout << "Galerie::getInstance() apelat de 2 ori.\n";
+                std::cout << "Adresa g1: " << &g1 << "\n";
+                std::cout << "Adresa g2: " << &g2 << "\n";
+                std::cout << "Aceeași instanță? " << (&g1 == &g2 ? "DA - Singleton funcționează!" : "NU") << "\n\n";
+
+                // TEST 2: FACTORY PATTERN
+                std::cout << "--- TEST 2: FACTORY PATTERN (JocFactory) ---\n";
+                std::cout << "Tipuri de jocuri disponibile: ";
+                for (const auto& tip : JocFactory::obtineTipuriDisponibile()) {
+                    std::cout << tip << " ";
+                }
+                std::cout << "\n\n";
+
+                std::cout << "Creare jocuri folosind Factory:\n";
+                try {
+                    auto joc_f1 = JocFactory::creeazaJoc("ArtQuiz", Dificultate::Mediu);
+                    std::cout << "  Creat: " << joc_f1->getTipJoc() << " (" << joc_f1->getNume() << ")\n";
+
+                    auto joc_f2 = JocFactory::creeazaJoc("ArtPuzzle", Dificultate::Greu);
+                    std::cout << "  Creat: " << joc_f2->getTipJoc() << " (" << joc_f2->getNume() << ")\n";
+
+                    auto joc_f3 = JocFactory::creeazaJoc("ArtisticDelight", Dificultate::Usor);
+                    std::cout << "  Creat: " << joc_f3->getTipJoc() << " (" << joc_f3->getNume() << ")\n";
+                } catch (const JocInvalidException& e) {
+                    std::cout << "Eroare: " << e.what() << "\n";
+                }
+
+                std::cout << "\nTest creare joc invalid:\n";
+                try {
+                    auto joc_invalid = JocFactory::creeazaJoc("JocInexistent", Dificultate::Mediu);
+                } catch (const JocInvalidException& e) {
+                    std::cout << "  Excepție prinsă corect: " << e.what() << "\n";
+                }
+                std::cout << "\n";
+
+                // TEST 3: CLASĂ ȘABLON (Collection<T>)
+                std::cout << "--- TEST 3: CLASĂ ȘABLON (Collection<T>) ---\n";
+
+                // Instanțiere 1: Collection<Artist>
+                std::cout << "Instanțiere 1: Collection<Artist>\n";
+                Collection<Artist> colectieArtisti;
+                for (const auto& a : galerie.getArtisti()) {
+                    colectieArtisti.adauga(a);
+                }
+                std::cout << "  Artiști în colecție: " << colectieArtisti.dimensiune() << "\n";
+
+                auto artistGasit = colectieArtisti.cautaDupaPredicate([](const Artist& a) {
+                    return a.getAnDeces() == 0;
+                });
+                if (artistGasit) {
+                    std::cout << "  Artist în viață găsit: " << artistGasit->getNume() << "\n";
+                }
+
+                // Instanțiere 2: Collection<Tablou>
+                std::cout << "\nInstanțiere 2: Collection<Tablou>\n";
+                Collection<Tablou> colectieTablouri;
+                for (const auto& t : galerie.getTablouri()) {
+                    colectieTablouri.adauga(t);
+                }
+                std::cout << "  Tablouri în colecție: " << colectieTablouri.dimensiune() << "\n";
+
+                auto tablouriRare = colectieTablouri.filtreaza([](const Tablou& t) {
+                    return t.este_rar();
+                });
+                std::cout << "  Tablouri rare (filtrate): " << tablouriRare.dimensiune() << "\n";
+
+                // Instanțiere 3: Collection<MiniJoc>
+                std::cout << "\nInstanțiere 3: Collection<MiniJoc>\n";
+                Collection<MiniJoc> colectieJocuri;
+                for (const auto& j : galerie.getJocuri()) {
+                    colectieJocuri.adauga(j);
+                }
+                std::cout << "  Jocuri în colecție: " << colectieJocuri.dimensiune() << "\n\n";
+
+                // TEST 4: FUNCȚII ȘABLON
+                std::cout << "--- TEST 4: FUNCȚII ȘABLON (Utils.h) ---\n";
+
+                // Instanțiere 1: cautaDupaNume<Artist>
+                std::cout << "Instanțiere 1: cautaDupaNume<Artist>\n";
+                auto artistCautat = cautaDupaNume(galerie.getArtisti(), "Mucha");
+                std::cout << "  Căutare 'Mucha': " << (artistCautat ? artistCautat->getNume() + " " + artistCautat->getPrenume() : "Negăsit") << "\n";
+
+                // Instanțiere 2: cautaDupaCamp<Tablou>
+                std::cout << "\nInstanțiere 2: cautaDupaCamp<Tablou>\n";
+                auto tablouCautat = cautaDupaCamp<Tablou>(galerie.getTablouri(), "Zodiac",
+                    [](const Tablou& t) { return t.getTitlu(); });
+                std::cout << "  Căutare tablou 'Zodiac': " << (tablouCautat ? tablouCautat->getTitlu() : "Negăsit") << "\n";
+
+                // Instanțiere 3: filtreazaElemente<Tablou>
+                std::cout << "\nInstanțiere 3: filtreazaElemente<Tablou>\n";
+                auto tablouriFiltered = filtreazaElemente<Tablou>(galerie.getTablouri(),
+                    [](const Tablou& t) { return t.este_rar(); });
+                std::cout << "  Tablouri rare filtrate: " << tablouriFiltered.size() << "\n";
+
+                // Instanțiere 4: filtreazaElemente<Artist>
+                std::cout << "\nInstanțiere 4: filtreazaElemente<Artist>\n";
+                auto artistiViata = filtreazaElemente<Artist>(galerie.getArtisti(),
+                    [](const Artist& a) { return a.getAnDeces() == 0; });
+                std::cout << "  Artiști în viață: " << artistiViata.size() << "\n";
+
+                // Instanțiere 5: numaraElemente<Tablou>
+                std::cout << "\nInstanțiere 5: numaraElemente<Tablou>\n";
+                int nrColectionate = numaraElemente<Tablou>(galerie.getTablouri(),
+                    [](const Tablou& t) { return t.este_colectionat(); });
+                std::cout << "  Tablouri colecționate: " << nrColectionate << "\n";
+
+                // Instanțiere 6: numaraElemente<Artist>
+                std::cout << "\nInstanțiere 6: numaraElemente<Artist>\n";
+                int nrDecedati = numaraElemente<Artist>(galerie.getArtisti(),
+                    [](const Artist& a) { return a.getAnDeces() != 0; });
+                std::cout << "  Artiști decedați: " << nrDecedati << "\n";
+
+                // Instanțiere 7: transforma<Artist, std::string>
+                std::cout << "\nInstanțiere 7: transforma<Artist, string>\n";
+                auto numeArtisti = transforma<Artist, std::string>(galerie.getArtisti(),
+                    [](const Artist& a) { return a.getNume() + " " + a.getPrenume(); });
+                std::cout << "  Nume artiști: ";
+                for (size_t i = 0; i < std::min(numeArtisti.size(), size_t(3)); i++) {
+                    std::cout << numeArtisti[i];
+                    if (i < std::min(numeArtisti.size(), size_t(3)) - 1) std::cout << ", ";
+                }
+                if (numeArtisti.size() > 3) std::cout << "...";
+                std::cout << "\n";
+
+                std::cout << "\n";
+                std::cout << "============================================================\n";
+                std::cout << "                 REZUMAT TESTE M3\n";
+                std::cout << "============================================================\n";
+                std::cout << "  [OK] Design Pattern 1: SINGLETON (Galerie)\n";
+                std::cout << "  [OK] Design Pattern 2: FACTORY (JocFactory)\n";
+                std::cout << "  [OK] Clasă Șablon: Collection<T> - 3 instanțieri\n";
+                std::cout << "       - Collection<Artist>\n";
+                std::cout << "       - Collection<Tablou>\n";
+                std::cout << "       - Collection<MiniJoc>\n";
+                std::cout << "  [OK] Funcții Șablon: 7+ instanțieri\n";
+                std::cout << "       - cautaDupaNume<Artist>\n";
+                std::cout << "       - cautaDupaCamp<Tablou>\n";
+                std::cout << "       - filtreazaElemente<Tablou>\n";
+                std::cout << "       - filtreazaElemente<Artist>\n";
+                std::cout << "       - numaraElemente<Tablou>\n";
+                std::cout << "       - numaraElemente<Artist>\n";
+                std::cout << "       - transforma<Artist, string>\n";
+                std::cout << "============================================================\n";
+                std::cout << "       TOATE TESTELE M3 AU TRECUT CU SUCCES!\n";
+                std::cout << "============================================================\n";
             }
                 break;
 

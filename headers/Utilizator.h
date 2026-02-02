@@ -1,15 +1,44 @@
+/**
+ * @file Utilizator.h
+ * @brief Definește clasa Utilizator pentru vizitatorii galeriei.
+ *
+ * Acest fișier conține clasa Utilizator care modelează un vizitator
+ * al galeriei, cu colecție personală de tablouri și sistem de puncte.
+ */
+
 #ifndef ARTNOUVEAUGUEST_UTILIZATOR_H
 #define ARTNOUVEAUGUEST_UTILIZATOR_H
 
 #pragma once
 #include <iostream>
-#include <memory>
-#include <vector>
-#include <string>
 #include <limits>
-#include "Tablou.h"
-#include "Artist.h"
+#include <memory>
+#include <string>
+#include <vector>
 
+#include "Artist.h"
+#include "Tablou.h"
+
+/**
+ * @class Utilizator
+ * @brief Reprezintă un vizitator/utilizator al galeriei de artă.
+ *
+ * Clasa gestionează:
+ * - Informații personale (nume, username, email, vârstă)
+ * - Colecție personală de tablouri
+ * - Sistem de puncte pentru activități
+ * - Istoric de activități în galerie
+ *
+ * Utilizatorul poate acumula puncte prin jocuri și le poate folosi
+ * pentru a cumpăra tablouri în colecția personală.
+ *
+ * @code
+ * Utilizator user("Ion Popescu", "ion_p", "ion@email.com", 25, "2024-01-15");
+ * user.adaugaPuncte(100);
+ * user.cumparaTablou(tablou, 50);
+ * user.afiseazaColectie();
+ * @endcode
+ */
 class Utilizator {
 private:
     const std::string nume;
@@ -38,7 +67,7 @@ public:
 
         for (size_t i = 0; i < n; ++i) {
             std::string titlu;
-            std::cout << "Titlu tablou " << i+1 << ": ";
+            std::cout << "Titlu tablou " << i + 1 << ": ";
             std::getline(in, titlu);
 
             std::shared_ptr<Tablou> tablou_gasit = nullptr;
@@ -60,10 +89,13 @@ public:
         return in;
     }
 
-    void adaugaPuncte(int p) { puncte += p; }
-    int getPuncte() const { return puncte; }
+    void adaugaPuncte(int p) {
+        puncte += p;
+    }
+    int getPuncte() const {
+        return puncte;
+    }
     void cumparaTablou(std::shared_ptr<Tablou> tablou, int cost);
-
 };
 
-#endif //ARTNOUVEAUGUEST_UTILIZATOR_H
+#endif  // ARTNOUVEAUGUEST_UTILIZATOR_H

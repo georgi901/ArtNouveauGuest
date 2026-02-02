@@ -1,18 +1,33 @@
-#include <iostream>
+/**
+ * @file Galerie.cpp
+ * @brief Implementarea clasei Galerie (Singleton).
+ *
+ * Conține implementarea metodelor pentru gestionarea galeriei de artă,
+ * încărcarea datelor din fișiere JSON și gestionarea jocurilor.
+ */
+
 #include "../headers/Galerie.h"
-#include "../headers/Artist.h"
-#include "../headers/Tablou.h"
-#include "../headers/Exceptii.h"
-#include "../headers/ArtisticDelight.h"
-#include "../headers/QuickArtLook.h"
-#include "../headers/ArtQuiz.h"
-#include <nlohmann/json.hpp>
+
 #include <fstream>
+#include <iostream>
+#include <nlohmann/json.hpp>
+
+#include "../headers/ArtQuiz.h"
+#include "../headers/Artist.h"
+#include "../headers/ArtisticDelight.h"
+#include "../headers/Exceptii.h"
+#include "../headers/QuickArtLook.h"
+#include "../headers/Tablou.h"
 
 using json = nlohmann::json;
 
-void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
+// ==================== SINGLETON IMPLEMENTATION ====================
+Galerie& Galerie::getInstance() {
+    static Galerie instanta("Galeria Art Nouveau", "Art Nouveau", 1895);
+    return instanta;
+}
 
+void Galerie::incarcaArtistiDinFisier(const std::string& caleFisier) {
     std::ifstream fin(caleFisier);
 
     if (!fin.is_open()) {
@@ -21,11 +36,11 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
     json data;
     try {
         fin >> data;
-    } catch (const json::parse_error& ) {
+    } catch (const json::parse_error&) {
         throw IncarcareDataException(caleFisier, "parsare");
     }
 
-    for (const auto &artistJson: data) {
+    for (const auto& artistJson : data) {
         std::string nume_artist = artistJson["nume"];
         std::string prenume = artistJson["prenume"];
         std::string nationalitate = artistJson["nationalitate"];
@@ -35,7 +50,7 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
         std::string perioada = artistJson["perioada"];
         std::string dataInscriere = artistJson["data_inscriere"];
 
-        //date pentru artist în viață
+        // date pentru artist în viață
         std::string username = "";
         std::string email = "";
         if (artistJson.contains("username")) {
@@ -45,7 +60,7 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
             email = artistJson["email"];
         }
 
-        //date reprezentant (pentru artiști decedați)
+        // date reprezentant (pentru artiști decedați)
         std::string persReprezentant = "";
         std::string usernameRepr = "";
         std::string emailRepr = "";
@@ -55,17 +70,13 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
             emailRepr = artistJson["reprezentant"]["email"];
         }
 
-        auto artist = std::make_shared<Artist>(
-            nume_artist, prenume, nationalitate, varsta, anNastere, anDeces,
-            perioada, dataInscriere,
-            username, email, std::vector<std::string>{},
-            persReprezentant, usernameRepr, emailRepr,
-            std::vector<std::string>{}
-        );
+        auto artist = std::make_shared<Artist>(nume_artist, prenume, nationalitate, varsta, anNastere, anDeces,
+                                               perioada, dataInscriere, username, email, std::vector<std::string>{},
+                                               persReprezentant, usernameRepr, emailRepr, std::vector<std::string>{});
 
-        //imagini
+        // imagini
         if (artistJson.contains("imagini")) {
-            for (const auto &img: artistJson["imagini"]) {
+            for (const auto& img : artistJson["imagini"]) {
                 artist->adaugaImagine(img);
             }
         }
@@ -75,7 +86,6 @@ void Galerie::incarcaArtistiDinFisier(const std::string &caleFisier) {
 
     fin.close();
 }
-
 
 void Galerie::incarcaTablouriDinFisier(const std::string& caleFisier) {
     std::ifstream fin(caleFisier);
@@ -87,7 +97,7 @@ void Galerie::incarcaTablouriDinFisier(const std::string& caleFisier) {
     json data;
     try {
         fin >> data;
-    } catch (const json::parse_error& ) {
+    } catch (const json::parse_error&) {
         throw IncarcareDataException(caleFisier, "parsare");
     }
     for (const auto& tablouJson : data) {
@@ -97,15 +107,15 @@ void Galerie::incarcaTablouriDinFisier(const std::string& caleFisier) {
         bool rar = tablouJson["rar"];
         bool colectionat = tablouJson["colectionat"];
 
-        //dimensiune (array de 2 elemente)
+        // dimensiune (array de 2 elemente)
         int dimX = tablouJson["dimensiune"][0];
         int dimY = tablouJson["dimensiune"][1];
 
-        //găsește artistul
+        // găsește artistul
         std::string numeArtist = tablouJson["artist"];
         auto artist = cautaArtist(numeArtist);
 
-        //map-urile de culori și pensule
+        // map-urile de culori și pensule
         std::map<std::string, int> culori;
         if (tablouJson.contains("culori")) {
             for (auto& [cheie, valoare] : tablouJson["culori"].items()) {
@@ -120,15 +130,10 @@ void Galerie::incarcaTablouriDinFisier(const std::string& caleFisier) {
             }
         }
 
-        auto tablou = std::make_shared<Tablou>(
-            titlu, tehnica, anRealizare, rar,
-            culori, pensule,
-            std::make_pair(dimX, dimY),
-            artist,
-            colectionat
-        );
+        auto tablou = std::make_shared<Tablou>(titlu, tehnica, anRealizare, rar, culori, pensule,
+                                               std::make_pair(dimX, dimY), artist, colectionat);
 
-        //imagini
+        // imagini
         if (tablouJson.contains("imagini")) {
             for (const auto& img : tablouJson["imagini"]) {
                 tablou->adaugaImagine(img);
@@ -176,12 +181,10 @@ void Galerie::joacaJoc(const std::string& nume_joc) {
     joc->initializeaza();
 }
 
-
 void Galerie::afiseazaSugestiiArtisticDelight() {
     std::cout << "\n=== SUGESTII PENTRU ARTISTIC DELIGHT ===\n";
 
     for (const auto& joc : jocuri) {
-
         if (auto ad = std::dynamic_pointer_cast<ArtisticDelight>(joc)) {
             std::cout << "Joc: " << ad->getNume() << "\n";
             ad->arataSugestie();
@@ -189,18 +192,15 @@ void Galerie::afiseazaSugestiiArtisticDelight() {
     }
 }
 
-
 Galerie::Galerie(const Galerie& other)
-    : nume(other.nume),
-      subiect(other.subiect),
-      an_infiintare(other.an_infiintare),
-      artisti(other.artisti),
-      tablouri(other.tablouri),
-      jocuri(other.jocuri)
-{
+    : nume(other.nume)
+    , subiect(other.subiect)
+    , an_infiintare(other.an_infiintare)
+    , artisti(other.artisti)
+    , tablouri(other.tablouri)
+    , jocuri(other.jocuri) {
     std::cout << "[Copy constructor] Galerie: " << nume << "\n";
 }
-
 
 void swap(Galerie& first, Galerie& second) noexcept {
     using std::swap;
@@ -212,7 +212,6 @@ void swap(Galerie& first, Galerie& second) noexcept {
     swap(first.jocuri, second.jocuri);
 }
 
-
 Galerie& Galerie::operator=(Galerie other) {
     std::cout << "[Copy-and-swap] Galerie operator=\n";
     swap(*this, other);
@@ -223,45 +222,41 @@ void Galerie::afiseazaArtisti() const {
     std::cout << "\n----------------------------- Lista artiștilor --------------------------------\n";
     for (const auto& artist : artisti) {
         std::cout << "\n-------------------------------------------------------------------------------\n";
-        std::cout << artist->getNume() << " " << artist->getPrenume()
-          << " - " << artist->getTitlu() << " (" << artist->getVarsta() << " ani)\n";
+        std::cout << artist->getNume() << " " << artist->getPrenume() << " - " << artist->getTitlu() << " ("
+                  << artist->getVarsta() << " ani)\n";
     }
 }
 
 void Galerie::afiseazaTablouri() const {
-    std::cout <<     "\n----------------------------- Lista tablourilor -------------------------------\n";
+    std::cout << "\n----------------------------- Lista tablourilor -------------------------------\n";
     for (const auto& tablou : tablouri) {
         std::cout << "\n-------------------------------------------------------------------------------\n";
         auto artist = tablou->getArtist();
-        std::cout <<" - "<< tablou->getTitlu() <<" - "<< " de "
-                  << (artist ? artist->getNume(): "Necunoscut") << " " << (artist ? artist->getPrenume(): "Necunoscut") <<"\n";
+        std::cout << " - " << tablou->getTitlu() << " - " << " de " << (artist ? artist->getNume() : "Necunoscut")
+                  << " " << (artist ? artist->getPrenume() : "Necunoscut") << "\n";
     }
 }
-
 
 std::shared_ptr<Artist> Galerie::cautaArtist(const std::string& nume_cautat) const {
     for (const auto& artist : artisti) {
         std::string nume_complet = artist->getNume() + " " + artist->getPrenume();
         std::string nume_complet_inversat = artist->getPrenume() + " " + artist->getNume();
 
-        if (artist->getNume() == nume_cautat ||
-            artist->getPrenume() == nume_cautat ||
-            nume_complet == nume_cautat ||
+        if (artist->getNume() == nume_cautat || artist->getPrenume() == nume_cautat || nume_complet == nume_cautat ||
             nume_complet_inversat == nume_cautat) {
             return artist;
-            }
+        }
     }
     return nullptr;
 }
-
 
 std::shared_ptr<Tablou> Galerie::cautaTablou(const std::string& titlu) const {
     for (const auto& tablou : tablouri) {
-        if (tablou->getTitlu() == titlu) return tablou;
+        if (tablou->getTitlu() == titlu)
+            return tablou;
     }
     return nullptr;
 }
-
 
 std::ostream& operator<<(std::ostream& out, const Galerie& g) {
     out << "========================================================================================\n";

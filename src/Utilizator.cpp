@@ -1,15 +1,27 @@
-#include <iostream>
-#include "../headers/Galerie.h"
-#include "../headers/Utilizator.h"
-#include "../headers/Tablou.h"
-#include "../headers/Exceptii.h"
+/**
+ * @file Utilizator.cpp
+ * @brief Implementarea clasei Utilizator.
+ *
+ * Conține implementarea metodelor pentru gestionarea utilizatorilor,
+ * colecțiilor de tablouri și sistemului de puncte.
+ */
 
+#include "../headers/Utilizator.h"
+
+#include <iostream>
+
+#include "../headers/Exceptii.h"
+#include "../headers/Galerie.h"
+#include "../headers/Tablou.h"
 
 Utilizator::Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d)
-    : nume(n), username(u), email(e), varsta(v), data_inregistrare(d), puncte(0) {}
-
+    : nume(n), username(u), email(e), varsta(v), data_inregistrare(d), puncte(0) {
+}
 
 void Utilizator::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
+    if (!tablou) {
+        return;
+    }
     colectie.push_back(tablou);
     tablou->set_colectionat(true);
     adaugaActivitate("A adăugat tabloul " + tablou->getTitlu());
@@ -30,11 +42,9 @@ void Utilizator::afiseazaColectie() const {
     }
 }
 
-
 void Utilizator::adaugaActivitate(const std::string& activitate) {
     istoric_activitati.push_back(activitate);
 }
-
 
 std::ostream& operator<<(std::ostream& out, const Utilizator& u) {
     out << "\n------------------------------- PROFIL UTILIZATOR --------------------------------\n";
@@ -54,8 +64,11 @@ std::ostream& operator<<(std::ostream& out, const Utilizator& u) {
     return out;
 }
 
-
 void Utilizator::cumparaTablou(std::shared_ptr<Tablou> tablou, int cost) {
+    if (!tablou) {
+        throw TablouIndisponibilException("(tablou null)");
+    }
+
     if (puncte < cost) {
         throw PuncteInsuficienteException(puncte, cost);
     }
@@ -68,5 +81,3 @@ void Utilizator::cumparaTablou(std::shared_ptr<Tablou> tablou, int cost) {
     adaugaTablou(tablou);
     adaugaActivitate("A cumpărat tabloul " + tablou->getTitlu() + " pentru " + std::to_string(cost) + " puncte");
 }
-
-

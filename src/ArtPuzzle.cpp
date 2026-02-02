@@ -1,24 +1,32 @@
+/**
+ * @file ArtPuzzle.cpp
+ * @brief Implementarea clasei ArtPuzzle.
+ *
+ * Conține implementarea jocului de puzzle cu fragmente de tablou,
+ * inclusiv amestecarea și verificarea rezolvării.
+ */
+
 #include "../headers/ArtPuzzle.h"
-#include <iostream>
+
 #include <algorithm>
+#include <iostream>
 #include <random>
 
 ArtPuzzle::ArtPuzzle(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Aranjează fragmentele tabloului în ordinea corectă", dif),
-      tablou_tinta(nullptr),
-      numar_fragmente(0),
-      mutari_efectuate(0),
-      mutari_maxime(0),
-      rezolvat(false)
-{
+    : MiniJoc(nume, "Aranjează fragmentele tabloului în ordinea corectă", dif)
+    , tablou_tinta(nullptr)
+    , numar_fragmente(0)
+    , mutari_efectuate(0)
+    , mutari_maxime(0)
+    , rezolvat(false) {
     // Setează numărul de fragmente și mutări maxime în funcție de dificultate
-    switch(dif) {
+    switch (dif) {
         case Dificultate::Usor:
-            numar_fragmente = 4;   // 2x2
+            numar_fragmente = 4;  // 2x2
             mutari_maxime = 6;
             break;
         case Dificultate::Mediu:
-            numar_fragmente = 9;   // 3x3
+            numar_fragmente = 9;  // 3x3
             mutari_maxime = 14;
             break;
         case Dificultate::Greu:
@@ -26,7 +34,6 @@ ArtPuzzle::ArtPuzzle(const std::string& nume, Dificultate dif)
             mutari_maxime = 22;
             break;
     }
-
 
     for (int i = 0; i < numar_fragmente; i++) {
         ordine_corecta.push_back(i);
@@ -37,15 +44,14 @@ ArtPuzzle::ArtPuzzle(const std::string& nume, Dificultate dif)
 }
 
 ArtPuzzle::ArtPuzzle(const ArtPuzzle& other)
-    : MiniJoc(other),
-      tablou_tinta(other.tablou_tinta),
-      ordine_fragmente(other.ordine_fragmente),
-      ordine_corecta(other.ordine_corecta),
-      numar_fragmente(other.numar_fragmente),
-      mutari_efectuate(other.mutari_efectuate),
-      mutari_maxime(other.mutari_maxime),
-      rezolvat(other.rezolvat)
-{
+    : MiniJoc(other)
+    , tablou_tinta(other.tablou_tinta)
+    , ordine_fragmente(other.ordine_fragmente)
+    , ordine_corecta(other.ordine_corecta)
+    , numar_fragmente(other.numar_fragmente)
+    , mutari_efectuate(other.mutari_efectuate)
+    , mutari_maxime(other.mutari_maxime)
+    , rezolvat(other.rezolvat) {
     std::cout << "ArtPuzzle copy constructor\n";
 }
 
@@ -69,8 +75,7 @@ void ArtPuzzle::amestecaFragmente() {
 }
 
 bool ArtPuzzle::mutaFragment(int pozitie1, int pozitie2) {
-    if (pozitie1 < 0 || pozitie1 >= numar_fragmente ||
-        pozitie2 < 0 || pozitie2 >= numar_fragmente) {
+    if (pozitie1 < 0 || pozitie1 >= numar_fragmente || pozitie2 < 0 || pozitie2 >= numar_fragmente) {
         std::cout << "Poziții invalide!\n";
         return false;
     }
@@ -82,7 +87,6 @@ bool ArtPuzzle::mutaFragment(int pozitie1, int pozitie2) {
 
     std::swap(ordine_fragmente[pozitie1], ordine_fragmente[pozitie2]);
     mutari_efectuate++;
-
 
     rezolvat = (ordine_fragmente == ordine_corecta);
 
@@ -116,7 +120,6 @@ void ArtPuzzle::initializeaza_implementare() {
     mutari_efectuate = 0;
     rezolvat = false;
 
-
     ordine_fragmente.clear();
     for (int i = 0; i < numar_fragmente; i++) {
         ordine_fragmente.push_back(i);
@@ -127,21 +130,19 @@ void ArtPuzzle::initializeaza_implementare() {
 }
 
 int ArtPuzzle::calculeaza_puncte_implementare() {
+    if (!rezolvat) {
+        return 0;
+    }
 
-        if (!rezolvat) {
-            return 0;
-        }
+    int puncte_baza = puncte_maxime;
 
-        int puncte_baza = puncte_maxime;
+    int mutari_ramase = mutari_maxime - mutari_efectuate;
+    int bonus = (mutari_ramase * puncte_maxime) / (mutari_maxime * 2);
 
-        int mutari_ramase = mutari_maxime - mutari_efectuate;
-        int bonus = (mutari_ramase * puncte_maxime) / (mutari_maxime * 2);
+    std::cout << "Puncte bază: " << puncte_baza << "\n";
+    std::cout << "Bonus mutări rămase (" << mutari_ramase << " mutări): +" << bonus << "\n";
 
-        std::cout << "Puncte bază: " << puncte_baza << "\n";
-        std::cout << "Bonus mutări rămase (" << mutari_ramase << " mutări): +" << bonus << "\n";
-
-        return puncte_baza + bonus;
-
+    return puncte_baza + bonus;
 }
 
 void ArtPuzzle::afiseaza_reguli_implementare() const {

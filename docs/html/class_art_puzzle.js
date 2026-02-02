@@ -1,0 +1,26 @@
+var class_art_puzzle =
+[
+    [ "ArtPuzzle", "class_art_puzzle.html#abb601f6ea4f3404809f06575b4028903", null ],
+    [ "ArtPuzzle", "class_art_puzzle.html#afa6a951952965e69b4ce1cfb062511de", null ],
+    [ "~ArtPuzzle", "class_art_puzzle.html#ab6c6234afc3c6057c9ab886f1ba0c24a", null ],
+    [ "afiseaza_reguli_implementare", "class_art_puzzle.html#af743cc5555b4d10896a7da82d87c77f1", null ],
+    [ "afiseazaPuzzle", "class_art_puzzle.html#a8102c8d51b968d467dbb07010a7def77", null ],
+    [ "amestecaFragmente", "class_art_puzzle.html#ac2a8bcf829a4753dae138426a002ba7c", null ],
+    [ "calculeaza_puncte_implementare", "class_art_puzzle.html#a3a183534b2551ffec91e74a4051ab2f5", null ],
+    [ "clone", "class_art_puzzle.html#a933118a08110d2f2e55d3bccc75bdf1b", null ],
+    [ "esteRezolvat", "class_art_puzzle.html#a21585cda82277254f62bbff94659791a", null ],
+    [ "getMutariEfectuate", "class_art_puzzle.html#a70ece49586154f627e1eccc33ecf9025", null ],
+    [ "getMutariRamase", "class_art_puzzle.html#ab446d3b325acc28e4850872672e3e083", null ],
+    [ "getNumarFragmente", "class_art_puzzle.html#ab34f9ea94af954c09053bd31bed664c0", null ],
+    [ "getTipJoc", "class_art_puzzle.html#ac7a097e15e0e3aa26620d5f45f90df54", null ],
+    [ "initializeaza_implementare", "class_art_puzzle.html#a548e8b475e78b172b7ae4d17b02962fd", null ],
+    [ "mutaFragment", "class_art_puzzle.html#a931aca11c698d3e9ad307ef3f9e840c2", null ],
+    [ "seteazaTablou", "class_art_puzzle.html#a9f3351743c7d2c515b404fa4cac6f69b", null ],
+    [ "mutari_efectuate", "class_art_puzzle.html#ab329bcc8e0c9884f0aaf1ff607200fd5", null ],
+    [ "mutari_maxime", "class_art_puzzle.html#a03409fa33e98c895aaa5caa583f45caa", null ],
+    [ "numar_fragmente", "class_art_puzzle.html#a928913f54dec2d5239b5fedf76b6f2f7", null ],
+    [ "ordine_corecta", "class_art_puzzle.html#a96d9e349e9476a28f249f709142109f3", null ],
+    [ "ordine_fragmente", "class_art_puzzle.html#a75dc2fe76457914f26425a5f4a69c474", null ],
+    [ "rezolvat", "class_art_puzzle.html#a2a40e8aae36208ff5c65c308a983d76c", null ],
+    [ "tablou_tinta", "class_art_puzzle.html#a596dbe966f4573f4d9d3f5f93f4df7ca", null ]
+];

@@ -1,52 +1,60 @@
+/**
+ * @file ArtisticDelight.cpp
+ * @brief Implementarea clasei ArtisticDelight.
+ *
+ * Conține implementarea jocului de ghicit culori,
+ * inclusiv evaluarea asemănării și sistemul de sugestii.
+ */
+
 #include "../headers/ArtisticDelight.h"
-#include <iostream>
+
 #include <algorithm>
 #include <cmath>
-
+#include <iostream>
 
 ArtisticDelight::ArtisticDelight(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Recreează tabloul folosind culorile potrivite!", dif),
-      tablou_tinta(nullptr),
-      scor_asemanare(0.0),
-      incercari_ramase(0)
-{
-
-    switch(dif) {
-        case Dificultate::Usor:  incercari_ramase = 10; break;
-        case Dificultate::Mediu: incercari_ramase = 7; break;
-        case Dificultate::Greu:  incercari_ramase = 5; break;
+    : MiniJoc(nume, "Recreează tabloul folosind culorile potrivite!", dif)
+    , tablou_tinta(nullptr)
+    , scor_asemanare(0.0)
+    , incercari_ramase(0) {
+    switch (dif) {
+        case Dificultate::Usor:
+            incercari_ramase = 10;
+            break;
+        case Dificultate::Mediu:
+            incercari_ramase = 7;
+            break;
+        case Dificultate::Greu:
+            incercari_ramase = 5;
+            break;
     }
 
     std::cout << "ArtisticDelight constructor: " << nume << std::endl;
 }
 
-
 ArtisticDelight::ArtisticDelight(const ArtisticDelight& other)
-    : MiniJoc(other),
-      tablou_tinta(other.tablou_tinta),
-      scor_asemanare(other.scor_asemanare),
-      culori_folosite(other.culori_folosite),
-      incercari_ramase(other.incercari_ramase)
-{
+    : MiniJoc(other)
+    , tablou_tinta(other.tablou_tinta)
+    , scor_asemanare(other.scor_asemanare)
+    , culori_folosite(other.culori_folosite)
+    , incercari_ramase(other.incercari_ramase) {
     std::cout << " ArtisticDelight copy constructor" << std::endl;
 }
-
 
 std::unique_ptr<MiniJoc> ArtisticDelight::clone() const {
     return std::make_unique<ArtisticDelight>(*this);
 }
 
-
 std::string ArtisticDelight::getTipJoc() const {
     return "Artistic Delight";
 }
 
-
 void ArtisticDelight::seteazaTablou(std::shared_ptr<Tablou> tablou) {
     tablou_tinta = tablou;
-    std::cout << "Tablou setat: " << tablou->getTitlu() << std::endl;
+    if (tablou) {
+        std::cout << "Tablou setat: " << tablou->getTitlu() << std::endl;
+    }
 }
-
 
 void ArtisticDelight::picteaza(const std::string& culoare) {
     if (incercari_ramase <= 0) {
@@ -83,9 +91,7 @@ double ArtisticDelight::evalueazaAsemanare() {
         }
     }
 
-
     double procent_ghicite = static_cast<double>(culori_corecte) / culori_originale.size() * 100.0;
-
 
     int culori_gresite = culori_folosite.size() - culori_corecte;
     double penalizare = culori_gresite * 5.0;
@@ -96,7 +102,6 @@ double ArtisticDelight::evalueazaAsemanare() {
 
     return scor_asemanare;
 }
-
 
 void ArtisticDelight::arataSugestie() const {
     if (!tablou_tinta) {
@@ -111,7 +116,6 @@ void ArtisticDelight::arataSugestie() const {
         return;
     }
 
-
     for (const auto& [culoare, _] : culori_originale) {
         bool gasita = false;
         for (const auto& c : culori_folosite) {
@@ -121,8 +125,7 @@ void ArtisticDelight::arataSugestie() const {
             }
         }
         if (!gasita) {
-            std::cout << "Sugestie: Încearcă culoarea care începe cu '"
-                      << culoare[0] << "'..." << std::endl;
+            std::cout << "Sugestie: Încearcă culoarea care începe cu '" << culoare[0] << "'..." << std::endl;
             return;
         }
     }
@@ -130,17 +133,20 @@ void ArtisticDelight::arataSugestie() const {
     std::cout << "Ai găsit toate culorile!" << std::endl;
 }
 
-
-
 void ArtisticDelight::initializeaza_implementare() {
     scor_asemanare = 0.0;
     culori_folosite.clear();
 
-
-    switch(dificultate) {
-        case Dificultate::Usor:  incercari_ramase = 10; break;
-        case Dificultate::Mediu: incercari_ramase = 7; break;
-        case Dificultate::Greu:  incercari_ramase = 5; break;
+    switch (dificultate) {
+        case Dificultate::Usor:
+            incercari_ramase = 10;
+            break;
+        case Dificultate::Mediu:
+            incercari_ramase = 7;
+            break;
+        case Dificultate::Greu:
+            incercari_ramase = 5;
+            break;
     }
 
     std::cout << "Artistic Delight inițializat!" << std::endl;
