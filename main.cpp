@@ -14,6 +14,7 @@
 #include "headers/Collection.h"
 #include "headers/Utils.h"
 #include <fstream>
+#include <sstream>
 #include <nlohmann/json.hpp>
 
 
@@ -64,7 +65,8 @@ void afiseazaMeniu() {
     std::cout << "13. Afișează jocuri disponibile\n";
     std::cout << "14. Joacă un joc\n";
     std::cout << "15. Test MiniJoc + dynamic_cast + Copy and swap\n";
-    std::cout << "16. Test Milestone 3 (Templates + Design Patterns)\n";  // <-- ADAUGĂ
+    std::cout << "16. Test Milestone 3 (Templates + Design Patterns)\n";
+    std::cout << "17. Test funcții template neutilizate\n";
     std::cout << "0.  Ieșire\n";
     std::cout << "========================================\n";
     std::cout << "Alege opțiunea: ";
@@ -782,6 +784,69 @@ int main() {
                 std::cout << "============================================================\n";
             }
                 break;
+             case 17:
+            {
+                std::cout << "\n===== TEST FUNCȚII TEMPLATE NEUTILIZATE =====\n\n";
+
+                // Test Collection - funcții neutilizate
+                Collection<Tablou> colTest;
+                for (const auto& t : galerie.getTablouri()) {
+                    colTest.adauga(t);
+                }
+
+                // Test elimina
+                if (colTest.dimensiune() > 0) {
+                    auto primul = colTest.obtine(0);
+                    std::cout << "Test elimina: " << (colTest.elimina(primul) ? "Succes" : "Eșuat") << "\n";
+                }
+
+                // Test obtine
+                if (colTest.dimensiune() > 0) {
+                    auto elem = colTest.obtine(0);
+                    std::cout << "Test obtine: " << (elem ? elem->getTitlu() : "null") << "\n";
+                }
+
+                // Test esteGoala
+                std::cout << "Test esteGoala: " << (colTest.esteGoala() ? "Da" : "Nu") << "\n";
+
+                // Test sorteaza
+                colTest.sorteaza([](const Tablou& a, const Tablou& b) {
+                    return a.getTitlu() < b.getTitlu();
+                });
+                std::cout << "Test sorteaza: Executat\n";
+
+                 // Test pentruFiecare
+                 int count = 0;
+                 colTest.pentruFiecare([&count](Tablou&) {  // Fără nume pentru parametru
+                     count++;
+                 });
+                 std::cout << "Test pentruFiecare: Procesate " << count << " elemente\n";
+
+                // Test obtineToate
+                auto toate = colTest.obtineToate();
+                std::cout << "Test obtineToate: " << toate.size() << " elemente\n";
+
+                // Test Utils - afiseazaToate
+                std::ostringstream oss;
+                afiseazaToate(galerie.getTablouri(), oss, "Tablouri");
+                std::cout << "Test afiseazaToate: Executat\n";
+
+                // Test Utils - sumaProprietate
+                int sumaAni = sumaProprietate<Tablou, int>(galerie.getTablouri(),
+                    [](const Tablou& t) { return t.getAnRealizare(); });
+                std::cout << "Test sumaProprietate: Suma ani = " << sumaAni << "\n";
+
+                // Test JocFactory - funcții neutilizate
+                std::cout << "Test esteTipInregistrat: "
+                          << (JocFactory::esteTipInregistrat("ArtQuiz") ? "Da" : "Nu") << "\n";
+
+                // Test goleste
+                colTest.goleste();
+                std::cout << "Test goleste: Executat (dimensiune = " << colTest.dimensiune() << ")\n";
+
+                std::cout << "\n Toate funcțiile template testate!\n";
+            }
+            break;
 
             case 0:
                 std::cout << "\nLa revedere!\n";

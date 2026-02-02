@@ -12,6 +12,10 @@
 #include <cmath>
 #include <iostream>
 
+ArtisticDelight::ArtisticDelight(const std::string& nume)
+    : ArtisticDelight(nume, Dificultate::Mediu) {
+}
+
 ArtisticDelight::ArtisticDelight(const std::string& nume, Dificultate dif)
     : MiniJoc(nume, "Recreează tabloul folosind culorile potrivite!", dif)
     , tablou_tinta(nullptr)

@@ -53,6 +53,7 @@ protected:
     void afiseaza_reguli_implementare() const override;
 
 public:
+    explicit ArtisticDelight(const std::string& nume);
     ArtisticDelight(const std::string& nume, Dificultate dif);
 
     ArtisticDelight(const ArtisticDelight& other);
