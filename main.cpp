@@ -110,6 +110,7 @@ int main() {
         return 1;
     }
 
+
     auto joc1 = std::make_shared<ArtisticDelight>("Artistic Delight", Dificultate::Mediu);
     auto tablou_zodiac = galerie.cautaTablou("Zodiac");
     if (tablou_zodiac) {
@@ -651,15 +652,14 @@ int main() {
                 std::cout << "\n\n";
 
                 std::cout << "Creare jocuri folosind Factory:\n";
+
                 try {
-                    auto joc_f1 = JocFactory::creeazaJoc("ArtQuiz", Dificultate::Mediu);
-                    std::cout << "  Creat: " << joc_f1->getTipJoc() << " (" << joc_f1->getNume() << ")\n";
+                   std::vector<std::unique_ptr<MiniJoc>> jocuri_factory;
+                   jocuri_factory.push_back(JocFactory::creeazaJoc("ArtQuiz", Dificultate::Mediu));
+                   std::cout << "  Creat: " << jocuri_factory.back()->getTipJoc() << " (" << jocuri_factory.back()->getNume() << ")\n";
 
-                    auto joc_f2 = JocFactory::creeazaJoc("ArtPuzzle", Dificultate::Greu);
-                    std::cout << "  Creat: " << joc_f2->getTipJoc() << " (" << joc_f2->getNume() << ")\n";
-
-                    auto joc_f3 = JocFactory::creeazaJoc("ArtisticDelight", Dificultate::Usor);
-                    std::cout << "  Creat: " << joc_f3->getTipJoc() << " (" << joc_f3->getNume() << ")\n";
+                   jocuri_factory.push_back(JocFactory::creeazaJoc("ArtPuzzle", Dificultate::Greu));
+                   std::cout << "  Creat: " << jocuri_factory.back()->getTipJoc() << " (" << jocuri_factory.back()->getNume() << ")\n";
                 } catch (const JocInvalidException& e) {
                     std::cout << "Eroare: " << e.what() << "\n";
                 }

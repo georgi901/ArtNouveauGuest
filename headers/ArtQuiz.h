@@ -22,7 +22,7 @@ struct Intrebare {
     std::string text;
     std::string raspuns_corect;
     std::vector<std::string> variante;  // pentru întrebări cu variante
-    int puncte;                         ///< Punctele acordate pentru răspuns corect
+    int puncte = 0;                     ///< Punctele acordate pentru răspuns corect
 };
 
 /**
@@ -56,9 +56,9 @@ class ArtQuiz : public MiniJoc {
 private:
     std::vector<std::shared_ptr<Tablou>> tablouri_quiz;
     std::vector<Intrebare> intrebari;
-    int intrebare_curenta;
-    int raspunsuri_corecte;
-    int raspunsuri_gresite;
+    int intrebare_curenta = 0;
+    int raspunsuri_corecte = 0;
+    int raspunsuri_gresite = 0;
 
 protected:
     void initializeaza_implementare() override;

@@ -24,36 +24,33 @@ std::map<std::string, JocFactory::FunctieCreator>& JocFactory::obtineRegistru() 
 }
 
 void JocFactory::initializeazaTipuriImplicite() {
-    // Protecție dublă împotriva reinițializării și recursiei
-    static bool in_progress = false;
 
-    // Dacă deja inițializat SAU în proces de inițializare, ieși
-    if (initializat_ || in_progress) {
+    if (initializat_) {
         return;
     }
 
-    // Marchează că procesul a început
-    in_progress = true;
     initializat_ = true;
 
     auto& registru = obtineRegistru();
 
-    // Înregistrează ArtisticDelight
+
     registru["ArtisticDelight"] = [](Dificultate d) {
         return std::make_unique<ArtisticDelight>("Artistic Delight", d);
     };
 
-    // Înregistrează QuickArtLook
-    registru["QuickArtLook"] = [](Dificultate d) { return std::make_unique<QuickArtLook>("Quick Art Look", d); };
+    registru["QuickArtLook"] = [](Dificultate d) {
+        return std::make_unique<QuickArtLook>("Quick Art Look", d);
+    };
 
-    // Înregistrează ArtQuiz
-    registru["ArtQuiz"] = [](Dificultate d) { return std::make_unique<ArtQuiz>("Art Quiz", d); };
+    registru["ArtQuiz"] = [](Dificultate d) {
+        return std::make_unique<ArtQuiz>("Art Quiz", d);
+    };
 
-    // Înregistrează ArtPuzzle
-    registru["ArtPuzzle"] = [](Dificultate d) { return std::make_unique<ArtPuzzle>("Art Puzzle", d); };
+    registru["ArtPuzzle"] = [](Dificultate d) {
+        return std::make_unique<ArtPuzzle>("Art Puzzle", d);
+    };
 
     std::cout << "[JocFactory] Tipuri implicite înregistrate: " << registru.size() << " tipuri disponibile.\n";
-    in_progress = false;
 }
 
 std::unique_ptr<MiniJoc> JocFactory::creeazaJoc(const std::string& tip, Dificultate dificultate) {

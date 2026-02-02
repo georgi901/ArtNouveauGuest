@@ -23,7 +23,9 @@ using json = nlohmann::json;
 
 // ==================== SINGLETON IMPLEMENTATION ====================
 Galerie& Galerie::getInstance() {
+    std::cout << "[DEBUG] getInstance() called\n";  // ADAUGĂ ASTA
     static Galerie instanta("Galeria Art Nouveau", "Art Nouveau", 1895);
+    std::cout << "[DEBUG] getInstance() returning\n";  // ȘI ASTA
     return instanta;
 }
 
@@ -200,6 +202,7 @@ Galerie::Galerie(const Galerie& other)
     , tablouri(other.tablouri)
     , jocuri(other.jocuri) {
     std::cout << "[Copy constructor] Galerie: " << nume << "\n";
+    std::cout << "[DEBUG] Galerie copy constructor CALLED\n";
 }
 
 void swap(Galerie& first, Galerie& second) noexcept {

@@ -51,7 +51,7 @@ class Galerie {
 private:
     std::string nume;
     std::string subiect;
-    int an_infiintare;
+    int an_infiintare = 0;
     std::vector<std::shared_ptr<Artist>> artisti;
     std::vector<std::shared_ptr<Tablou>> tablouri;
     std::vector<std::shared_ptr<MiniJoc>> jocuri;

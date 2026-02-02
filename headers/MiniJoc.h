@@ -48,9 +48,9 @@ protected:
     std::string nume_joc;
     std::string descriere;
     Dificultate dificultate;
-    int puncte_obtinute;
-    int puncte_maxime;
-    bool finalizat;
+    int puncte_obtinute = 0;
+    int puncte_maxime = 100;
+    bool finalizat = false;
 
     static int total_jocuri_jucate;
     static int total_puncte_acordate;

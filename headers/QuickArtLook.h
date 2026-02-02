@@ -44,8 +44,8 @@
 class QuickArtLook : public MiniJoc {
 private:
     std::vector<std::pair<std::shared_ptr<Tablou>, std::shared_ptr<Artist>>> perechi;
-    int perechi_corecte;
-    int perechi_gresite;
+    int perechi_corecte = 0;
+    int perechi_gresite = 0;
 
 protected:
     void initializeaza_implementare() override;

@@ -52,8 +52,8 @@ public:
  */
 class PuncteInsuficienteException : public GalerieException {
 private:
-    int pct_disponibile;
-    int pct_necesare;
+    int pct_disponibile = 0;
+    int pct_necesare = 0;
 
 public:
     explicit PuncteInsuficienteException(int pct_disponibile, int pct_necesare);

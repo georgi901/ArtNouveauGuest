@@ -43,9 +43,9 @@
 class ArtisticDelight : public MiniJoc {
 private:
     std::shared_ptr<Tablou> tablou_tinta;  // tabloul de recreat
-    double scor_asemanare;                 // 0-100%
+    double scor_asemanare = 0.0;           // 0-100%
     std::vector<std::string> culori_folosite;
-    int incercari_ramase;
+    int incercari_ramase = 0;
 
 protected:
     void initializeaza_implementare() override;
@@ -53,7 +53,6 @@ protected:
     void afiseaza_reguli_implementare() const override;
 
 public:
-    explicit ArtisticDelight(const std::string& nume);
     ArtisticDelight(const std::string& nume, Dificultate dif);
 
     ArtisticDelight(const ArtisticDelight& other);

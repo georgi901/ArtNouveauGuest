@@ -15,6 +15,8 @@
 ArtPuzzle::ArtPuzzle(const std::string& nume, Dificultate dif)
     : MiniJoc(nume, "Aranjează fragmentele tabloului în ordinea corectă", dif)
     , tablou_tinta(nullptr)
+    , ordine_fragmente()
+    , ordine_corecta()
     , numar_fragmente(0)
     , mutari_efectuate(0)
     , mutari_maxime(0)
@@ -33,7 +35,14 @@ ArtPuzzle::ArtPuzzle(const std::string& nume, Dificultate dif)
             numar_fragmente = 16;  // 4x4
             mutari_maxime = 22;
             break;
+        default:
+            numar_fragmente = 4;
+            mutari_maxime = 6;
+            break;
     }
+
+    ordine_fragmente.reserve(numar_fragmente);
+    ordine_corecta.reserve(numar_fragmente);
 
     for (int i = 0; i < numar_fragmente; i++) {
         ordine_corecta.push_back(i);
@@ -45,7 +54,7 @@ ArtPuzzle::ArtPuzzle(const std::string& nume, Dificultate dif)
 
 ArtPuzzle::ArtPuzzle(const ArtPuzzle& other)
     : MiniJoc(other)
-    , tablou_tinta(other.tablou_tinta)
+    , tablou_tinta(nullptr)
     , ordine_fragmente(other.ordine_fragmente)
     , ordine_corecta(other.ordine_corecta)
     , numar_fragmente(other.numar_fragmente)

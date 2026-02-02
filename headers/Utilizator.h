@@ -49,7 +49,7 @@ private:
     std::vector<std::string> istoric_activitati;
     std::vector<std::shared_ptr<Tablou>> colectie;
     void adaugaActivitate(const std::string& activitate);
-    int puncte;
+    int puncte = 0;
 
 public:
     Utilizator(const std::string& n, const std::string& u, const std::string& e, int v, const std::string& d);

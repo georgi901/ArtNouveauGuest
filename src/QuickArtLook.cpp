@@ -15,16 +15,19 @@
 #include "../headers/MiniJoc.h"
 
 QuickArtLook::QuickArtLook(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Asociază tablourile cu artiștii corecți!", dif), perechi_corecte(0), perechi_gresite(0) {
+    : MiniJoc(nume, "Asociază tablourile cu artiștii corecți!", dif)
+    , perechi()
+    , perechi_corecte(0)
+    , perechi_gresite(0) {
     std::cout << "QuickArtLook constructor: " << nume << std::endl;
 }
 
 QuickArtLook::QuickArtLook(const QuickArtLook& other)
     : MiniJoc(other)
-    , perechi(other.perechi)
+    , perechi()
     , perechi_corecte(other.perechi_corecte)
     , perechi_gresite(other.perechi_gresite) {
-    std::cout << " QuickArtLook copy constructor" << std::endl;
+    std::cout << "QuickArtLook copy constructor" << std::endl;
 }
 
 std::unique_ptr<MiniJoc> QuickArtLook::clone() const {
@@ -116,6 +119,9 @@ void QuickArtLook::initializeaza_implementare() {
         case Dificultate::Greu:
             max_perechi = 8;
             break;
+        default:
+            max_perechi = 3;
+            break;
     }
 
     if (perechi.size() > max_perechi) {
@@ -156,6 +162,9 @@ void QuickArtLook::afiseaza_reguli_implementare() const {
             break;
         case Dificultate::Greu:
             max_perechi = 8;
+            break;
+        default:
+            max_perechi = 3;
             break;
     }
     std::cout << "QUICK ART LOOK - Reguli:" << std::endl;

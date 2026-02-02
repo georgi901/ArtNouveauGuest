@@ -17,6 +17,8 @@
 
 ArtQuiz::ArtQuiz(const std::string& nume, Dificultate dif)
     : MiniJoc(nume, "Răspunde la întrebări despre tablourile din galerie!", dif)
+    , tablouri_quiz()
+    , intrebari()
     , intrebare_curenta(0)
     , raspunsuri_corecte(0)
     , raspunsuri_gresite(0) {
@@ -25,7 +27,7 @@ ArtQuiz::ArtQuiz(const std::string& nume, Dificultate dif)
 
 ArtQuiz::ArtQuiz(const ArtQuiz& other)
     : MiniJoc(other)
-    , tablouri_quiz(other.tablouri_quiz)
+    , tablouri_quiz()
     , intrebari(other.intrebari)
     , intrebare_curenta(other.intrebare_curenta)
     , raspunsuri_corecte(other.raspunsuri_corecte)
@@ -93,6 +95,9 @@ void ArtQuiz::genereazaIntrebari() {
             break;
         case Dificultate::Greu:
             max_intrebari = 7;
+            break;
+        default:
+            max_intrebari = 3;
             break;
     }
 

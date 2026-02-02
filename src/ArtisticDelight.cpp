@@ -12,15 +12,14 @@
 #include <cmath>
 #include <iostream>
 
-ArtisticDelight::ArtisticDelight(const std::string& nume)
-    : ArtisticDelight(nume, Dificultate::Mediu) {
-}
 
 ArtisticDelight::ArtisticDelight(const std::string& nume, Dificultate dif)
     : MiniJoc(nume, "Recreează tabloul folosind culorile potrivite!", dif)
     , tablou_tinta(nullptr)
     , scor_asemanare(0.0)
+    , culori_folosite()
     , incercari_ramase(0) {
+
     switch (dif) {
         case Dificultate::Usor:
             incercari_ramase = 10;
@@ -31,6 +30,9 @@ ArtisticDelight::ArtisticDelight(const std::string& nume, Dificultate dif)
         case Dificultate::Greu:
             incercari_ramase = 5;
             break;
+        default:
+            incercari_ramase = 10;
+            break;
     }
 
     std::cout << "ArtisticDelight constructor: " << nume << std::endl;
@@ -38,11 +40,11 @@ ArtisticDelight::ArtisticDelight(const std::string& nume, Dificultate dif)
 
 ArtisticDelight::ArtisticDelight(const ArtisticDelight& other)
     : MiniJoc(other)
-    , tablou_tinta(other.tablou_tinta)
+    , tablou_tinta(nullptr)
     , scor_asemanare(other.scor_asemanare)
     , culori_folosite(other.culori_folosite)
     , incercari_ramase(other.incercari_ramase) {
-    std::cout << " ArtisticDelight copy constructor" << std::endl;
+    std::cout << "ArtisticDelight copy constructor" << std::endl;
 }
 
 std::unique_ptr<MiniJoc> ArtisticDelight::clone() const {
@@ -150,6 +152,9 @@ void ArtisticDelight::initializeaza_implementare() {
             break;
         case Dificultate::Greu:
             incercari_ramase = 5;
+            break;
+        default:
+            incercari_ramase = 10;
             break;
     }
 

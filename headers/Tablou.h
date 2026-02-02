@@ -44,9 +44,9 @@ class Tablou {
 private:
     std::string titlu;
     std::string tehnica;
-    int an_realizare;
-    bool colectionat;
-    bool rar;
+    int an_realizare = 0;
+    bool colectionat = false;
+    bool rar = false;
     std::map<std::string, int> culori;
     std::map<std::string, int> pensule;
     std::pair<int, int> dimensiune;

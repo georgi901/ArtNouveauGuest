@@ -46,10 +46,10 @@ private:
     std::shared_ptr<Tablou> tablou_tinta;
     std::vector<int> ordine_fragmente;
     std::vector<int> ordine_corecta;
-    int numar_fragmente;
-    int mutari_efectuate;
-    int mutari_maxime;
-    bool rezolvat;
+    int numar_fragmente = 0;
+    int mutari_efectuate = 0;
+    int mutari_maxime = 0;
+    bool rezolvat = false;
 
 protected:
     void initializeaza_implementare() override;

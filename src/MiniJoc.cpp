@@ -30,7 +30,7 @@ std::ostream& operator<<(std::ostream& os, const Dificultate& dif) {
 }
 
 MiniJoc::MiniJoc(const std::string& nume_joc, const std::string& descriere, Dificultate dificultate)
-    : nume_joc(nume_joc), descriere(descriere), dificultate(dificultate), puncte_obtinute(0), finalizat(false) {
+    : nume_joc(nume_joc), descriere(descriere), dificultate(dificultate), puncte_obtinute(0), puncte_maxime(100), finalizat(false) {
     switch (dificultate) {
         case Dificultate::Usor:
             puncte_maxime = 100;
@@ -40,6 +40,9 @@ MiniJoc::MiniJoc(const std::string& nume_joc, const std::string& descriere, Difi
             break;
         case Dificultate::Greu:
             puncte_maxime = 300;
+            break;
+        default:
+            puncte_maxime = 100;
             break;
     }
 
