@@ -18,6 +18,7 @@ target_compile_definitions(
 )
 
 include(Catch)
+set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES Catch2 Catch2WithMain)
 catch_discover_tests(ArtNouveauGuestTests DISCOVERY_MODE PRE_TEST)
 
 add_test(
