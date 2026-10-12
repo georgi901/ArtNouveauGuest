@@ -134,7 +134,8 @@ int QuickArtLook::calculatePointsImplementation() {
         return 0;
     }
 
-    double correct_percentage = static_cast<double>(correct_pairs) / pairs.size() * 100.0;
+    double correct_percentage =
+        static_cast<double>(correct_pairs) / static_cast<double>(pairs.size()) * 100.0;
     int points = static_cast<int>((correct_percentage / 100.0) * maximum_points);
 
     int penalty = wrong_pairs * 10;

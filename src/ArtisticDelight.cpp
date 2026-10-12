@@ -96,7 +96,7 @@ double ArtisticDelight::evaluateSimilarity() {
     }
 
     double guessed_percentage =
-        static_cast<double>(correct_colors) / original_colors.size() * 100.0;
+        static_cast<double>(correct_colors) / static_cast<double>(original_colors.size()) * 100.0;
 
     int wrong_colors = static_cast<int>(used_colors.size()) - correct_colors;
     double penalty = wrong_colors * 5.0;

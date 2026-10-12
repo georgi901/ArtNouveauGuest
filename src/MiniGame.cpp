@@ -29,15 +29,15 @@ std::ostream& operator<<(std::ostream& os, const Difficulty& dif) {
     }
 }
 
-MiniGame::MiniGame(const std::string& game_name, const std::string& description,
-                   Difficulty difficulty)
-    : game_name(game_name)
-    , description(description)
-    , difficulty(difficulty)
+MiniGame::MiniGame(const std::string& game_name_value, const std::string& description_value,
+                   Difficulty difficulty_value)
+    : game_name(game_name_value)
+    , description(description_value)
+    , difficulty(difficulty_value)
     , earned_points(0)
     , maximum_points(100)
     , finished(false) {
-    switch (difficulty) {
+    switch (difficulty_value) {
         case Difficulty::Easy:
             maximum_points = 100;
             break;
@@ -52,7 +52,7 @@ MiniGame::MiniGame(const std::string& game_name, const std::string& description,
             break;
     }
 
-    std::cout << "MiniGame constructor: " << game_name << std::endl;
+    std::cout << "MiniGame constructor: " << game_name_value << std::endl;
 }
 
 MiniGame::MiniGame(const MiniGame& other)
