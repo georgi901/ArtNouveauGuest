@@ -11,19 +11,21 @@
 
 #include "../headers/Artist.h"
 
-Painting::Painting(const std::string& title, const std::string& technique, int creation_year,
-                   bool rare, const std::map<std::string, int>& colors,
-                   const std::map<std::string, int>& brushes, const std::pair<int, int>& dimensions,
-                   const std::shared_ptr<Artist>& artist, bool collected)
-    : title(title)
-    , technique(technique)
-    , creation_year(creation_year)
-    , collected(collected)
-    , rare(rare)
-    , colors(colors)
-    , brushes(brushes)
-    , dimensions(dimensions)
-    , artist(artist) {
+Painting::Painting(const std::string& title_value, const std::string& technique_value,
+                   int creation_year_value, bool rare_value,
+                   const std::map<std::string, int>& colors_value,
+                   const std::map<std::string, int>& brushes_value,
+                   const std::pair<int, int>& dimensions_value,
+                   const std::shared_ptr<Artist>& artist_value, bool collected_value)
+    : title(title_value)
+    , technique(technique_value)
+    , creation_year(creation_year_value)
+    , collected(collected_value)
+    , rare(rare_value)
+    , colors(colors_value)
+    , brushes(brushes_value)
+    , dimensions(dimensions_value)
+    , artist(artist_value) {
 }
 
 Painting::Painting(const Painting& other)

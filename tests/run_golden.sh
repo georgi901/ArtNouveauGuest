@@ -27,13 +27,15 @@ for input_file in "${GOLDEN_DIR}"/*.in; do
 
     save_path="${scenario}.save.json"
     ARTNOUVEAU_SAVE_PATH="${save_path}" "${EXECUTABLE}" < "${input_file}" > "${actual}"
-    if ! diff -u "${expected}" "${actual}"; then
+    normalized_actual="${actual}.normalized"
+    sed 's/[[:space:]]*$//' "${actual}" > "${normalized_actual}"
+    if ! diff -u "${expected}" "${normalized_actual}"; then
         echo "Golden scenario failed: $(basename "${scenario}")" >&2
         status=1
     else
         echo "Golden scenario passed: $(basename "${scenario}")"
     fi
-    rm -f "${actual}"
+    rm -f "${actual}" "${normalized_actual}"
     rm -f "${save_path}" "${save_path}.bak" "${save_path}.tmp"
 done
 

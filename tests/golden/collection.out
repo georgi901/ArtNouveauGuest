@@ -1,0 +1,170 @@
+
+========================================
+  LOADING DATA FROM JSON FILES
+========================================
+→ Loading artists from 'artists.json'...
+    Artists loaded successfully!
+
+→ Loading paintings from 'paintings.json'...
+    Paintings loaded successfully!
+
+→ Loading user from 'users.json'...
+    User loaded successfully!
+========================================
+    ALL DATA LOADED
+========================================
+MiniGame constructor: Artistic Delight
+ArtisticDelight constructor: Artistic Delight
+Painting set: Zodiac
+MiniGame constructor: Quick Art Look
+QuickArtLook constructor: Quick Art Look
+Pair added: Zodiac - Mucha
+Pair added: The Seasons - Mucha
+Pair added: The Kiss - Klimt
+Pair added: Salome - Beardsley
+Pair added: Dragonfly Woman - Lalique
+Pair added: Floral Dreams - Chen
+Pair added: Romanian Legends - Popescu
+Pair added: Nordic Flora - Bergstrom
+MiniGame constructor: Art Quiz
+ArtQuiz constructor: Art Quiz
+MiniGame constructor: Art Puzzle
+ArtPuzzle constructor: Art Puzzle
+Puzzle set for painting: The Kiss
+ Games created successfully!
+
+========================================
+      ART GALLERY - MAIN MENU
+========================================
+1.  Display all artists
+2.  Display all paintings
+3.  Search artist (minimal profile)
+4.  Search artist (full profile)
+5.  Search painting (minimal details)
+6.  Search painting (full details)
+7.  Display full gallery
+8.  Test user and collection
+9.  Display artist statistics
+10. Rare paintings by an artist
+11. Test requirements (Painting)
+12. Test exceptions
+13. Display available games
+14. Play a game
+15. Test MiniGame + dynamic_cast + copy and swap
+16. Test milestone 3 (templates + design patterns)
+17. Test unused template functions
+0.  Exit
+========================================
+Choose an option:
+----- USER AND COLLECTION TEST -----
+
+STEP 1: User profile BEFORE adding paintings
+-------------------------------------------------------------------
+
+------------------------------- USER PROFILE --------------------------------
+Name: Popescu Ion
+Username: ion_pop
+Email: ion@email.com
+Age: 35
+Registration date: 01.01.2023
+Points: 0
+Paintings in collection: 0
+
+
+STEP 2: Adding paintings to the collection
+-------------------------------------------------------------------
+→ Adding: 'Zodiac' by Mucha Alfons
+  Added successfully!
+
+→ Adding: 'The Kiss' by Klimt Gustav
+  Added successfully!
+
+
+STEP 3: Full collection view
+----------------------------------------------------------------------
+
+--------------------- Popescu Ion's collection ----------------------
+
+------------------- PAINTING: Zodiac ------------------
+
+---------------- PAINTING ZOOM 66x66 cm ----------------
+
+Used colors:
+  • Blue: 4 tubes
+  • Gold: 5 tubes
+  • Green: 3 tubes
+
+Used brush types:
+  • Fine detail: 5
+  • Ornamental: 4
+
+---- PAINTING ZOOM 66x66 cm ----
+Painting details images:
+  zodiac_detaliu1.jpg
+  zodiac_detaliu2.jpg
+
+
+------------------- PAINTING: The Kiss ------------------
+
+---------------- PAINTING ZOOM 180x180 cm ----------------
+
+Used colors:
+  • Brown: 3 tubes
+  • Gold: 10 tubes
+  • Yellow: 5 tubes
+
+Used brush types:
+  • Geometric: 5
+  • Ornamental: 6
+
+---- PAINTING ZOOM 180x180 cm ----
+Painting details images:
+  sarutul_details.jpg
+
+
+
+STEP 4: User profile AFTER adding paintings
+----------------------------------------------------------------------
+
+------------------------------- USER PROFILE --------------------------------
+Name: Popescu Ion
+Username: ion_pop
+Email: ion@email.com
+Age: 35
+Registration date: 01.01.2023
+Points: 0
+Paintings in collection: 2
+
+Activity history:
+  - Added painting Zodiac
+  - Added painting The Kiss
+
+
+ Test finished successfully!
+
+Press ENTER to continue...
+========================================
+      ART GALLERY - MAIN MENU
+========================================
+1.  Display all artists
+2.  Display all paintings
+3.  Search artist (minimal profile)
+4.  Search artist (full profile)
+5.  Search painting (minimal details)
+6.  Search painting (full details)
+7.  Display full gallery
+8.  Test user and collection
+9.  Display artist statistics
+10. Rare paintings by an artist
+11. Test requirements (Painting)
+12. Test exceptions
+13. Display available games
+14. Play a game
+15. Test MiniGame + dynamic_cast + copy and swap
+16. Test milestone 3 (templates + design patterns)
+17. Test unused template functions
+0.  Exit
+========================================
+Choose an option:
+Goodbye!
+ArtPuzzle destructor: Art Puzzle

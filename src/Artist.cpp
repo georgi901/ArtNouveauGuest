@@ -17,28 +17,30 @@
 /// Static list of all registered artists
 std::vector<std::shared_ptr<Artist>> Artist::artists_list = {};
 
-Artist::Artist(const std::string& name, const std::string& first_name,
-               const std::string& nationality, int age, int birth_year, int death_year,
-               const std::string& artistic_period, const std::string& registration_date,
-               const std::string& username, const std::string& email,
-               const std::vector<std::string>& history, const std::string& representative_person,
-               const std::string& representative_username, const std::string& representative_email,
-               const std::vector<std::string>& representative_history)
-    : name(name)
-    , first_name(first_name)
-    , nationality(nationality)
-    , age(age)
-    , birth_year(birth_year)
-    , death_year(death_year)
-    , artistic_period(artistic_period)
-    , registration_date(registration_date)
-    , username(username)
-    , email(email)
-    , history(history)
-    , representative_person(representative_person)
-    , representative_username(representative_username)
-    , representative_email(representative_email)
-    , representative_history(representative_history) {
+Artist::Artist(const std::string& name_value, const std::string& first_name_value,
+               const std::string& nationality_value, int age_value, int birth_year_value,
+               int death_year_value, const std::string& artistic_period_value,
+               const std::string& registration_date_value, const std::string& username_value,
+               const std::string& email_value, const std::vector<std::string>& history_value,
+               const std::string& representative_person_value,
+               const std::string& representative_username_value,
+               const std::string& representative_email_value,
+               const std::vector<std::string>& representative_history_value)
+    : name(name_value)
+    , first_name(first_name_value)
+    , nationality(nationality_value)
+    , age(age_value)
+    , birth_year(birth_year_value)
+    , death_year(death_year_value)
+    , artistic_period(artistic_period_value)
+    , registration_date(registration_date_value)
+    , username(username_value)
+    , email(email_value)
+    , history(history_value)
+    , representative_person(representative_person_value)
+    , representative_username(representative_username_value)
+    , representative_email(representative_email_value)
+    , representative_history(representative_history_value) {
 }
 
 void Artist::addPainting(const std::shared_ptr<Painting>& painting) {

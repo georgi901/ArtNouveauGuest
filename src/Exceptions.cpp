@@ -8,18 +8,19 @@
 
 #include "../headers/Exceptions.h"
 
-GalleryException::GalleryException(const std::string& message) : message(message) {
+GalleryException::GalleryException(const std::string& message_value) : message(message_value) {
 }
 
 const char* GalleryException::what() const noexcept {
     return message.c_str();
 }
 
-InsufficientPointsException::InsufficientPointsException(int available_points, int required_points)
-    : GalleryException("Insufficient points: you have " + std::to_string(available_points) +
-                       ", but you need " + std::to_string(required_points))
-    , available_points(available_points)
-    , required_points(required_points) {
+InsufficientPointsException::InsufficientPointsException(int available_points_value,
+                                                         int required_points_value)
+    : GalleryException("Insufficient points: you have " + std::to_string(available_points_value) +
+                       ", but you need " + std::to_string(required_points_value))
+    , available_points(available_points_value)
+    , required_points(required_points_value) {
 }
 
 int InsufficientPointsException::getAvailablePoints() const {
@@ -34,30 +35,30 @@ int InsufficientPointsException::getMissingPoints() const {
     return required_points - available_points;
 }
 
-PaintingUnavailableException::PaintingUnavailableException(const std::string& painting_title)
-    : GalleryException("The painting '" + painting_title + "' is not available")
-    , painting_title(painting_title) {
+PaintingUnavailableException::PaintingUnavailableException(const std::string& painting_title_value)
+    : GalleryException("The painting '" + painting_title_value + "' is not available")
+    , painting_title(painting_title_value) {
 }
 
 const std::string& PaintingUnavailableException::getTitle() const {
     return painting_title;
 }
 
-InvalidGameException::InvalidGameException(const std::string& game_name)
-    : GalleryException("The game '" + game_name + "' does not exist or cannot be started")
-    , game_name(game_name) {
+InvalidGameException::InvalidGameException(const std::string& game_name_value)
+    : GalleryException("The game '" + game_name_value + "' does not exist or cannot be started")
+    , game_name(game_name_value) {
 }
 
 const std::string& InvalidGameException::getGameName() const {
     return game_name;
 }
 
-DataLoadingException::DataLoadingException(const std::string& file_path,
-                                           const std::string& error_type)
-    : GalleryException(error_type == "file" ? "Cannot open file: " + file_path
-                                            : "Error parsing JSON from file: " + file_path)
-    , details(file_path)
-    , error_type(error_type) {
+DataLoadingException::DataLoadingException(const std::string& file_path_value,
+                                           const std::string& error_type_value)
+    : GalleryException(error_type_value == "file" ? "Cannot open file: " + file_path_value
+                                                  : "Error parsing JSON from file: " + file_path_value)
+    , details(file_path_value)
+    , error_type(error_type_value) {
 }
 
 const std::string& DataLoadingException::getDetails() const {
