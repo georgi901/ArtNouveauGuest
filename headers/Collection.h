@@ -1,6 +1,4 @@
-
-#ifndef ARTNOUVEAUGUEST_COLLECTION_H
-#define ARTNOUVEAUGUEST_COLLECTION_H
+#pragma once
 
 #include <algorithm>
 #include <functional>
@@ -12,44 +10,45 @@
 
 /**
  * @class Collection
- * @brief Clasă șablon generică pentru gestionarea elementelor din galerie.
- * @tparam T Tipul elementelor stocate în colecție.
+ * @brief Generic template class for managing gallery elements.
+ * @tparam T The type of elements stored in the collection.
  *
- * Oferă un container type-safe cu funcționalități de căutare, filtrare,
- * sortare și iterare. Folosită pentru gestionarea Artiștilor, Tablourilor și Jocurilor.
+ * Provides a type-safe container with search, filtering, sorting, and iteration
+ * capabilities. Used for managing artists, paintings, and games.
  *
- * @note Această clasă îndeplinește cerința M3 pentru clasă șablon cu minim 2 instanțieri.
+ * @note This class satisfies the Milestone 3 requirement for a template class
+ * with at least two instantiations.
  *
  * @code
- * Collection<Artist> artisti;
- * artisti.adauga(std::make_shared<Artist>(...));
- * auto gasit = artisti.cautaDupaPredicate([](const Artist& a) { return a.getNume() == "Mucha"; });
+ * Collection<Artist> artists;
+ * artists.add(std::make_shared<Artist>(...));
+ * auto found = artists.findByPredicate([](const Artist& a) { return a.getName() == "Mucha"; });
  * @endcode
  */
 template <typename T>
 class Collection {
 public:
     /**
-     * @brief Constructor implicit - creează o colecție goală.
+     * @brief Default constructor - creates an empty collection.
      */
     Collection() = default;
 
     /**
-     * @brief Adaugă un element în colecție.
-     * @param element Pointer shared către elementul de adăugat.
+     * @brief Adds an element to the collection.
+     * @param element Shared pointer to the element to add.
      */
-    void adauga(std::shared_ptr<T> element) {
+    void add(std::shared_ptr<T> element) {
         if (element) {
             elemente_.push_back(element);
         }
     }
 
     /**
-     * @brief Elimină un element din colecție.
-     * @param element Pointer shared către elementul de eliminat.
-     * @return true dacă elementul a fost găsit și eliminat, false altfel.
+     * @brief Removes an element from the collection.
+     * @param element Shared pointer to the element to remove.
+     * @return true if the element was found and removed, false otherwise.
      */
-    bool elimina(std::shared_ptr<T> element) {
+    bool remove(std::shared_ptr<T> element) {
         auto it = std::find(elemente_.begin(), elemente_.end(), element);
         if (it != elemente_.end()) {
             elemente_.erase(it);
@@ -59,32 +58,32 @@ public:
     }
 
     /**
-     * @brief Obține un element după index.
-     * @param index Indexul elementului (începând de la 0).
-     * @return Pointer shared către element.
-     * @throws std::out_of_range dacă indexul este invalid.
+     * @brief Gets an element by index.
+     * @param index Element index (starting from 0).
+     * @return Shared pointer to the element.
+     * @throws std::out_of_range if the index is invalid.
      */
-    std::shared_ptr<T> obtine(size_t index) const {
+    std::shared_ptr<T> get(size_t index) const {
         if (index >= elemente_.size()) {
-            throw std::out_of_range("Index colecție în afara limitelor: " + std::to_string(index));
+            throw std::out_of_range("Collection index out of bounds: " + std::to_string(index));
         }
         return elemente_[index];
     }
 
     /**
-     * @brief Găsește primul element care îndeplinește un predicat.
-     * @param predicat Funcție care returnează true pentru elementele căutate.
-     * @return Pointer shared către elementul găsit, sau nullptr dacă nu există.
+     * @brief Finds the first element that matches a predicate.
+     * @param predicate Function returning true for the desired elements.
+     * @return Shared pointer to the found element, or nullptr if not found.
      *
      * @code
-     * auto artist = colectie.cautaDupaPredicate([](const Artist& a) {
-     *     return a.getNationalitate() == "Czech";
+     * auto artist = collection.findByPredicate([](const Artist& a) {
+     *     return a.getNationality() == "Czech";
      * });
      * @endcode
      */
-    std::shared_ptr<T> cautaDupaPredicate(std::function<bool(const T&)> predicat) const {
+    std::shared_ptr<T> findByPredicate(std::function<bool(const T&)> predicate) const {
         for (const auto& element : elemente_) {
-            if (element && predicat(*element)) {
+            if (element && predicate(*element)) {
                 return element;
             }
         }
@@ -92,98 +91,100 @@ public:
     }
 
     /**
-     * @brief Filtrează elementele care îndeplinesc un predicat.
-     * @param predicat Funcție care returnează true pentru elementele de inclus.
-     * @return Colecție nouă conținând doar elementele care îndeplinesc predicatul.
+     * @brief Filters elements that match a predicate.
+     * @param predicate Function returning true for elements to include.
+     * @return New collection containing only the matching elements.
      *
      * @code
-     * auto tablouriRare = tablouri.filtreaza([](const Tablou& t) {
-     *     return t.este_rar();
+     * auto rarePaintings = paintings.filter([](const Painting& t) {
+     *     return t.isRare();
      * });
      * @endcode
      */
-    Collection<T> filtreaza(std::function<bool(const T&)> predicat) const {
-        Collection<T> rezultat;
+    Collection<T> filter(std::function<bool(const T&)> predicate) const {
+        Collection<T> result;
         for (const auto& element : elemente_) {
-            if (element && predicat(*element)) {
-                rezultat.adauga(element);
+            if (element && predicate(*element)) {
+                result.add(element);
             }
         }
-        return rezultat;
+        return result;
     }
 
     /**
-     * @brief Sortează colecția folosind un comparator.
-     * @param comparator Funcție care compară două elemente (returnează true dacă primul < al doilea).
+     * @brief Sorts the collection using a comparator.
+     * @param comparator Function that compares two elements (returns true if the first is less than
+     * the second).
      *
      * @code
-     * artisti.sorteaza([](const Artist& a, const Artist& b) {
-     *     return a.getNume() < b.getNume();
+     * artists.sort([](const Artist& a, const Artist& b) {
+     *     return a.getName() < b.getName();
      * });
      * @endcode
      */
-    void sorteaza(std::function<bool(const T&, const T&)> comparator) {
-        std::sort(
-            elemente_.begin(), elemente_.end(),
-            [&comparator](const std::shared_ptr<T>& a, const std::shared_ptr<T>& b) { return comparator(*a, *b); });
+    void sort(std::function<bool(const T&, const T&)> comparator) {
+        std::sort(elemente_.begin(), elemente_.end(),
+                  [&comparator](const std::shared_ptr<T>& a, const std::shared_ptr<T>& b) {
+                      return comparator(*a, *b);
+                  });
     }
 
     /**
-     * @brief Aplică o funcție fiecărui element (versiune non-const).
-     * @param functie Funcție de aplicat.
+     * @brief Applies a function to each element (non-const version).
+     * @param function Function to apply.
      */
-    void pentruFiecare(std::function<void(T&)> functie) {
+    void forEach(std::function<void(T&)> function) {
         for (auto& element : elemente_) {
             if (element) {
-                functie(*element);
+                function(*element);
             }
         }
     }
 
     /**
-     * @brief Aplică o funcție fiecărui element (versiune const).
-     * @param functie Funcție de aplicat.
+     * @brief Applies a function to each element (const version).
+     * @param function Function to apply.
      */
-    void pentruFiecare(std::function<void(const T&)> functie) const {
+    void forEach(std::function<void(const T&)> function) const {
         for (const auto& element : elemente_) {
             if (element) {
-                functie(*element);
+                function(*element);
             }
         }
     }
 
     /**
-     * @brief Obține numărul de elemente din colecție.
-     * @return Numărul de elemente.
+     * @brief Gets the number of elements in the collection.
+     * @return Number of elements.
      */
-    size_t dimensiune() const {
+    size_t size() const {
         return elemente_.size();
     }
 
     /**
-     * @brief Verifică dacă colecția este goală.
-     * @return true dacă este goală, false altfel.
+     * @brief Checks whether the collection is empty.
+     * @return true if the collection is empty, false otherwise.
      */
-    bool esteGoala() const {
+    bool empty() const {
         return elemente_.empty();
     }
 
     /**
-     * @brief Șterge toate elementele din colecție.
+     * @brief Clears all elements from the collection.
      */
-    void goleste() {
+    void clear() {
         elemente_.clear();
     }
 
     /**
-     * @brief Obține vectorul intern (referință const).
-     * @return Referință const către vectorul intern.
+     * @brief Gets the internal vector (const reference).
+     * @return Const reference to the internal vector.
      */
-    const std::vector<std::shared_ptr<T>>& obtineToate() const {
+    const std::vector<std::shared_ptr<T>>& getAll() const {
         return elemente_;
     }
 
-    // Suport pentru iteratori (pentru range-based for loops)
+    // Support for iterators (for range-based for loops)
     typename std::vector<std::shared_ptr<T>>::iterator begin() {
         return elemente_.begin();
     }
@@ -198,7 +199,5 @@ public:
     }
 
 private:
-    std::vector<std::shared_ptr<T>> elemente_;  ///< Stocare internă pentru elemente
+    std::vector<std::shared_ptr<T>> elemente_;  ///< Internal storage for elements
 };
-
-#endif  // ARTNOUVEAUGUEST_COLLECTION_H

@@ -1,13 +1,12 @@
-# .clang-format - Configurare pentru formatarea codului
-# Rulare: clang-format -i <fisier>
-# Formatarea tuturor fișierelor: find headers src -name "*.h" -o -name "*.cpp" | xargs clang-format -i
+# .clang-format - Project formatting configuration.
+# Run with: clang-format -i <file>
 
 ---
 BasedOnStyle: Google
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
-ColumnLimit: 120
+ColumnLimit: 100
 
 # Stil acolade
 BreakBeforeBraces: Attach

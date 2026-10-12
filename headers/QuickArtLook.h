@@ -1,80 +1,79 @@
+#pragma once
+
 /**
  * @file QuickArtLook.h
- * @brief Definește clasa QuickArtLook - joc de asociere tablouri-artiști.
+ * @brief Defines the QuickArtLook class - a painting-to-artist matching game.
  *
- * Acest fișier conține clasa QuickArtLook care implementează un mini-joc
- * în care jucătorul trebuie să asocieze tablourile cu artiștii corecți.
+ * This file contains the QuickArtLook class, which implements a mini-game where
+ * the player must match paintings with the correct artists.
  */
-
-#ifndef ARTNOUVEAUGUEST_QUICKARTLOOK_H
-#define ARTNOUVEAUGUEST_QUICKARTLOOK_H
 
 #include <memory>
 #include <utility>
 #include <vector>
 
 #include "Artist.h"
-#include "MiniJoc.h"
-#include "Tablou.h"
+#include "MiniGame.h"
+#include "Painting.h"
 
 /**
  * @class QuickArtLook
- * @brief Joc de asociere între tablouri și artiștii lor.
+ * @brief Painting-to-artist matching game.
  *
- * Derivată din MiniJoc, această clasă implementează un joc de potrivire
- * în care jucătorul trebuie să identifice corect artistul fiecărui tablou.
+ * Derived from MiniGame, this class implements a matching game where the player
+ * must correctly identify the artist for each painting.
  *
- * Numărul de perechi variază în funcție de dificultate:
- * - Ușor: 3 perechi
- * - Mediu: 5 perechi
- * - Greu: 8 perechi
+ * The number of pairs varies by difficulty:
+ * - Easy: 3 pairs
+ * - Medium: 5 pairs
+ * - Hard: 8 pairs
  *
- * Punctajul este calculat pe baza procentului de perechi corecte,
- * cu penalizări pentru răspunsurile greșite.
+ * The score is calculated based on the percentage of correct pairs, with
+ * penalties for incorrect answers.
  *
  * @code
- * auto joc = std::make_unique<QuickArtLook>("Quick Art", Dificultate::Mediu);
- * joc->adaugaPereche(tablou, artist);
- * joc->initializeaza();
- * joc->afiseazaTablele();
- * joc->afiseazaArtisti();
- * joc->verificaPereche("Zodiac", "Mucha");
+ * auto game = std::make_unique<QuickArtLook>("Quick Art", Difficulty::Medium);
+ * game->addPair(painting, artist);
+ * game->initialize();
+ * game->displayPaintings();
+ * game->displayArtists();
+ * game->verifyPair("Zodiac", "Mucha");
  * @endcode
  */
-class QuickArtLook : public MiniJoc {
+class QuickArtLook : public MiniGame {
 private:
-    std::vector<std::pair<std::shared_ptr<Tablou>, std::shared_ptr<Artist>>> perechi;
-    int perechi_corecte = 0;
-    int perechi_gresite = 0;
+    std::vector<std::pair<std::shared_ptr<Painting>, std::shared_ptr<Artist>>> pairs;
+    int correct_pairs = 0;
+    int wrong_pairs = 0;
 
 protected:
-    void initializeaza_implementare() override;
-    int calculeaza_puncte_implementare() override;
-    void afiseaza_reguli_implementare() const override;
+    void initializeImplementation() override;
+    int calculatePointsImplementation() override;
+    void displayRulesImplementation() const override;
 
 public:
-    QuickArtLook(const std::string& nume, Dificultate dif);
+    QuickArtLook(const std::string& name, Difficulty dif);
     QuickArtLook(const QuickArtLook& other);
     ~QuickArtLook() override = default;
 
-    std::unique_ptr<MiniJoc> clone() const override;
-    std::string getTipJoc() const override;
+    std::unique_ptr<MiniGame> clone() const override;
+    std::string getGameType() const override;
 
-    void adaugaPereche(std::shared_ptr<Tablou> tablou, std::shared_ptr<Artist> artist);
-    void afiseazaTablele() const;
-    void afiseazaArtisti() const;
-    bool verificaPereche(const std::string& titlu_tablou, const std::string& nume_artist);
-    void amestecaPerechile();
+    void addPair(std::shared_ptr<Painting> painting, std::shared_ptr<Artist> artist);
+    void displayPaintings() const;
+    void displayArtists() const;
+    bool verifyPair(const std::string& painting_title, const std::string& artist_name);
+    void shufflePairs();
 
-    int getPerechilCorecte() const {
-        return perechi_corecte;
+    int getCorrectPairs() const {
+        return correct_pairs;
     }
-    int getPerechileGresite() const {
-        return perechi_gresite;
+    int getWrongPairs() const {
+        return wrong_pairs;
     }
-    int getTotalPerechi() const {
-        return perechi.size();
+    int getTotalPairs() const {
+        return static_cast<int>(pairs.size());
     }
+    std::string getPaintingTitle(int index) const;
+    std::string getArtistName(int index) const;
 };
-
-#endif  // ARTNOUVEAUGUEST_QUICKARTLOOK_HH

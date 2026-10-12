@@ -1,0 +1,105 @@
+[
+  {
+    "name": "Mucha",
+    "first_name": "Alfons",
+    "nationality": "Czech",
+    "age": 78,
+    "birth_year": 1860,
+    "death_year": 1939,
+    "period": "Art Nouveau",
+    "registration_date": "01.01.2020",
+    "representative": {
+      "name": "Jiri Mucha",
+      "username": "jiri_mucha",
+      "email": "jiri@mucha.cz"
+    },
+    "images": ["mucha_portret.jpg", "mucha_atelier.jpg"]
+  },
+  {
+    "name": "Klimt",
+    "first_name": "Gustav",
+    "nationality": "Austrian",
+    "age": 55,
+    "birth_year": 1862,
+    "death_year": 1918,
+    "period": "Art Nouveau",
+    "registration_date": "15.01.2020",
+    "representative": {
+      "name": "Emilie Floge",
+      "username": "emilie_f",
+      "email": "emilie@klimt.at"
+    },
+    "images": ["klimt_portret.jpg"]
+  },
+  {
+    "name": "Beardsley",
+    "first_name": "Aubrey",
+    "nationality": "British",
+    "age": 25,
+    "birth_year": 1872,
+    "death_year": 1898,
+    "period": "Art Nouveau",
+    "registration_date": "01.02.2020",
+    "representative": {
+      "name": "Mabel Beardsley",
+      "username": "mabel_b",
+      "email": "mabel@beardsley.uk"
+    },
+    "images": ["beardsley_portret.jpg"]
+  },
+  {
+    "name": "Lalique",
+    "first_name": "Rene",
+    "nationality": "French",
+    "age": 85,
+    "birth_year": 1860,
+    "death_year": 1945,
+    "period": "Art Nouveau",
+    "registration_date": "05.05.2023",
+    "representative": {
+      "name": "Marie Lalique",
+      "username": "marie_l",
+      "email": "marie@lalique.fr"
+    },
+    "images": ["lalique_foto.jpg"]
+  },
+  {
+    "name": "Chen",
+    "first_name": "Sophia",
+    "nationality": "Taiwanese",
+    "age": 38,
+    "birth_year": 1987,
+    "death_year": 0,
+    "period": "Art Nouveau Contemporary",
+    "registration_date": "15.03.2021",
+    "username": "sophia_art_nouveau",
+    "email": "sophia@chenart.com",
+    "images": ["sophia_portrait.jpg", "sophia_studio.jpg"]
+  },
+  {
+    "name": "Popescu",
+    "first_name": "Elena",
+    "nationality": "Romanian",
+    "age": 42,
+    "birth_year": 1983,
+    "death_year": 0,
+    "period": "Art Nouveau Contemporary",
+    "registration_date": "20.06.2020",
+    "username": "elena_nouveau",
+    "email": "elena.popescu@artmail.ro",
+    "images": ["elena_photo.jpg"]
+  },
+  {
+    "name": "Bergstrom",
+    "first_name": "Marcus",
+    "nationality": "Swedish",
+    "age": 35,
+    "birth_year": 1990,
+    "death_year": 0,
+    "period": "Art Nouveau Contemporary",
+    "registration_date": "10.09.2023",
+    "username": "marcus_nouveau_design",
+    "email": "marcus@bergstrom.se",
+    "images": ["marcus_pic.jpg"]
+  }
+]

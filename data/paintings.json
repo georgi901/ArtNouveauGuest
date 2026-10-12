@@ -1,0 +1,158 @@
+[
+  {
+    "title": "Zodiac",
+    "technique": "Lithography",
+    "creation_year": 1896,
+    "rare": true,
+    "collected": true,
+    "dimensions": [66, 66],
+    "artist": "Mucha",
+    "colors": {
+      "Gold": 5,
+      "Blue": 4,
+      "Green": 3
+    },
+    "brushes": {
+      "Fine detail": 5,
+      "Ornamental": 4
+    },
+    "images": ["zodiac_complete.jpg", "zodiac_detaliu1.jpg", "zodiac_detaliu2.jpg"]
+  },
+  {
+    "title": "The Seasons",
+    "technique": "Lithography",
+    "creation_year": 1896,
+    "rare": true,
+    "collected": false,
+    "dimensions": [72, 52],
+    "artist": "Mucha",
+    "colors": {
+      "Pastel": 6,
+      "Gold": 3,
+      "Green": 4
+    },
+    "brushes": {
+      "Decorative": 4,
+      "Floral": 5
+    },
+    "images": ["seasons_complete.jpg"]
+  },
+  {
+    "title": "The Kiss",
+    "technique": "Oil on canvas with gold leaf",
+    "creation_year": 1908,
+    "rare": true,
+    "collected": true,
+    "dimensions": [180, 180],
+    "artist": "Klimt",
+    "colors": {
+      "Gold": 10,
+      "Yellow": 5,
+      "Brown": 3
+    },
+    "brushes": {
+      "Geometric": 5,
+      "Ornamental": 6
+    },
+    "images": ["sarutul_complete.jpg", "sarutul_details.jpg"]
+  },
+  {
+    "title": "Salome",
+    "technique": "India ink",
+    "creation_year": 1894,
+    "rare": true,
+    "collected": false,
+    "dimensions": [23, 28],
+    "artist": "Beardsley",
+    "colors": {
+      "Black": 8,
+      "White": 10
+    },
+    "brushes": {
+      "Nib": 10,
+      "Fine detail": 8
+    },
+    "images": ["salome_complete.jpg"]
+  },
+  {
+    "title": "Dragonfly Woman",
+    "technique": "Jewelry design - enamel and gold",
+    "creation_year": 1897,
+    "rare": false,
+    "collected": false,
+    "dimensions": [15, 23],
+    "artist": "Lalique",
+    "colors": {
+      "Emerald green": 4,
+      "Gold": 5,
+      "Blue": 2
+    },
+    "brushes": {
+      "Miniaturist": 8,
+      "Detail": 9
+    },
+    "images": ["dragonfly_complete.jpg"]
+  },
+  {
+    "title": "Floral Dreams",
+    "technique": "Acrylic and gold leaf on canvas",
+    "creation_year": 2023,
+    "rare": false,
+    "collected": true,
+    "dimensions": [120, 90],
+    "artist": "Chen",
+    "colors": {
+      "Gold": 6,
+      "Pastel pink": 5,
+      "Mint green": 4,
+      "Pearl white": 3
+    },
+    "brushes": {
+      "Ornamental": 5,
+      "Fine detail": 6,
+      "Flat": 2
+    },
+    "images": ["floral_dreams_complete.jpg", "floral_dreams_detaliu.jpg"]
+  },
+  {
+    "title": "Romanian Legends",
+    "technique": "Tempera and metallic ornaments",
+    "creation_year": 2024,
+    "rare": true,
+    "collected": false,
+    "dimensions": [100, 80],
+    "artist": "Popescu",
+    "colors": {
+      "Red": 7,
+      "Gold": 8,
+      "Black": 3,
+      "Green": 4
+    },
+    "brushes": {
+      "Decorative": 6,
+      "Traditional": 5,
+      "Detaliu": 7
+    },
+    "images": ["romanian_legends_full.jpg"]
+  },
+  {
+    "title": "Nordic Flora",
+    "technique": "Watercolor and ink on paper",
+    "creation_year": 2023,
+    "rare": false,
+    "collected": true,
+    "dimensions": [70, 100],
+    "artist": "Bergstrom",
+    "colors": {
+      "Nordic blue": 6,
+      "Forest green": 5,
+      "Silver gray": 3
+    },
+    "brushes": {
+      "Floral": 8,
+      "Botanical detail": 7,
+      "Linear": 4
+    },
+    "images": ["nordic_flora_complete.jpg", "nordic_flora_details.jpg"]
+  }
+]

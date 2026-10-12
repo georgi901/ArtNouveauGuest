@@ -1,9 +1,9 @@
 /**
  * @file ArtQuiz.cpp
- * @brief Implementarea clasei ArtQuiz.
+ * @brief Implementation of the ArtQuiz class.
  *
- * Conține implementarea jocului de tip quiz cu întrebări despre
- * tablourile și artiștii din galerie.
+ * Contains the implementation of the quiz game with questions about
+ * paintings and artists from the gallery.
  */
 
 #include "../headers/ArtQuiz.h"
@@ -15,187 +15,197 @@
 
 #include "Artist.h"
 
-ArtQuiz::ArtQuiz(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Răspunde la întrebări despre tablourile din galerie!", dif)
-    , tablouri_quiz()
-    , intrebari()
-    , intrebare_curenta(0)
-    , raspunsuri_corecte(0)
-    , raspunsuri_gresite(0) {
-    std::cout << "ArtQuiz constructor: " << nume << std::endl;
+ArtQuiz::ArtQuiz(const std::string& name, Difficulty dif)
+    : MiniGame(name, "Answer questions about paintings from the gallery!", dif)
+    , quiz_paintings()
+    , questions()
+    , current_question(0)
+    , correct_answers(0)
+    , wrong_answers(0) {
+    std::cout << "ArtQuiz constructor: " << name << std::endl;
 }
 
 ArtQuiz::ArtQuiz(const ArtQuiz& other)
-    : MiniJoc(other)
-    , tablouri_quiz()
-    , intrebari(other.intrebari)
-    , intrebare_curenta(other.intrebare_curenta)
-    , raspunsuri_corecte(other.raspunsuri_corecte)
-    , raspunsuri_gresite(other.raspunsuri_gresite) {
+    : MiniGame(other)
+    , quiz_paintings()
+    , questions(other.questions)
+    , current_question(other.current_question)
+    , correct_answers(other.correct_answers)
+    , wrong_answers(other.wrong_answers) {
     std::cout << "ArtQuiz copy constructor" << std::endl;
 }
 
-std::unique_ptr<MiniJoc> ArtQuiz::clone() const {
+std::unique_ptr<MiniGame> ArtQuiz::clone() const {
     return std::make_unique<ArtQuiz>(*this);
 }
 
-std::string ArtQuiz::getTipJoc() const {
+std::string ArtQuiz::getGameType() const {
     return "Art Quiz";
 }
 
-void ArtQuiz::adaugaTablou(std::shared_ptr<Tablou> tablou) {
-    if (tablou) {
-        tablouri_quiz.push_back(tablou);
+void ArtQuiz::addPainting(std::shared_ptr<Painting> painting) {
+    if (painting) {
+        quiz_paintings.push_back(painting);
     }
 }
 
-void ArtQuiz::genereazaIntrebari() {
-    intrebari.clear();
+void ArtQuiz::generateQuestions() {
+    questions.clear();
 
-    for (const auto& tablou : tablouri_quiz) {
-        auto artist = tablou->getArtist();
+    for (const auto& painting : quiz_paintings) {
+        auto artist = painting->getArtist();
 
-        Intrebare q1;
-        q1.text = "Cine a pictat tabloul '" + tablou->getTitlu() + "'?";
-        q1.raspuns_corect = artist ? artist->getNume() : "Necunoscut";
-        q1.puncte = 10;
-        intrebari.push_back(q1);
+        Question q1;
+        q1.text = "Who painted the painting '" + painting->getTitle() + "'?";
+        q1.correct_answer = artist ? artist->getName() : "Unknown";
+        q1.points = 10;
+        questions.push_back(q1);
 
-        Intrebare q2;
-        q2.text = "În ce an a fost realizat tabloul '" + tablou->getTitlu() + "'?";
-        q2.raspuns_corect = std::to_string(tablou->getAnRealizare());
-        q2.puncte = 15;
-        intrebari.push_back(q2);
+        Question q2;
+        q2.text = "In what year was the painting '" + painting->getTitle() + "' created?";
+        q2.correct_answer = std::to_string(painting->getCreationYear());
+        q2.points = 15;
+        questions.push_back(q2);
 
-        Intrebare q3;
-        q3.text = "Ce tehnică a fost folosită pentru '" + tablou->getTitlu() + "'?";
-        q3.raspuns_corect = tablou->getTehnica();
-        q3.puncte = 20;
-        intrebari.push_back(q3);
+        Question q3;
+        q3.text = "What technique was used for '" + painting->getTitle() + "'?";
+        q3.correct_answer = painting->getTechnique();
+        q3.points = 20;
+        questions.push_back(q3);
 
-        Intrebare q4;
-        q4.text = "Tabloul '" + tablou->getTitlu() + "' este considerat rar? (da/nu)";
-        q4.raspuns_corect = tablou->este_rar() ? "da" : "nu";
-        q4.puncte = 10;
-        intrebari.push_back(q4);
+        Question q4;
+        q4.text = "Is the painting '" + painting->getTitle() + "' considered rare? (yes/no)";
+        q4.correct_answer = painting->isRare() ? "yes" : "no";
+        q4.points = 10;
+        questions.push_back(q4);
     }
 
     std::random_device rd;
     std::mt19937 g(rd());
-    std::shuffle(intrebari.begin(), intrebari.end(), g);
+    std::shuffle(questions.begin(), questions.end(), g);
 
-    // Limitează numărul de întrebări în funcție de dificultate
-    size_t max_intrebari = intrebari.size();
-    switch (dificultate) {
-        case Dificultate::Usor:
-            max_intrebari = 3;
+    // Limit the number of questions based on difficulty
+    size_t maximum_questions = questions.size();
+    switch (difficulty) {
+        case Difficulty::Easy:
+            maximum_questions = 3;
             break;
-        case Dificultate::Mediu:
-            max_intrebari = 5;
+        case Difficulty::Medium:
+            maximum_questions = 5;
             break;
-        case Dificultate::Greu:
-            max_intrebari = 7;
+        case Difficulty::Hard:
+            maximum_questions = 7;
             break;
         default:
-            max_intrebari = 3;
+            maximum_questions = 3;
             break;
     }
 
-    if (intrebari.size() > max_intrebari) {
-        intrebari.resize(max_intrebari);
+    if (questions.size() > maximum_questions) {
+        questions.resize(maximum_questions);
     }
 
-    std::cout << "Au fost generate " << intrebari.size() << " întrebări." << std::endl;
+    std::cout << "Generated " << questions.size() << " questions." << std::endl;
 }
 
-void ArtQuiz::afiseazaIntrebareCurenta() const {
-    if (intrebare_curenta >= static_cast<int>(intrebari.size())) {
-        std::cout << "Nu mai sunt întrebări!" << std::endl;
+void ArtQuiz::displayCurrentQuestion() const {
+    if (current_question >= static_cast<int>(questions.size())) {
+        std::cout << "No questions left!" << std::endl;
         return;
     }
 
-    const auto& q = intrebari[intrebare_curenta];
+    const auto& q = questions[static_cast<std::size_t>(current_question)];
     std::cout << "\n|==========================================" << std::endl;
-    std::cout << "Întrebarea " << (intrebare_curenta + 1) << "/" << intrebari.size() << std::endl;
-    std::cout << "Puncte: " << q.puncte << std::endl;
+    std::cout << "Question " << (current_question + 1) << "/" << questions.size() << std::endl;
+    std::cout << "Points: " << q.points << std::endl;
     std::cout << "==========================================" << std::endl;
     std::cout << q.text << std::endl;
-    std::cout << "Răspunsul tău: ";
+    std::cout << "Your answer: ";
 }
 
-bool ArtQuiz::raspunde(const std::string& raspuns) {
-    if (intrebare_curenta >= static_cast<int>(intrebari.size())) {
+bool ArtQuiz::answer(const std::string& response) {
+    if (current_question >= static_cast<int>(questions.size())) {
         return false;
     }
 
-    const auto& q = intrebari[intrebare_curenta];
+    const auto& q = questions[static_cast<std::size_t>(current_question)];
 
-    // Compară răspunsurile
-    std::string raspuns_lower = raspuns;
-    std::string corect_lower = q.raspuns_corect;
+    // Compare answers
+    std::string lowercase_answer = response;
+    std::string lowercase_correct_answer = q.correct_answer;
 
-    std::transform(raspuns_lower.begin(), raspuns_lower.end(), raspuns_lower.begin(), ::tolower);
-    std::transform(corect_lower.begin(), corect_lower.end(), corect_lower.begin(), ::tolower);
+    std::transform(lowercase_answer.begin(), lowercase_answer.end(), lowercase_answer.begin(),
+                   ::tolower);
+    std::transform(lowercase_correct_answer.begin(), lowercase_correct_answer.end(),
+                   lowercase_correct_answer.begin(), ::tolower);
 
-    // Verifică dacă răspunsul conține cuvântul cheie
-    bool corect = (raspuns_lower.find(corect_lower) != std::string::npos) ||
-                  (corect_lower.find(raspuns_lower) != std::string::npos && !raspuns_lower.empty());
+    // Check whether the answer contains the key word
+    bool correct = (lowercase_answer.find(lowercase_correct_answer) != std::string::npos) ||
+                   (lowercase_correct_answer.find(lowercase_answer) != std::string::npos &&
+                    !lowercase_answer.empty());
 
-    if (corect) {
-        raspunsuri_corecte++;
-        std::cout << "Corect! Răspunsul era: " << q.raspuns_corect << std::endl;
+    if (correct) {
+        correct_answers++;
+        std::cout << "Correct! The answer was: " << q.correct_answer << std::endl;
     } else {
-        raspunsuri_gresite++;
-        std::cout << "Greșit! Răspunsul corect era: " << q.raspuns_corect << std::endl;
+        wrong_answers++;
+        std::cout << "Wrong! The correct answer was: " << q.correct_answer << std::endl;
     }
 
-    return corect;
+    return correct;
 }
 
-bool ArtQuiz::areIntrebariRamase() const {
-    return intrebare_curenta < static_cast<int>(intrebari.size());
+bool ArtQuiz::hasRemainingQuestions() const {
+    return current_question < static_cast<int>(questions.size());
 }
 
-void ArtQuiz::urmatoraIntrebare() {
-    intrebare_curenta++;
+void ArtQuiz::nextQuestion() {
+    current_question++;
 }
 
-void ArtQuiz::initializeaza_implementare() {
-    intrebare_curenta = 0;
-    raspunsuri_corecte = 0;
-    raspunsuri_gresite = 0;
-
-    genereazaIntrebari();
-
-    std::cout << "Art Quiz inițializat!" << std::endl;
-    std::cout << "Număr întrebări: " << intrebari.size() << std::endl;
+std::string ArtQuiz::getCurrentQuestionText() const {
+    if (!hasRemainingQuestions()) {
+        return "No questions left.";
+    }
+    return questions[static_cast<std::size_t>(current_question)].text;
 }
 
-int ArtQuiz::calculeaza_puncte_implementare() {
-    int puncte_totale = 0;
+void ArtQuiz::initializeImplementation() {
+    current_question = 0;
+    correct_answers = 0;
+    wrong_answers = 0;
 
-    if (!intrebari.empty()) {
-        int puncte_per_intrebare = puncte_maxime / intrebari.size();
-        puncte_totale = raspunsuri_corecte * puncte_per_intrebare;
+    generateQuestions();
+
+    std::cout << "Art Quiz initialized!" << std::endl;
+    std::cout << "Question count: " << questions.size() << std::endl;
+}
+
+int ArtQuiz::calculatePointsImplementation() {
+    int total_points = 0;
+
+    if (!questions.empty()) {
+        int points_per_question = maximum_points / static_cast<int>(questions.size());
+        total_points = correct_answers * points_per_question;
     }
 
-    if (dificultate == Dificultate::Greu) {
-        puncte_totale -= raspunsuri_gresite * 5;
+    if (difficulty == Difficulty::Hard) {
+        total_points -= wrong_answers * 5;
     }
 
-    puncte_totale = std::max(0, std::min(puncte_totale, puncte_maxime));
+    total_points = std::max(0, std::min(total_points, maximum_points));
 
-    std::cout << "Răspunsuri corecte: " << raspunsuri_corecte << "/" << intrebari.size() << std::endl;
-    std::cout << "Răspunsuri greșite: " << raspunsuri_gresite << std::endl;
+    std::cout << "Correct answers: " << correct_answers << "/" << questions.size() << std::endl;
+    std::cout << "Wrong answers: " << wrong_answers << std::endl;
 
-    return puncte_totale;
+    return total_points;
 }
 
-void ArtQuiz::afiseaza_reguli_implementare() const {
-    std::cout << "ART QUIZ - Reguli:" << std::endl;
-    std::cout << "1. Vei primi întrebări despre tablourile din galerie." << std::endl;
-    std::cout << "2. Întrebările pot fi despre artist, an, tehnică, etc." << std::endl;
-    std::cout << "3. Scrie răspunsul și apasă Enter." << std::endl;
-    std::cout << "4. Fiecare răspuns corect îți aduce puncte." << std::endl;
-    std::cout << "5. La dificultate mare, răspunsurile greșite scad din punctaj." << std::endl;
+void ArtQuiz::displayRulesImplementation() const {
+    std::cout << "ART QUIZ - Rules:" << std::endl;
+    std::cout << "1. You will receive questions about paintings from the gallery." << std::endl;
+    std::cout << "2. Questions may concern the artist, year, technique, etc." << std::endl;
+    std::cout << "3. Type your answer and press Enter." << std::endl;
+    std::cout << "4. Each correct answer gives you points." << std::endl;
+    std::cout << "5. At higher difficulty, wrong answers reduce your score." << std::endl;
 }

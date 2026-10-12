@@ -4,8 +4,8 @@ on:
   push:
     branches: ['**'] # NOTE: replace/update with appropriate branch name(s)
     tags: ['**']
-  # pull_request:
-  #   branches: ['**'] # NOTE: replace/update with appropriate branch name(s)
+  pull_request:
+    branches: ['**']
   workflow_dispatch:
     inputs:
       build_type:
@@ -22,8 +22,8 @@ on:
 env:
   BUILD_TYPE: ${{ inputs.build_type || 'Debug' }}
   # NOTE: update executable name if it is changed in CMakeLists.txt
-  EXECUTABLE_NAME: "oop"
-  INPUT_FILENAME: "tastatura.txt"
+  EXECUTABLE_NAME: "ArtNouveauGuest"
+  INPUT_FILENAME: "input.txt"
   BIN_DIR: "bin"       # update in cmake/Options.cmake:6 if changing name here
   BUILD_DIR: "build"
   EXT_DIR: "ext"
@@ -219,6 +219,10 @@ jobs:
       - name: Build
         run: |
           bash ./scripts/cmake.sh build -c ${{ env.BUILD_TYPE }}
+
+      - name: Test
+        run: |
+          ctest --test-dir "${BUILD_DIR}" --build-config "${BUILD_TYPE}" --output-on-failure
 
       - name: Install
         # Use CMake to "install" build artifacts (only interested in CMake registered targets) to our custom artifacts directory
