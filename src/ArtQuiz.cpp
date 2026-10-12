@@ -9,6 +9,7 @@
 #include "../headers/ArtQuiz.h"
 
 #include <algorithm>
+#include <cctype>
 #include <iostream>
 #include <random>
 #include <sstream>
@@ -135,9 +136,10 @@ bool ArtQuiz::answer(const std::string& response) {
     std::string lowercase_correct_answer = q.correct_answer;
 
     std::transform(lowercase_answer.begin(), lowercase_answer.end(), lowercase_answer.begin(),
-                   ::tolower);
+                   [](unsigned char character) { return static_cast<char>(std::tolower(character)); });
     std::transform(lowercase_correct_answer.begin(), lowercase_correct_answer.end(),
-                   lowercase_correct_answer.begin(), ::tolower);
+                   lowercase_correct_answer.begin(),
+                   [](unsigned char character) { return static_cast<char>(std::tolower(character)); });
 
     // Check whether the answer contains the key word
     bool correct = (lowercase_answer.find(lowercase_correct_answer) != std::string::npos) ||

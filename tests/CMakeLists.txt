@@ -9,6 +9,8 @@ target_link_libraries(ArtNouveauGuestTests
         Catch2::Catch2WithMain
 )
 
+set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ArtNouveauGuestTests)
+
 target_compile_definitions(
     ArtNouveauGuestTests
     PRIVATE
@@ -16,7 +18,7 @@ target_compile_definitions(
 )
 
 include(Catch)
-catch_discover_tests(ArtNouveauGuestTests)
+catch_discover_tests(ArtNouveauGuestTests DISCOVERY_MODE PRE_TEST)
 
 add_test(
     NAME golden

@@ -110,6 +110,11 @@ endif()
 target_link_libraries(ArtNouveauGuestCore PRIVATE project_warnings)
 target_link_libraries(ArtNouveauGuest PRIVATE project_warnings)
 
+if(MSVC)
+    target_compile_definitions(ArtNouveauGuestCore PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(ArtNouveauGuest PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
+
 include(FetchContent)
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 FetchContent_MakeAvailable(json)
