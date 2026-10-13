@@ -1,9 +1,9 @@
 /**
  * @file QuickArtLook.cpp
- * @brief Implementarea clasei QuickArtLook.
+ * @brief Implementation of the QuickArtLook class.
  *
- * Conține implementarea jocului de asociere între tablouri și artiști,
- * inclusiv amestecarea și verificarea perechilor.
+ * Contains the implementation of the painting-artist matching game,
+ * including shuffling and pair verification.
  */
 
 #include "../headers/QuickArtLook.h"
@@ -12,165 +12,178 @@
 #include <iostream>
 #include <random>
 
-#include "../headers/MiniJoc.h"
+#include "../headers/MiniGame.h"
 
-QuickArtLook::QuickArtLook(const std::string& nume, Dificultate dif)
-    : MiniJoc(nume, "Asociază tablourile cu artiștii corecți!", dif)
-    , perechi()
-    , perechi_corecte(0)
-    , perechi_gresite(0) {
-    std::cout << "QuickArtLook constructor: " << nume << std::endl;
+QuickArtLook::QuickArtLook(const std::string& name, Difficulty dif)
+    : MiniGame(name, "Match paintings with the correct artists!", dif)
+    , pairs()
+    , correct_pairs(0)
+    , wrong_pairs(0) {
+    std::cout << "QuickArtLook constructor: " << name << std::endl;
 }
 
 QuickArtLook::QuickArtLook(const QuickArtLook& other)
-    : MiniJoc(other)
-    , perechi()
-    , perechi_corecte(other.perechi_corecte)
-    , perechi_gresite(other.perechi_gresite) {
+    : MiniGame(other), pairs(), correct_pairs(other.correct_pairs), wrong_pairs(other.wrong_pairs) {
     std::cout << "QuickArtLook copy constructor" << std::endl;
 }
 
-std::unique_ptr<MiniJoc> QuickArtLook::clone() const {
+std::unique_ptr<MiniGame> QuickArtLook::clone() const {
     return std::make_unique<QuickArtLook>(*this);
 }
 
-std::string QuickArtLook::getTipJoc() const {
+std::string QuickArtLook::getGameType() const {
     return "Quick Art Look";
 }
 
-void QuickArtLook::adaugaPereche(std::shared_ptr<Tablou> tablou, std::shared_ptr<Artist> artist) {
-    if (!tablou || !artist) {
+void QuickArtLook::addPair(std::shared_ptr<Painting> painting, std::shared_ptr<Artist> artist) {
+    if (!painting || !artist) {
         return;
     }
-    perechi.push_back({tablou, artist});
-    std::cout << "Pereche adăugată: " << tablou->getTitlu() << " - " << artist->getNume() << std::endl;
+    pairs.push_back({painting, artist});
+    std::cout << "Pair added: " << painting->getTitle() << " - " << artist->getName() << std::endl;
 }
 
-void QuickArtLook::afiseazaTablele() const {
-    std::cout << "\n=== TABLOURI ===\n";
-    for (size_t i = 0; i < perechi.size(); i++) {
-        std::cout << i + 1 << ". " << perechi[i].first->getTitlu() << std::endl;
+void QuickArtLook::displayPaintings() const {
+    std::cout << "\n=== PAINTINGS ===\n";
+    for (size_t i = 0; i < pairs.size(); i++) {
+        std::cout << i + 1 << ". " << pairs[i].first->getTitle() << std::endl;
     }
 }
 
-void QuickArtLook::afiseazaArtisti() const {
-    std::cout << "\n=== ARTIȘTI ===\n";
+void QuickArtLook::displayArtists() const {
+    std::cout << "\n=== ARTISTS ===\n";
 
-    // Creează o listă amestecată de artiști
-    std::vector<std::string> nume_artisti;
-    for (const auto& pereche : perechi) {
-        nume_artisti.push_back(pereche.second->getNume() + " " + pereche.second->getPrenume());
+    std::vector<std::string> artist_names;
+    for (const auto& pair : pairs) {
+        artist_names.push_back(pair.second->getName() + " " + pair.second->getFirstName());
     }
 
-    // Amestecă pentru a nu fi în aceeași ordine
     std::random_device rd;
     std::mt19937 g(rd());
-    std::shuffle(nume_artisti.begin(), nume_artisti.end(), g);
+    std::shuffle(artist_names.begin(), artist_names.end(), g);
 
-    for (size_t i = 0; i < nume_artisti.size(); i++) {
-        std::cout << char('A' + i) << ". " << nume_artisti[i] << std::endl;
+    for (size_t i = 0; i < artist_names.size(); i++) {
+        std::cout << char('A' + i) << ". " << artist_names[i] << std::endl;
     }
 }
 
-bool QuickArtLook::verificaPereche(const std::string& titlu_tablou, const std::string& nume_artist) {
-    for (const auto& pereche : perechi) {
-        if (pereche.first->getTitlu() == titlu_tablou) {
-            std::string nume_complet = pereche.second->getNume() + " " + pereche.second->getPrenume();
-            std::string nume_complet_inv = pereche.second->getPrenume() + " " + pereche.second->getNume();
+bool QuickArtLook::verifyPair(const std::string& painting_title, const std::string& artist_name) {
+    for (const auto& pair : pairs) {
+        if (pair.first->getTitle() == painting_title) {
+            std::string full_name = pair.second->getName() + " " + pair.second->getFirstName();
+            std::string reverse_full_name =
+                pair.second->getFirstName() + " " + pair.second->getName();
 
-            if (nume_artist == pereche.second->getNume() || nume_artist == nume_complet ||
-                nume_artist == nume_complet_inv) {
-                perechi_corecte++;
-                std::cout << "✓ Corect! " << titlu_tablou << " este de " << nume_complet << std::endl;
+            if (artist_name == pair.second->getName() || artist_name == full_name ||
+                artist_name == reverse_full_name) {
+                correct_pairs++;
+                std::cout << "✓ Correct! " << painting_title << " is by " << full_name << std::endl;
                 return true;
             } else {
-                perechi_gresite++;
-                std::cout << "✗ Greșit! " << titlu_tablou << " nu este de " << nume_artist << std::endl;
+                wrong_pairs++;
+                std::cout << "✗ Wrong! " << painting_title << " is not by " << artist_name
+                          << std::endl;
                 return false;
             }
         }
     }
 
-    std::cout << "Tabloul '" << titlu_tablou << "' nu a fost găsit." << std::endl;
+    std::cout << "Painting '" << painting_title << "' was not found." << std::endl;
     return false;
 }
 
-void QuickArtLook::amestecaPerechile() {
+void QuickArtLook::shufflePairs() {
     std::random_device rd;
     std::mt19937 g(rd());
-    std::shuffle(perechi.begin(), perechi.end(), g);
-    std::cout << "Perechile au fost amestecate!" << std::endl;
+    std::shuffle(pairs.begin(), pairs.end(), g);
+    std::cout << "Pairs have been shuffled!" << std::endl;
 }
 
-void QuickArtLook::initializeaza_implementare() {
-    perechi_corecte = 0;
-    perechi_gresite = 0;
+void QuickArtLook::initializeImplementation() {
+    correct_pairs = 0;
+    wrong_pairs = 0;
 
-    amestecaPerechile();
+    shufflePairs();
 
-    size_t max_perechi = 3;
-    switch (dificultate) {
-        case Dificultate::Usor:
-            max_perechi = 3;
+    size_t max_pairs = 3;
+    switch (difficulty) {
+        case Difficulty::Easy:
+            max_pairs = 3;
             break;
-        case Dificultate::Mediu:
-            max_perechi = 5;
+        case Difficulty::Medium:
+            max_pairs = 5;
             break;
-        case Dificultate::Greu:
-            max_perechi = 8;
+        case Difficulty::Hard:
+            max_pairs = 8;
             break;
         default:
-            max_perechi = 3;
+            max_pairs = 3;
             break;
     }
 
-    if (perechi.size() > max_perechi) {
-        perechi.resize(max_perechi);
+    if (pairs.size() > max_pairs) {
+        pairs.resize(max_pairs);
     }
 
-    std::cout << "Quick Art Look initializat!" << std::endl;
-    std::cout << "Perechi de ghicit: " << perechi.size() << std::endl;
+    std::cout << "Quick Art Look initialized!" << std::endl;
+    std::cout << "Pairs to guess: " << pairs.size() << std::endl;
 }
 
-int QuickArtLook::calculeaza_puncte_implementare() {
-    if (perechi.empty()) {
+int QuickArtLook::calculatePointsImplementation() {
+    if (pairs.empty()) {
         return 0;
     }
 
-    double procent_corect = static_cast<double>(perechi_corecte) / perechi.size() * 100.0;
-    int puncte = static_cast<int>((procent_corect / 100.0) * puncte_maxime);
+    double correct_percentage =
+        static_cast<double>(correct_pairs) / static_cast<double>(pairs.size()) * 100.0;
+    int points = static_cast<int>((correct_percentage / 100.0) * maximum_points);
 
-    int penalizare = perechi_gresite * 10;
-    puncte -= penalizare;
+    int penalty = wrong_pairs * 10;
+    points -= penalty;
 
-    puncte = std::max(0, std::min(puncte, puncte_maxime));
+    points = std::max(0, std::min(points, maximum_points));
 
-    std::cout << "Corecte: " << perechi_corecte << "/" << perechi.size() << std::endl;
-    std::cout << "Gresite: " << perechi_gresite << " (penalizare: -" << penalizare << ")" << std::endl;
+    std::cout << "Correct: " << correct_pairs << "/" << pairs.size() << std::endl;
+    std::cout << "Wrong: " << wrong_pairs << " (penalty: -" << penalty << ")" << std::endl;
 
-    return puncte;
+    return points;
 }
 
-void QuickArtLook::afiseaza_reguli_implementare() const {
-    size_t max_perechi = 3;
-    switch (dificultate) {
-        case Dificultate::Usor:
-            max_perechi = 3;
+std::string QuickArtLook::getPaintingTitle(int index) const {
+    if (index < 0 || index >= static_cast<int>(pairs.size())) {
+        return {};
+    }
+    return pairs[static_cast<std::size_t>(index)].first->getTitle();
+}
+
+std::string QuickArtLook::getArtistName(int index) const {
+    if (index < 0 || index >= static_cast<int>(pairs.size())) {
+        return {};
+    }
+    const auto& artist = pairs[static_cast<std::size_t>(index)].second;
+    return artist->getName() + " " + artist->getFirstName();
+}
+
+void QuickArtLook::displayRulesImplementation() const {
+    size_t max_pairs = 3;
+    switch (difficulty) {
+        case Difficulty::Easy:
+            max_pairs = 3;
             break;
-        case Dificultate::Mediu:
-            max_perechi = 5;
+        case Difficulty::Medium:
+            max_pairs = 5;
             break;
-        case Dificultate::Greu:
-            max_perechi = 8;
+        case Difficulty::Hard:
+            max_pairs = 8;
             break;
         default:
-            max_perechi = 3;
+            max_pairs = 3;
             break;
     }
-    std::cout << "QUICK ART LOOK - Reguli:" << std::endl;
-    std::cout << "1. Vei vedea o lista de tablouri si o lista de artisti." << std::endl;
-    std::cout << "2. Trebuie sa asociezi fiecare tablou cu artistul corect." << std::endl;
-    std::cout << "3. Scrie titlul tabloului si numele artistului." << std::endl;
-    std::cout << "4. Raspunsurile gresite scad din punctaj." << std::endl;
-    std::cout << "Perechi de ghicit: " << max_perechi << std::endl;
+    std::cout << "QUICK ART LOOK - Rules:" << std::endl;
+    std::cout << "1. You will see a list of paintings and a list of artists." << std::endl;
+    std::cout << "2. You must match each painting with the correct artist." << std::endl;
+    std::cout << "3. Enter the painting title and artist name." << std::endl;
+    std::cout << "4. Incorrect answers reduce the score." << std::endl;
+    std::cout << "Pairs to guess: " << max_pairs << std::endl;
 }

@@ -1,122 +1,120 @@
+#pragma once
+
 /**
  * @file Artist.h
- * @brief Definește clasa Artist pentru reprezentarea artiștilor din galerie.
+ * @brief Defines the Artist class for representing artists in the gallery.
  *
- * Acest fișier conține clasa Artist care modelează un artist,
- * incluzând informații personale, tablouri și sistem de popularitate.
+ * This file contains the Artist class, which models an artist including personal
+ * information, paintings, and the popularity system.
  */
 
-#ifndef ARTNOUVEAUGUEST_ARTIST_H
-#define ARTNOUVEAUGUEST_ARTIST_H
-
-#pragma once
 #include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "Tablou.h"
+#include "Painting.h"
 
 /**
  * @class Artist
- * @brief Reprezintă un artist din galeria de artă.
+ * @brief Represents an artist in the art gallery.
  *
- * Clasa gestionează informații complete despre un artist:
- * - Date personale (nume, naționalitate, an naștere/deces)
- * - Colecția de tablouri asociate
- * - Sistem de scoruri și titluri (Novice, Aspirant, Talentat, Expert, Maestru)
- * - Suport pentru artiști în viață sau decedați (cu reprezentant)
+ * The class manages complete information about an artist:
+ * - Personal details (name, nationality, birth/death years)
+ * - Associated painting collection
+ * - Scoring and title system (Novice, Aspirant, Talented, Expert, Master)
+ * - Support for living or deceased artists (with representative data)
  *
- * Folosește enable_shared_from_this pentru a permite crearea de shared_ptr
- * din interiorul metodelor clasei.
+ * Uses enable_shared_from_this to allow creating shared_ptr references from
+ * inside class methods.
  *
  * @code
  * auto artist = std::make_shared<Artist>("Mucha", "Alfons", "Czech", 0,
  *     1860, 1939, "Art Nouveau");
- * artist->adaugaTablou(tablou);
- * std::cout << artist->getTitlu(); // "Maestru"
+ * artist->addPainting(painting);
+ * std::cout << artist->getTitle(); // "Master"
  * @endcode
  */
 class Artist : public std::enable_shared_from_this<Artist> {
 private:
-    const std::string nume;
-    const std::string prenume;
-    const std::string nationalitate;
-    const int varsta;
-    const int an_nastere;
-    const int an_deces;
-    std::string perioada_artistica;
-    std::vector<std::string> imagini_artist;
-    const std::string data_inscriere;
+    const std::string name;
+    const std::string first_name;
+    const std::string nationality;
+    const int age;
+    const int birth_year;
+    const int death_year;
+    std::string artistic_period;
+    std::vector<std::string> artist_images;
+    const std::string registration_date;
     std::string username;
     std::string email;
-    std::vector<std::string> istoric;
-    std::string pers_reprezentant;
-    std::string username_reprezentant;
-    std::string email_reprezentant;
-    std::vector<std::string> istoric_reprezentant;
-    std::vector<std::shared_ptr<Tablou>> tablouri;
-    static std::vector<std::shared_ptr<Artist>> lista_artistilor;
+    std::vector<std::string> history;
+    std::string representative_person;
+    std::string representative_username;
+    std::string representative_email;
+    std::vector<std::string> representative_history;
+    std::vector<std::shared_ptr<Painting>> paintings;
+    static std::vector<std::shared_ptr<Artist>> artists_list;
 
 public:
     Artist()
-        : nume("Necunoscut")
-        , prenume("Necunoscut")
-        , nationalitate("Necunoscut")
-        , varsta(0)
-        , an_nastere(0)
-        , an_deces(0)
-        , perioada_artistica("Necunoscută")
-        , data_inscriere("Necunoscut") {
+        : name("Unknown")
+        , first_name("Unknown")
+        , nationality("Unknown")
+        , age(0)
+        , birth_year(0)
+        , death_year(0)
+        , artistic_period("Unknown")
+        , registration_date("Unknown") {
     }
-    Artist(const std::string& nume, const std::string& prenume, const std::string& nationalitate, int varsta,
-           int an_nastere, int an_deces, const std::string& perioada_artistica, const std::string& data_inscriere = "",
-           const std::string& username = "", const std::string& email = "",
-           const std::vector<std::string>& istoric = {}, const std::string& pers_reprezentant = "",
-           const std::string& username_reprezentant = "", const std::string& email_reprezentant = "",
-           const std::vector<std::string>& istoric_reprezentant = {});
+    Artist(const std::string& name, const std::string& first_name, const std::string& nationality,
+           int age, int birth_year, int death_year, const std::string& artistic_period,
+           const std::string& registration_date = "", const std::string& username = "",
+           const std::string& email = "", const std::vector<std::string>& history = {},
+           const std::string& representative_person = "",
+           const std::string& representative_username = "",
+           const std::string& representative_email = "",
+           const std::vector<std::string>& representative_history = {});
     ~Artist() = default;
-    static const std::vector<std::shared_ptr<Artist>>& getListaArtistilor() {
-        return lista_artistilor;
+    static const std::vector<std::shared_ptr<Artist>>& getArtistsList() {
+        return artists_list;
     }
     friend std::ostream& operator<<(std::ostream& os, const Artist& artist);
-    static std::ostream& afiseaza_artist(std::ostream& out, const Artist& a, NivelDetaliu nivel);
+    static std::ostream& displayArtist(std::ostream& out, const Artist& artist, DetailLevel level);
 
-    void adaugaTablou(const std::shared_ptr<Tablou>& tablou);
-    void adaugaImagine(const std::string& cale_imagine) {
-        imagini_artist.push_back(cale_imagine);
+    void addPainting(const std::shared_ptr<Painting>& painting);
+    void addImage(const std::string& image_path) {
+        artist_images.push_back(image_path);
     }
-    std::shared_ptr<Tablou> cautaTablou(const std::string& titlu) const;
-    const std::vector<std::shared_ptr<Tablou>>& getTablouri() const;
+    std::shared_ptr<Painting> findPainting(const std::string& title) const;
+    const std::vector<std::shared_ptr<Painting>>& getPaintings() const;
 
-    const std::string& getNume() const {
-        return nume;
+    const std::string& getName() const {
+        return name;
     }
-    const std::string& getPrenume() const {
-        return prenume;
+    const std::string& getFirstName() const {
+        return first_name;
     }
-    int getVarsta() const {
-        return varsta;
+    int getAge() const {
+        return age;
     }
-    int getAnDeces() const {
-        return an_deces;
+    int getDeathYear() const {
+        return death_year;
     }
 
-    int nrTablouri() const;
-    int nrTablouriColectionate() const;
-    int nrTablouriRare() const;
-    std::vector<std::shared_ptr<Tablou>> getTablouriRare() const;
-    std::vector<std::shared_ptr<Tablou>> getTablouriColectionate() const;
+    int paintingCount() const;
+    int collectedPaintingCount() const;
+    int rarePaintingCount() const;
+    std::vector<std::shared_ptr<Painting>> getRarePaintings() const;
+    std::vector<std::shared_ptr<Painting>> getCollectedPaintings() const;
 
-    static void adaugaInLista(const std::shared_ptr<Artist>& artist);
+    static void addToList(const std::shared_ptr<Artist>& artist);
 
-    void afiseaza_profil_artist(NivelDetaliu nivel) const;
-    double calculeaza_scor_stelute() const;
-    const std::string getTitlu() const;
-    void afiseaza_imagini(NivelDetaliu nivel) const;
-    const std::string& getPerioadaArtistica() const {
-        return perioada_artistica;
+    void displayArtistProfile(DetailLevel nivel) const;
+    double calculateStarScore() const;
+    const std::string getTitle() const;
+    void displayImages(DetailLevel nivel) const;
+    const std::string& getArtisticPeriod() const {
+        return artistic_period;
     }
 };
-
-#endif  // ARTNOUVEAUGUEST_ARTIST_H

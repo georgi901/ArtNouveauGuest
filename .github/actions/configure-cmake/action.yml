@@ -65,6 +65,12 @@ runs:
       run: |
         7z x compiler/${{ steps.download-mingw-gcc.outputs.filename }} -ogcc
 
+    - name: Add MinGW to PATH
+      shell: bash
+      if: runner.os == 'Windows' && matrix.cxx == 'g++'
+      run: |
+        echo "${GITHUB_WORKSPACE}/gcc/mingw64/bin" >> "${GITHUB_PATH}"
+
     - name: Configure CMake (MinGW)
       shell: bash
       if: runner.os == 'Windows' && matrix.cxx == 'g++'

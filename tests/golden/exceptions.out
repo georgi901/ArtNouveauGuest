@@ -1,0 +1,148 @@
+
+========================================
+  LOADING DATA FROM JSON FILES
+========================================
+→ Loading artists from 'artists.json'...
+    Artists loaded successfully!
+
+→ Loading paintings from 'paintings.json'...
+    Paintings loaded successfully!
+
+→ Loading user from 'users.json'...
+    User loaded successfully!
+========================================
+    ALL DATA LOADED
+========================================
+MiniGame constructor: Artistic Delight
+ArtisticDelight constructor: Artistic Delight
+Painting set: Zodiac
+MiniGame constructor: Quick Art Look
+QuickArtLook constructor: Quick Art Look
+Pair added: Zodiac - Mucha
+Pair added: The Seasons - Mucha
+Pair added: The Kiss - Klimt
+Pair added: Salome - Beardsley
+Pair added: Dragonfly Woman - Lalique
+Pair added: Floral Dreams - Chen
+Pair added: Romanian Legends - Popescu
+Pair added: Nordic Flora - Bergstrom
+MiniGame constructor: Art Quiz
+ArtQuiz constructor: Art Quiz
+MiniGame constructor: Art Puzzle
+ArtPuzzle constructor: Art Puzzle
+Puzzle set for painting: The Kiss
+ Games created successfully!
+
+========================================
+      ART GALLERY - MAIN MENU
+========================================
+1.  Display all artists
+2.  Display all paintings
+3.  Search artist (minimal profile)
+4.  Search artist (full profile)
+5.  Search painting (minimal details)
+6.  Search painting (full details)
+7.  Display full gallery
+8.  Test user and collection
+9.  Display artist statistics
+10. Rare paintings by an artist
+11. Test requirements (Painting)
+12. Test exceptions
+13. Display available games
+14. Play a game
+15. Test MiniGame + dynamic_cast + copy and swap
+16. Test milestone 3 (templates + design patterns)
+17. Test unused template functions
+0.  Exit
+========================================
+Choose an option:
+===== TEST EXCEPTIONS =====
+
+Test 1: InsufficientPointsException
+  Message: Insufficient points: you have 100, but you need 500
+  Available: 100
+  Required: 500
+  Missing: 400
+
+Test 2: PaintingUnavailableException
+  Message: The painting 'Mona Lisa' is not available
+  Title: Mona Lisa
+
+Test 3: InvalidGameException
+  Message: The game 'SuperGame' does not exist or cannot be started
+  Game name: SuperGame
+
+Test 4: Catching a base gallery exception
+  Caught as GalleryException: The painting 'Zodiac' is not available
+
+5. Additional test functions:
+Total games: 0
+Total points: 0
+
+--- GLOBAL STATISTICS ---
+Total games played: 0
+Total points awarded: 0
+
+[INFO] Statistics reset.
+
+=== RULES: Artistic Delight ===
+Difficulty: Medium | Maximum points: 200
+---
+ARTISTIC DELIGHT - Rules:
+1. A famous painting will be shown to you.
+2. You must guess the colors used in the painting.
+3. Enter the color names one by one.
+4. The more colors you guess correctly, the higher your score.
+5. You have a limited number of attempts!
+Attempts available: 7
+---
+
+
+=== Initializing game: Artistic Delight ===
+Difficulty: Medium
+Maximum points: 200
+Artistic Delight initialized!
+Attempts available: 7
+Painting to recreate: Zodiac
+Game ready! Success!
+Description: Recreate the painting using the right colors!
+Difficulty: 1
+Maximum points: 200
+Points earned: 0
+Completed: 0
+
+Test 5: buyPainting with nullptr
+  Correct exception caught: The painting '(painting null)' is not available
+Correct answers: 0
+Wrong answers: 0
+Questions left: 0
+Colors used: 0
+
+ All tests OK!
+
+Press ENTER to continue...
+========================================
+      ART GALLERY - MAIN MENU
+========================================
+1.  Display all artists
+2.  Display all paintings
+3.  Search artist (minimal profile)
+4.  Search artist (full profile)
+5.  Search painting (minimal details)
+6.  Search painting (full details)
+7.  Display full gallery
+8.  Test user and collection
+9.  Display artist statistics
+10. Rare paintings by an artist
+11. Test requirements (Painting)
+12. Test exceptions
+13. Display available games
+14. Play a game
+15. Test MiniGame + dynamic_cast + copy and swap
+16. Test milestone 3 (templates + design patterns)
+17. Test unused template functions
+0.  Exit
+========================================
+Choose an option:
+Goodbye!
+ArtPuzzle destructor: Art Puzzle

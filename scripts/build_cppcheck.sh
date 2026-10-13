@@ -29,6 +29,6 @@ unzip -q "${CPPCHECK_VER}.zip"
 rm "${CPPCHECK_VER}.zip"
 mv "cppcheck-${CPPCHECK_VER}" cppcheck
 
-cd cppcheck || { echo "Eroare cd"; exit 1; }
+cd cppcheck || { echo "Error cd"; exit 1; }
 cmake -S . -B "${CMAKE_BUILD_DIR}" -DEXTERNALS_AS_SYSTEM=ON "${CMAKE_OPTS[@]}"
 cmake --build "${CMAKE_BUILD_DIR}" -j6

@@ -1,9 +1,9 @@
 /**
  * @file Artist.cpp
- * @brief Implementarea clasei Artist.
+ * @brief Implementation of the Artist class.
  *
- * Conține implementarea metodelor pentru gestionarea artiștilor,
- * calculul scorului de popularitate și afișarea profilului.
+ * Contains the implementation methods for managing artists,
+ * calculating the popularity score, and displaying the profile.
  */
 
 #include "../headers/Artist.h"
@@ -12,212 +12,217 @@
 #include <iostream>
 #include <vector>
 
-#include "../headers/Tablou.h"
+#include "../headers/Painting.h"
 
-/// Lista statică a tuturor artiștilor înregistrați
-std::vector<std::shared_ptr<Artist>> Artist::lista_artistilor = {};
+/// Static list of all registered artists
+std::vector<std::shared_ptr<Artist>> Artist::artists_list = {};
 
-Artist::Artist(const std::string& nume, const std::string& prenume, const std::string& nationalitate, int varsta,
-               int an_nastere, int an_deces, const std::string& perioada_artistica, const std::string& data_inscriere,
-               const std::string& username, const std::string& email, const std::vector<std::string>& istoric,
-               const std::string& pers_reprezentant, const std::string& username_reprezentant,
-               const std::string& email_reprezentant, const std::vector<std::string>& istoric_reprezentant)
-    : nume(nume)
-    , prenume(prenume)
-    , nationalitate(nationalitate)
-    , varsta(varsta)
-    , an_nastere(an_nastere)
-    , an_deces(an_deces)
-    , perioada_artistica(perioada_artistica)
-    , data_inscriere(data_inscriere)
-    , username(username)
-    , email(email)
-    , istoric(istoric)
-    , pers_reprezentant(pers_reprezentant)
-    , username_reprezentant(username_reprezentant)
-    , email_reprezentant(email_reprezentant)
-    , istoric_reprezentant(istoric_reprezentant) {
+Artist::Artist(const std::string& name_value, const std::string& first_name_value,
+               const std::string& nationality_value, int age_value, int birth_year_value,
+               int death_year_value, const std::string& artistic_period_value,
+               const std::string& registration_date_value, const std::string& username_value,
+               const std::string& email_value, const std::vector<std::string>& history_value,
+               const std::string& representative_person_value,
+               const std::string& representative_username_value,
+               const std::string& representative_email_value,
+               const std::vector<std::string>& representative_history_value)
+    : name(name_value)
+    , first_name(first_name_value)
+    , nationality(nationality_value)
+    , age(age_value)
+    , birth_year(birth_year_value)
+    , death_year(death_year_value)
+    , artistic_period(artistic_period_value)
+    , registration_date(registration_date_value)
+    , username(username_value)
+    , email(email_value)
+    , history(history_value)
+    , representative_person(representative_person_value)
+    , representative_username(representative_username_value)
+    , representative_email(representative_email_value)
+    , representative_history(representative_history_value) {
 }
 
-void Artist::adaugaTablou(const std::shared_ptr<Tablou>& tablou) {
-    if (!tablou) {
+void Artist::addPainting(const std::shared_ptr<Painting>& painting) {
+    if (!painting) {
         return;
     }
-    tablouri.push_back(tablou);
-    tablou->setArtist(shared_from_this());
+    paintings.push_back(painting);
+    painting->setArtist(shared_from_this());
 }
 
-int Artist::nrTablouri() const {
-    return static_cast<int>(tablouri.size());
+int Artist::paintingCount() const {
+    return static_cast<int>(paintings.size());
 }
 
-int Artist::nrTablouriColectionate() const {
+int Artist::collectedPaintingCount() const {
     int count = 0;
-    for (const auto& t : tablouri)
-        if (t->este_colectionat())
+    for (const auto& t : paintings)
+        if (t->isCollected())
             count++;
     return count;
 }
 
-int Artist::nrTablouriRare() const {
+int Artist::rarePaintingCount() const {
     int count = 0;
-    for (const auto& t : tablouri)
-        if (t->este_rar())
+    for (const auto& t : paintings)
+        if (t->isRare())
             count++;
     return count;
 }
 
-std::vector<std::shared_ptr<Tablou>> Artist::getTablouriRare() const {
-    std::vector<std::shared_ptr<Tablou>> rez;
-    for (const auto& t : tablouri)
-        if (t->este_rar())
+std::vector<std::shared_ptr<Painting>> Artist::getRarePaintings() const {
+    std::vector<std::shared_ptr<Painting>> rez;
+    for (const auto& t : paintings)
+        if (t->isRare())
             rez.push_back(t);
     return rez;
 }
 
-double Artist::calculeaza_scor_stelute() const {
-    int total = nrTablouri();
+double Artist::calculateStarScore() const {
+    int total = paintingCount();
     if (total == 0)
         return 0;
 
-    int colectate = nrTablouriColectionate();
-    int rare = nrTablouriRare();
+    int collected = collectedPaintingCount();
+    int rare = rarePaintingCount();
 
-    // pentru artiști cu mai puține tablouri
+    // for artists with fewer paintings
     if (total < 3) {
-        int scor = colectate * 2;
+        int score = collected * 2;
         if (rare > 0)
-            scor += 1;
-        return std::min(5, scor);
+            score += 1;
+        return std::min(5, score);
     }
 
-    // pentru artiști cu mai multe tablouri
-    double scor_baza = static_cast<double>(colectate) / total * 4.0;
-    double bonus_raritate = (rare > 0) ? 0.5 : 0.0;
-    double scor_final = std::min(5.0, scor_baza + bonus_raritate);
+    // for artists with more paintings
+    double base_score = static_cast<double>(collected) / total * 4.0;
+    double rarity_bonus = (rare > 0) ? 0.5 : 0.0;
+    double final_score = std::min(5.0, base_score + rarity_bonus);
 
-    return static_cast<int>(std::round(scor_final));
+    return static_cast<int>(std::round(final_score));
 }
 
-const std::string Artist::getTitlu() const {
-    double scor = calculeaza_scor_stelute();
+const std::string Artist::getTitle() const {
+    double scor = calculateStarScore();
     if (scor < 1)
         return "Novice";
     else if (scor < 2)
         return "Aspirant";
     else if (scor < 3)
-        return "Talentat";
+        return "Talented";
     else if (scor < 4)
         return "Expert";
     else
-        return "Maestru";
+        return "Master";
 }
 
-void Artist::afiseaza_imagini(NivelDetaliu nivel) const {
-    if (imagini_artist.empty()) {
-        std::cout << "Nu există imagini pentru acest artist.\n";
+void Artist::displayImages(DetailLevel nivel) const {
+    if (artist_images.empty()) {
+        std::cout << "There are no images for this artist.\n";
         return;
     }
 
-    if (nivel == NivelDetaliu::Complet) {
-        std::cout << "Imagini cu artistul:\n";
-        for (const auto& img : imagini_artist) {
+    if (nivel == DetailLevel::Complete) {
+        std::cout << "Images of the artist:\n";
+        for (const auto& img : artist_images) {
             std::cout << img << "\n";
         }
-    } else if (nivel >= NivelDetaliu::Minimal) {
-        std::cout << "Poză cu artistul: " << imagini_artist[0] << "\n";
+    } else if (nivel >= DetailLevel::Minimal) {
+        std::cout << "Artist image: " << artist_images[0] << "\n";
     }
 }
 
-void Artist::afiseaza_profil_artist(NivelDetaliu nivel) const {
-    std::cout << "--------------------------- PROFIL ARTIST ------------------------------\n";
-    std::cout << "Nume complet: " << nume << " " << prenume << "\n";
-    std::cout << "Naționalitate: " << nationalitate << "\n";
+void Artist::displayArtistProfile(DetailLevel nivel) const {
+    std::cout << "--------------------------- ARTIST PROFILE ------------------------------\n";
+    std::cout << "Full name: " << name << " " << first_name << "\n";
+    std::cout << "Nationality: " << nationality << "\n";
 
-    if (nivel == NivelDetaliu::Minimal) {
-        std::cout << "Perioadă artistică: " << perioada_artistica << "\n";
-        std::cout
-            << "Artistul a evoluat în cadrul acestei perioade prin explorarea stilurilor și tehnicilor specifice.\n";
+    if (nivel == DetailLevel::Minimal) {
+        std::cout << "Artistic period: " << artistic_period << "\n";
+        std::cout << "The artist developed in this era through exploration of specific styles and "
+                     "techniques.\n";
         std::cout << "Status: ";
-        if (an_deces == 0) {
-            std::cout << "În viață (" << varsta << " ani)\n";
-            std::cout << "Are un profil activ.\n";
+        if (death_year == 0) {
+            std::cout << "Living (" << age << " years old)\n";
+            std::cout << "Has an active profile.\n";
         } else {
-            std::cout << "Decedat (" << an_nastere << " - " << an_deces << ")\n";
-            std::cout << "Tablourile din galerie au fost adăugate de către un reprezentant: " << pers_reprezentant
-                      << "\n";
+            std::cout << "Deceased (" << birth_year << " - " << death_year << ")\n";
+            std::cout << "The paintings from the gallery were added by a representative: "
+                      << representative_person << "\n";
         }
-        std::cout << "\n------------------------------- IMAGINE ARTIST --------------------------\n";
-        afiseaza_imagini(nivel);
+        std::cout << "\n------------------------------- ARTIST IMAGE --------------------------\n";
+        displayImages(nivel);
         return;
     }
 
-    if (an_deces == 0) {
+    if (death_year == 0) {
         std::cout << "Status: ";
-        std::cout << "În viață (" << varsta << " ani)\n";
-        std::cout << "Are un profil activ.\n";
-        std::cout << nume << " s-a născut în " << an_nastere << " și este încă în viață.\n";
+        std::cout << "Living (" << age << " years old)\n";
+        std::cout << "Has an active profile.\n";
+        std::cout << name << " was born in " << birth_year << " and is still alive.\n";
         std::cout << "  • Username: " << username << "\n";
         std::cout << "  • Email: " << email << "\n";
-        if (!istoric.empty()) {
-            std::cout
-                << "  • Istoric activități:\n";  // vreau sa leg cumva de activitatile pe care le efectueaza in galerie
-            for (const auto& act : istoric)
+        if (!history.empty()) {
+            std::cout << "  • Activity history:\n";
+            for (const auto& act : history)
                 std::cout << "    - " << act << "\n";
         }
     } else {
         std::cout << "Status: ";
-        std::cout << "Decedat (" << an_nastere << " - " << an_deces << ")\n";
-        std::cout << "Tablourile din galerie au fost adăugate de către un reprezentant: " << pers_reprezentant << "\n";
-        std::cout << nume << " a trăit între " << an_nastere << " și " << an_deces << ".\n";
-        if (!pers_reprezentant.empty()) {
-            std::cout << "Persoană reprezentantă: " << pers_reprezentant << "\n";
-            std::cout << "Username: " << username_reprezentant << "\n";
-            std::cout << "Email: " << email_reprezentant << "\n";
+        std::cout << "Deceased (" << birth_year << " - " << death_year << ")\n";
+        std::cout << "The paintings from the gallery were added by a representative: "
+                  << representative_person << "\n";
+        std::cout << name << " lived between " << birth_year << " and " << death_year << ".\n";
+        if (!representative_person.empty()) {
+            std::cout << "Representative: " << representative_person << "\n";
+            std::cout << "Username: " << representative_username << "\n";
+            std::cout << "Email: " << representative_email << "\n";
         }
-        if (!istoric_reprezentant.empty()) {
-            std::cout << "Istoric activități reprezentant:\n";  // la fel
-            for (const auto& act : istoric_reprezentant)
+        if (!representative_history.empty()) {
+            std::cout << "Representative activity history:\n";
+            for (const auto& act : representative_history)
                 std::cout << "    - " << act << "\n";
         }
     }
-    std::cout << "Perioadă artistică: " << perioada_artistica << "\n";
-    std::cout << "Artistul a evoluat în cadrul acestei perioade prin explorarea stilurilor și tehnicilor specifice.\n";
+    std::cout << "Artistic period: " << artistic_period << "\n";
+    std::cout << "The artist evolved during this period through exploration of specific styles and "
+                 "techniques.\n";
 
-    std::cout << "\n--------------------------- POPULARITATE ----------------------------\n";
-    std::cout << "Total tablouri: " << nrTablouri() << "\n";
-    std::cout << "Tablouri colecționate: " << nrTablouriColectionate() << "\n";
-    std::cout << "Tablouri rare: " << nrTablouriRare() << "\n";
-    std::cout << "Data înscrierii în galerie: " << data_inscriere << "\n";
+    std::cout << "\n--------------------------- POPULARITY ----------------------------\n";
+    std::cout << "Total paintings: " << paintingCount() << "\n";
+    std::cout << "Collected paintings: " << collectedPaintingCount() << "\n";
+    std::cout << "Rare paintings: " << rarePaintingCount() << "\n";
+    std::cout << "Registration date: " << registration_date << "\n";
 
-    double scor = calculeaza_scor_stelute();
-    std::cout << "Scor popularitate: " << scor << " stele\n";
-    std::cout << "Titlu atribuit: " << getTitlu() << "\n";
+    double scor = calculateStarScore();
+    std::cout << "Popularity score: " << scor << " stars\n";
+    std::cout << "Assigned title: " << getTitle() << "\n";
 
-    std::cout << "\n---- IMAGINI ARTIST ----\n";
-    afiseaza_imagini(nivel);
+    std::cout << "\n---- ARTIST IMAGES ----\n";
+    displayImages(nivel);
 
     std::cout << "--------------------------------------------------------------------------\n";
-    if (!tablouri.empty()) {
-        std::cout << "\n------------------- TABLOURI ALE ARTISTULUI ------------------------\n";
-        for (const auto& t : tablouri) {
-            t->afiseaza_imagini(nivel);
+    if (!paintings.empty()) {
+        std::cout << "\n------------------- PAINTINGS BY THIS ARTIST ------------------------\n";
+        for (const auto& t : paintings) {
+            t->displayImages(nivel);
         }
     }
 }
-std::shared_ptr<Tablou> Artist::cautaTablou(const std::string& titlu) const {
-    for (const auto& t : tablouri) {
-        if (t->getTitlu() == titlu)
+std::shared_ptr<Painting> Artist::findPainting(const std::string& title) const {
+    for (const auto& t : paintings) {
+        if (t->getTitle() == title)
             return t;
     }
     return nullptr;
 }
 
-std::ostream& Artist::afiseaza_artist(std::ostream& out, const Artist& a, NivelDetaliu nivel) {
-    a.afiseaza_profil_artist(nivel);
+std::ostream& Artist::displayArtist(std::ostream& out, const Artist& artist, DetailLevel level) {
+    artist.displayArtistProfile(level);
     return out;
 }
 
-std::ostream& operator<<(std::ostream& out, const Artist& a) {
-    return Artist::afiseaza_artist(out, a, NivelDetaliu::Complet);
+std::ostream& operator<<(std::ostream& out, const Artist& artist) {
+    return Artist::displayArtist(out, artist, DetailLevel::Complete);
 }

@@ -1,0 +1,53 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 26,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "debug",
+      "displayName": "Debug console application with tests",
+      "description": "Configure the console application and Catch2 tests.",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build-presets/debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTS": "ON",
+        "BUILD_SFML_APP": "OFF"
+      }
+    },
+    {
+      "name": "debug-sfml",
+      "displayName": "Debug console and SFML applications",
+      "description": "Configure both the console application and the optional SFML GUI.",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build-presets/debug-sfml",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_TESTS": "ON",
+        "BUILD_SFML_APP": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "debug-sfml",
+      "configurePreset": "debug-sfml"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+
+========================================
+  LOADING DATA FROM JSON FILES
+========================================
+→ Loading artists from 'artists.json'...
+    Artists loaded successfully!
+
+→ Loading paintings from 'paintings.json'...
+    Paintings loaded successfully!
+
+→ Loading user from 'users.json'...
+    User loaded successfully!
+========================================
+    ALL DATA LOADED
+========================================
+MiniGame constructor: Artistic Delight
+ArtisticDelight constructor: Artistic Delight
+Painting set: Zodiac
+MiniGame constructor: Quick Art Look
+QuickArtLook constructor: Quick Art Look
+Pair added: Zodiac - Mucha
+Pair added: The Seasons - Mucha
+Pair added: The Kiss - Klimt
+Pair added: Salome - Beardsley
+Pair added: Dragonfly Woman - Lalique
+Pair added: Floral Dreams - Chen
+Pair added: Romanian Legends - Popescu
+Pair added: Nordic Flora - Bergstrom
+MiniGame constructor: Art Quiz
+ArtQuiz constructor: Art Quiz
+MiniGame constructor: Art Puzzle
+ArtPuzzle constructor: Art Puzzle
+Puzzle set for painting: The Kiss
+ Games created successfully!
+
+========================================
+      ART GALLERY - MAIN MENU
+========================================
+1.  Display all artists
+2.  Display all paintings
+3.  Search artist (minimal profile)
+4.  Search artist (full profile)
+5.  Search painting (minimal details)
+6.  Search painting (full details)
+7.  Display full gallery
+8.  Test user and collection
+9.  Display artist statistics
+10. Rare paintings by an artist
+11. Test requirements (Painting)
+12. Test exceptions
+13. Display available games
+14. Play a game
+15. Test MiniGame + dynamic_cast + copy and swap
+16. Test milestone 3 (templates + design patterns)
+17. Test unused template functions
+0.  Exit
+========================================
+Choose an option: Enter artist name/first name: Artist not found!
+
+Press ENTER to continue...
+========================================
+      ART GALLERY - MAIN MENU
+========================================
+1.  Display all artists
+2.  Display all paintings
+3.  Search artist (minimal profile)
+4.  Search artist (full profile)
+5.  Search painting (minimal details)
+6.  Search painting (full details)
+7.  Display full gallery
+8.  Test user and collection
+9.  Display artist statistics
+10. Rare paintings by an artist
+11. Test requirements (Painting)
+12. Test exceptions
+13. Display available games
+14. Play a game
+15. Test MiniGame + dynamic_cast + copy and swap
+16. Test milestone 3 (templates + design patterns)
+17. Test unused template functions
+0.  Exit
+========================================
+Choose an option:
+Goodbye!
+ArtPuzzle destructor: Art Puzzle

@@ -1,84 +1,81 @@
+#pragma once
+
 /**
  * @file ArtPuzzle.h
- * @brief Definește clasa ArtPuzzle - joc de puzzle cu fragmente de tablou.
+ * @brief Defines the ArtPuzzle class - a puzzle game with painting fragments.
  *
- * Acest fișier conține clasa ArtPuzzle care implementează un mini-joc
- * de tip puzzle în care jucătorul aranjează fragmentele unui tablou.
+ * This file contains the ArtPuzzle class, which implements a mini-game where the
+ * player arranges the fragments of a painting.
  */
-
-#ifndef ARTNOUVEAUGUEST_ARTPUZZLE_H
-#define ARTNOUVEAUGUEST_ARTPUZZLE_H
 
 #include <memory>
 #include <vector>
 
-#include "MiniJoc.h"
-#include "Tablou.h"
+#include "MiniGame.h"
+#include "Painting.h"
 
 /**
  * @class ArtPuzzle
- * @brief Joc de puzzle cu fragmente ale unui tablou celebru.
+ * @brief Puzzle game with fragments of a famous painting.
  *
- * Derivată din MiniJoc, această clasă implementează un joc de puzzle
- * în care jucătorul trebuie să aranjeze fragmentele unui tablou
- * în ordinea corectă (0, 1, 2, 3...).
+ * Derived from MiniGame, this class implements a puzzle game in which the player
+ * must arrange the fragments of a painting in the correct order (0, 1, 2, 3...).
  *
- * Configurația variază în funcție de dificultate:
- * - Ușor: 4 fragmente (2x2), 6 mutări maxime
- * - Mediu: 9 fragmente (3x3), 14 mutări maxime
- * - Greu: 16 fragmente (4x4), 22 mutări maxime
+ * The configuration varies by difficulty:
+ * - Easy: 4 fragments (2x2), 6 maximum moves
+ * - Medium: 9 fragments (3x3), 14 maximum moves
+ * - Hard: 16 fragments (4x4), 22 maximum moves
  *
- * Punctajul include bonus pentru mutările rămase neutilizate.
+ * The score includes a bonus for remaining unused moves.
  *
  * @code
- * auto puzzle = std::make_unique<ArtPuzzle>("Puzzle Art", Dificultate::Mediu);
- * puzzle->seteazaTablou(tablou);
- * puzzle->initializeaza();
- * puzzle->afiseazaPuzzle();
- * puzzle->mutaFragment(0, 3);
- * if (puzzle->esteRezolvat()) {
- *     int puncte = puzzle->calculeazaPuncte();
+ * auto puzzle = std::make_unique<ArtPuzzle>("Puzzle Art", Difficulty::Medium);
+ * puzzle->setPainting(painting);
+ * puzzle->initialize();
+ * puzzle->displayPuzzle();
+ * puzzle->moveFragment(0, 3);
+ * if (puzzle->isSolved()) {
+ *     int points = puzzle->calculatePoints();
  * }
  * @endcode
  */
-class ArtPuzzle : public MiniJoc {
+class ArtPuzzle : public MiniGame {
 private:
-    std::shared_ptr<Tablou> tablou_tinta;
-    std::vector<int> ordine_fragmente;
-    std::vector<int> ordine_corecta;
-    int numar_fragmente = 0;
-    int mutari_efectuate = 0;
-    int mutari_maxime = 0;
-    bool rezolvat = false;
+    std::shared_ptr<Painting> target_painting;
+    std::vector<int> fragment_order;
+    std::vector<int> correct_order;
+    int fragment_count = 0;
+    int moves_made = 0;
+    int maximum_moves = 0;
+    bool solved = false;
 
 protected:
-    void initializeaza_implementare() override;
-    int calculeaza_puncte_implementare() override;
-    void afiseaza_reguli_implementare() const override;
+    void initializeImplementation() override;
+    int calculatePointsImplementation() override;
+    void displayRulesImplementation() const override;
 
 public:
-    ArtPuzzle(const std::string& nume, Dificultate dif);
+    ArtPuzzle(const std::string& name, Difficulty dif);
     ArtPuzzle(const ArtPuzzle& other);
     ~ArtPuzzle() override;
 
-    void seteazaTablou(std::shared_ptr<Tablou> tablou);
-    void amestecaFragmente();
-    bool mutaFragment(int pozitie1, int pozitie2);
-    bool esteRezolvat() const;
-    void afiseazaPuzzle() const;
+    void setPainting(std::shared_ptr<Painting> painting);
+    void shuffleFragments();
+    bool moveFragment(int position1, int position2);
+    bool isSolved() const;
+    void displayPuzzle() const;
 
-    int getMutariEfectuate() const {
-        return mutari_efectuate;
+    int getMovesMade() const {
+        return moves_made;
     }
-    int getMutariRamase() const {
-        return mutari_maxime - mutari_efectuate;
+    int getMovesRemaining() const {
+        return maximum_moves - moves_made;
     }
-    int getNumarFragmente() const {
-        return numar_fragmente;
+    int getFragmentCount() const {
+        return fragment_count;
     }
+    int getFragmentAt(int index) const;
 
-    std::unique_ptr<MiniJoc> clone() const override;
-    std::string getTipJoc() const override;
+    std::unique_ptr<MiniGame> clone() const override;
+    std::string getGameType() const override;
 };
-
-#endif  // ARTNOUVEAUGUEST_ARTPUZZLE_H

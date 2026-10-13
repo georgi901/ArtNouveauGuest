@@ -1,14 +1,13 @@
+#pragma once
+
 /**
  * @file Utils.h
- * @brief Funcții șablon utilitare pentru aplicația galeriei.
+ * @brief Utility template functions for the gallery application.
  *
- * Acest fișier conține funcții șablon care pot lucra cu orice tip
- * care are metodele necesare. Aceste funcții îndeplinesc cerința M3
- * pentru funcții șablon cu minim 2 instanțieri.
+ * This file contains template functions that can work with any type that has the
+ * required methods. These functions satisfy the Milestone 3 requirement for
+ * template functions with at least two instantiations.
  */
-
-#ifndef ARTNOUVEAUGUEST_UTILS_H
-#define ARTNOUVEAUGUEST_UTILS_H
 
 #include <algorithm>
 #include <functional>
@@ -18,179 +17,187 @@
 #include <vector>
 
 /**
- * @brief Găsește un element după nume într-un vector de pointeri shared.
- * @tparam T Tipul elementelor (trebuie să aibă metoda getNume()).
- * @param elemente Vector de pointeri shared către elemente.
- * @param nume Numele de căutat.
- * @return Pointer shared către elementul găsit, sau nullptr dacă nu există.
+ * @brief Finds an element by name in a vector of shared pointers.
+ * @tparam T The element type (must have a getName() method).
+ * @param elements Vector of shared pointers to elements.
+ * @param name The name to search for.
+ * @return Shared pointer to the found element, or nullptr if not found.
  *
- * @note Această funcție șablon va fi instanțiată pentru tipurile Artist și Tablou.
+ * @note This template function will be instantiated for the Artist and Painting types.
  *
  * @code
- * // Instanțiere 1: cautaDupaNume<Artist>
- * auto artist = cautaDupaNume(listaArtisti, "Mucha");
+ * // Instantiation 1: findByName<Artist>
+ * auto artist = findByName(artists, "Mucha");
  *
- * // Instanțiere 2: cautaDupaNume<Tablou>
- * auto tablou = cautaDupaNume(listaTablouri, "Zodiac");
+ * // Instantiation 2: findByName<Painting>
+ * auto painting = findByName(paintings, "Zodiac");
  * @endcode
  */
 template <typename T>
-std::shared_ptr<T> cautaDupaNume(const std::vector<std::shared_ptr<T>>& elemente, const std::string& nume) {
-    auto it = std::find_if(elemente.begin(), elemente.end(), [&nume](const std::shared_ptr<T>& element) {
-        return element && element->getNume() == nume;
-    });
-    return (it != elemente.end()) ? *it : nullptr;
+std::shared_ptr<T> findByName(const std::vector<std::shared_ptr<T>>& elements,
+                              const std::string& name) {
+    auto it =
+        std::find_if(elements.begin(), elements.end(), [&name](const std::shared_ptr<T>& element) {
+            return element && element->getName() == name;
+        });
+    return (it != elements.end()) ? *it : nullptr;
 }
 
 /**
- * @brief Găsește un element după un câmp personalizat.
- * @tparam T Tipul elementelor.
- * @param elemente Vector de pointeri shared către elemente.
- * @param valoare Valoarea de căutat.
- * @param getter Funcție care extrage câmpul de comparat.
- * @return Pointer shared către elementul găsit, sau nullptr dacă nu există.
+ * @brief Finds an element using a custom field.
+ * @tparam T The element type.
+ * @param elements Vector of shared pointers to elements.
+ * @param value The value to search for.
+ * @param getter Function that extracts the compared field.
+ * @return Shared pointer to the found element, or nullptr if not found.
  *
  * @code
- * auto tablou = cautaDupaCamp(tablouri, "Zodiac",
- *     [](const Tablou& t) { return t.getTitlu(); });
+ * auto painting = findByField(paintings, "Zodiac",
+ *     [](const Painting& t) { return t.getTitle(); });
  * @endcode
  */
 template <typename T>
-std::shared_ptr<T> cautaDupaCamp(const std::vector<std::shared_ptr<T>>& elemente, const std::string& valoare,
-                                 std::function<std::string(const T&)> getter) {
-    auto it = std::find_if(elemente.begin(), elemente.end(), [&valoare, &getter](const std::shared_ptr<T>& element) {
-        return element && getter(*element) == valoare;
-    });
-    return (it != elemente.end()) ? *it : nullptr;
+std::shared_ptr<T> findByField(const std::vector<std::shared_ptr<T>>& elements,
+                               const std::string& value,
+                               std::function<std::string(const T&)> getter) {
+    auto it = std::find_if(elements.begin(), elements.end(),
+                           [&value, &getter](const std::shared_ptr<T>& element) {
+                               return element && getter(*element) == value;
+                           });
+    return (it != elements.end()) ? *it : nullptr;
 }
 
 /**
- * @brief Afișează toate elementele dintr-o colecție.
- * @tparam T Tipul elementelor (trebuie să suporte operator<<).
- * @param elemente Vector de pointeri shared către elemente.
- * @param os Stream-ul de ieșire.
- * @param titlu Titlu opțional de afișat înainte de elemente.
+ * @brief Displays all elements in a collection.
+ * @tparam T Element type (must support operator<<).
+ * @param elements Vector of shared pointers to elements.
+ * @param os Output stream.
+ * @param title Optional title to display before the elements.
  *
- * @note Această funcție șablon va fi instanțiată pentru tipurile Artist și Tablou.
+ * @note This template function will be instantiated for the Artist and Painting types.
  *
  * @code
- * // Instanțiere 1: afiseazaToate<Artist>
- * afiseazaToate(artisti, std::cout, "=== Artiști ===");
+ * // Instantiation 1: displayAll<Artist>
+ * displayAll(artists, std::cout, "=== Artists ===");
  *
- * // Instanțiere 2: afiseazaToate<Tablou>
- * afiseazaToate(tablouri, std::cout, "=== Tablouri ===");
+ * // Instantiation 2: displayAll<Painting>
+ * displayAll(paintings, std::cout, "=== Paintings ===");
  * @endcode
  */
 template <typename T>
-void afiseazaToate(const std::vector<std::shared_ptr<T>>& elemente, std::ostream& os, const std::string& titlu = "") {
-    if (!titlu.empty()) {
-        os << "\n" << titlu << "\n";
-        os << std::string(titlu.length(), '-') << "\n";
+void displayAll(const std::vector<std::shared_ptr<T>>& elements, std::ostream& os,
+                const std::string& title = "") {
+    if (!title.empty()) {
+        os << "\n" << title << "\n";
+        os << std::string(title.length(), '-') << "\n";
     }
 
-    if (elemente.empty()) {
-        os << "(Nu s-au găsit elemente)\n";
+    if (elements.empty()) {
+        os << "(No elements found)\n";
         return;
     }
 
-    for (size_t i = 0; i < elemente.size(); ++i) {
-        if (elemente[i]) {
-            os << (i + 1) << ". " << *elemente[i] << "\n";
+    for (size_t i = 0; i < elements.size(); ++i) {
+        if (elements[i]) {
+            os << (i + 1) << ". " << *elements[i] << "\n";
         }
     }
 }
 
 /**
- * @brief Filtrează elementele bazat pe un predicat.
- * @tparam T Tipul elementelor.
- * @param elemente Vector de pointeri shared către elemente.
- * @param predicat Funcție care returnează true pentru elementele de păstrat.
- * @return Vector nou conținând doar elementele care îndeplinesc predicatul.
+ * @brief Filters elements based on a predicate.
+ * @tparam T The element type.
+ * @param elements Vector of shared pointers to elements.
+ * @param predicate Function returning true for elements to keep.
+ * @return New vector containing only the matching elements.
  *
- * @note Această funcție șablon va fi instanțiată pentru tipurile Artist și Tablou.
+ * @note This template function will be instantiated for the Artist and Painting types.
  *
  * @code
- * // Instanțiere 1: filtreazaElemente<Tablou>
- * auto tablouriRare = filtreazaElemente(tablouri, [](const Tablou& t) { return t.este_rar(); });
+ * // Instantiation 1: filterElements<Painting>
+ * auto rarePaintings = filterElements(paintings, [](const Painting& t) { return t.isRare(); });
  *
- * // Instanțiere 2: filtreazaElemente<Artist>
- * auto artistiInViata = filtreazaElemente(artisti, [](const Artist& a) { return a.getAnDeces() == 0; });
+ * // Instantiation 2: filterElements<Artist>
+ * auto livingArtists = filterElements(artists, [](const Artist& a) { return a.getDeathYear() == 0;
+ * });
  * @endcode
  */
 template <typename T>
-std::vector<std::shared_ptr<T>> filtreazaElemente(const std::vector<std::shared_ptr<T>>& elemente,
-                                                  std::function<bool(const T&)> predicat) {
-    std::vector<std::shared_ptr<T>> rezultat;
-    std::copy_if(elemente.begin(), elemente.end(), std::back_inserter(rezultat),
-                 [&predicat](const std::shared_ptr<T>& element) { return element && predicat(*element); });
-    return rezultat;
+std::vector<std::shared_ptr<T>> filterElements(const std::vector<std::shared_ptr<T>>& elements,
+                                               std::function<bool(const T&)> predicate) {
+    std::vector<std::shared_ptr<T>> result;
+    std::copy_if(
+        elements.begin(), elements.end(), std::back_inserter(result),
+        [&predicate](const std::shared_ptr<T>& element) { return element && predicate(*element); });
+    return result;
 }
 
 /**
- * @brief Numără elementele care îndeplinesc un predicat.
- * @tparam T Tipul elementelor.
- * @param elemente Vector de pointeri shared către elemente.
- * @param predicat Funcție care returnează true pentru elementele de numărat.
- * @return Numărul de elemente care îndeplinesc predicatul.
+ * @brief Counts the elements that satisfy a predicate.
+ * @tparam T The element type.
+ * @param elements Vector of shared pointers to elements.
+ * @param predicate Function returning true for elements to count.
+ * @return Number of matching elements.
  *
  * @code
- * int nrRare = numaraElemente(tablouri, [](const Tablou& t) { return t.este_rar(); });
+ * int rareCount = countElements(paintings, [](const Painting& t) { return t.isRare(); });
  * @endcode
  */
 template <typename T>
-int numaraElemente(const std::vector<std::shared_ptr<T>>& elemente, std::function<bool(const T&)> predicat) {
-    return static_cast<int>(
-        std::count_if(elemente.begin(), elemente.end(),
-                      [&predicat](const std::shared_ptr<T>& element) { return element && predicat(*element); }));
+int countElements(const std::vector<std::shared_ptr<T>>& elements,
+                  std::function<bool(const T&)> predicate) {
+    return static_cast<int>(std::count_if(elements.begin(), elements.end(),
+                                          [&predicate](const std::shared_ptr<T>& element) {
+                                              return element && predicate(*element);
+                                          }));
 }
 
 /**
- * @brief Calculează suma unei proprietăți numerice pentru toate elementele.
- * @tparam T Tipul elementelor.
- * @tparam R Tipul returnat de getter (trebuie să fie numeric).
- * @param elemente Vector de pointeri shared către elemente.
- * @param getter Funcție care extrage valoarea proprietății.
- * @return Suma tuturor valorilor proprietății.
+ * @brief Calculates the sum of a numeric property for all elements.
+ * @tparam T The element type.
+ * @tparam R The return type of the getter (must be numeric).
+ * @param elements Vector of shared pointers to elements.
+ * @param getter Function that extracts the property value.
+ * @return Sum of all property values.
  *
  * @code
- * int totalPuncte = sumaProprietate<Utilizator, int>(utilizatori,
- *     [](const Utilizator& u) { return u.getPuncte(); });
+ * int totalPoints = sumProperty<User, int>(users,
+ *     [](const User& u) { return u.getPoints(); });
  * @endcode
  */
 template <typename T, typename R>
-R sumaProprietate(const std::vector<std::shared_ptr<T>>& elemente, std::function<R(const T&)> getter) {
-    R suma = R();
-    for (const auto& element : elemente) {
+R sumProperty(const std::vector<std::shared_ptr<T>>& elements, std::function<R(const T&)> getter) {
+    R sum = R();
+    for (const auto& element : elements) {
         if (element) {
-            suma += getter(*element);
+            sum += getter(*element);
         }
     }
-    return suma;
+    return sum;
 }
 
 /**
- * @brief Transformă o colecție aplicând o funcție fiecărui element.
- * @tparam T Tipul sursă.
- * @tparam R Tipul rezultat.
- * @param elemente Vector de pointeri shared către elementele sursă.
- * @param transformator Funcție care transformă T în R.
- * @return Vector de rezultate transformate.
+ * @brief Transforms a collection by applying a function to each element.
+ * @tparam T Source type.
+ * @tparam R Result type.
+ * @param elements Vector of source shared pointers.
+ * @param transformer Function that transforms T into R.
+ * @return Vector of transformed results.
  *
  * @code
- * auto nume = transforma<Artist, std::string>(artisti,
- *     [](const Artist& a) { return a.getNume(); });
+ * auto name = transform<Artist, std::string>(artists,
+ *     [](const Artist& a) { return a.getName(); });
  * @endcode
  */
 template <typename T, typename R>
-std::vector<R> transforma(const std::vector<std::shared_ptr<T>>& elemente, std::function<R(const T&)> transformator) {
-    std::vector<R> rezultat;
-    rezultat.reserve(elemente.size());
-    for (const auto& element : elemente) {
+std::vector<R> transform(const std::vector<std::shared_ptr<T>>& elements,
+                         std::function<R(const T&)> transformer) {
+    std::vector<R> result;
+    result.reserve(elements.size());
+    for (const auto& element : elements) {
         if (element) {
-            rezultat.push_back(transformator(*element));
+            result.push_back(transformer(*element));
         }
     }
-    return rezultat;
+    return result;
 }
-
-#endif  // ARTNOUVEAUGUEST_UTILS_H

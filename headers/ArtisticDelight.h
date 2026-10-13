@@ -1,82 +1,78 @@
+#pragma once
+
 /**
  * @file ArtisticDelight.h
- * @brief Definește clasa ArtisticDelight - joc de ghicit culori.
+ * @brief Defines the ArtisticDelight class - a color-guessing game.
  *
- * Acest fișier conține clasa ArtisticDelight care implementează un mini-joc
- * în care jucătorul trebuie să ghicească culorile folosite într-un tablou.
+ * This file contains the ArtisticDelight class, which implements a mini-game in
+ * which the player must guess the colors used in a painting.
  */
-
-#ifndef ARTNOUVEAUGUEST_ARTISTICDELIGHT_H
-#define ARTNOUVEAUGUEST_ARTISTICDELIGHT_H
 
 #include <memory>
 #include <vector>
 
-#include "MiniJoc.h"
-#include "Tablou.h"
+#include "MiniGame.h"
+#include "Painting.h"
 
 /**
  * @class ArtisticDelight
- * @brief Joc de ghicit culorile folosite într-un tablou celebru.
+ * @brief Game for guessing the colors used in a famous painting.
  *
- * Derivată din MiniJoc, această clasă implementează un joc creativ
- * în care jucătorul trebuie să ghicească culorile folosite de artist
- * în realizarea unui tablou.
+ * Derived from MiniGame, this class implements a creative game where the player
+ * must guess the colors used by the artist in creating a painting.
  *
- * Numărul de încercări variază în funcție de dificultate:
- * - Ușor: 10 încercări
- * - Mediu: 7 încercări
- * - Greu: 5 încercări
+ * The number of attempts varies by difficulty:
+ * - Easy: 10 attempts
+ * - Medium: 7 attempts
+ * - Hard: 5 attempts
  *
- * Scorul se calculează pe baza procentului de culori ghicite,
- * cu penalizări pentru culori greșite și bonus pentru încercări rămase.
+ * The score is calculated based on the percentage of correctly guessed colors,
+ * with penalties for wrong colors and bonuses for remaining attempts.
  *
  * @code
- * auto joc = std::make_unique<ArtisticDelight>("Color Match", Dificultate::Mediu);
- * joc->seteazaTablou(tablou);
- * joc->initializeaza();
- * joc->picteaza("rosu");
- * joc->arataSugestie();
- * double scor = joc->evalueazaAsemanare();
+ * auto game = std::make_unique<ArtisticDelight>("Color Match", Difficulty::Medium);
+ * game->setPainting(painting);
+ * game->initialize();
+ * game->paint("red");
+ * game->showHint();
+ * double score = game->evaluateSimilarity();
  * @endcode
  */
-class ArtisticDelight : public MiniJoc {
+class ArtisticDelight : public MiniGame {
 private:
-    std::shared_ptr<Tablou> tablou_tinta;  // tabloul de recreat
-    double scor_asemanare = 0.0;           // 0-100%
-    std::vector<std::string> culori_folosite;
-    int incercari_ramase = 0;
+    std::shared_ptr<Painting> target_painting;  // painting de recreat
+    double similarity_score = 0.0;              // 0-100%
+    std::vector<std::string> used_colors;
+    int attempts_remaining = 0;
 
 protected:
-    void initializeaza_implementare() override;
-    int calculeaza_puncte_implementare() override;
-    void afiseaza_reguli_implementare() const override;
+    void initializeImplementation() override;
+    int calculatePointsImplementation() override;
+    void displayRulesImplementation() const override;
 
 public:
-    ArtisticDelight(const std::string& nume, Dificultate dif);
+    ArtisticDelight(const std::string& name, Difficulty dif);
 
     ArtisticDelight(const ArtisticDelight& other);
 
     ~ArtisticDelight() override = default;
 
-    std::unique_ptr<MiniJoc> clone() const override;
+    std::unique_ptr<MiniGame> clone() const override;
 
-    std::string getTipJoc() const override;
+    std::string getGameType() const override;
 
-    void seteazaTablou(std::shared_ptr<Tablou> tablou);
-    void picteaza(const std::string& culoare);
-    double evalueazaAsemanare();
-    void arataSugestie() const;
+    void setPainting(std::shared_ptr<Painting> painting);
+    void paint(const std::string& color);
+    double evaluateSimilarity();
+    void showHint() const;
 
-    double getScorAsemanare() const {
-        return scor_asemanare;
+    double getSimilarityScore() const {
+        return similarity_score;
     }
-    int getIncercariRamase() const {
-        return incercari_ramase;
+    int getAttemptsRemaining() const {
+        return attempts_remaining;
     }
-    const std::vector<std::string>& getCulorifolosite() const {
-        return culori_folosite;
+    const std::vector<std::string>& getUsedColors() const {
+        return used_colors;
     }
 };
-
-#endif  // ARTNOUVEAUGUEST_ARTISTICDELIGHT_H

@@ -1,96 +1,95 @@
+#pragma once
+
 /**
  * @file ArtQuiz.h
- * @brief Definește clasa ArtQuiz - joc de întrebări despre artă.
+ * @brief Defines the ArtQuiz class - an art knowledge quiz game.
  *
- * Acest fișier conține clasa ArtQuiz care implementează un mini-joc
- * de tip quiz cu întrebări despre tablouri și artiști.
+ * This file contains the ArtQuiz class, which implements a mini-game based on a
+ * quiz about paintings and artists.
  */
 
-#ifndef ARTNOUVEAUGUEST_ARTQUIZ_H
-#define ARTNOUVEAUGUEST_ARTQUIZ_H
 #include <memory>
 #include <vector>
 
-#include "MiniJoc.h"
-#include "Tablou.h"
+#include "MiniGame.h"
+#include "Painting.h"
 
 /**
- * @struct Intrebare
- * @brief Structură pentru reprezentarea unei întrebări din quiz.
+ * @struct Question
+ * @brief Structure representing a quiz question.
  */
-struct Intrebare {
+struct Question {
     std::string text;
-    std::string raspuns_corect;
-    std::vector<std::string> variante;  // pentru întrebări cu variante
-    int puncte = 0;                     ///< Punctele acordate pentru răspuns corect
+    std::string correct_answer;
+    std::vector<std::string> variante;  // possible answer variants
+    int points = 0;                     ///< Points awarded for a correct answer
 };
 
 /**
  * @class ArtQuiz
- * @brief Joc de tip quiz cu întrebări despre tablourile din galerie.
+ * @brief Quiz game about paintings from the gallery.
  *
- * Derivată din MiniJoc, această clasă implementează un joc de întrebări
- * care testează cunoștințele despre:
- * - Autorii tablourilor
- * - Anul realizării
- * - Tehnicile folosite
- * - Raritatea tablourilor
+ * Derived from MiniGame, this class implements a question-based game that tests
+ * knowledge about:
+ * - Painting authors
+ * - Creation year
+ * - Techniques used
+ * - Painting rarity
  *
- * Numărul de întrebări variază în funcție de dificultate:
- * - Ușor: 3 întrebări
- * - Mediu: 5 întrebări
- * - Greu: 7 întrebări (cu penalizare pentru răspunsuri greșite)
+ * The number of questions varies by difficulty:
+ * - Easy: 3 questions
+ * - Medium: 5 questions
+ * - Hard: 7 questions (with penalties for wrong answers)
  *
  * @code
- * auto quiz = std::make_unique<ArtQuiz>("Quiz Art Nouveau", Dificultate::Mediu);
- * quiz->adaugaTablou(tablou);
- * quiz->initializeaza();
- * while (quiz->areIntrebariRamase()) {
- *     quiz->afiseazaIntrebareCurenta();
- *     quiz->raspunde(raspuns);
- *     quiz->urmatoraIntrebare();
+ * auto quiz = std::make_unique<ArtQuiz>("Quiz Art Nouveau", Difficulty::Medium);
+ * quiz->addPainting(painting);
+ * quiz->initialize();
+ * while (quiz->hasRemainingQuestions()) {
+ *     quiz->displayCurrentQuestion();
+ *     quiz->answer(answer);
+ *     quiz->nextQuestion();
  * }
  * @endcode
  */
-class ArtQuiz : public MiniJoc {
+class ArtQuiz : public MiniGame {
 private:
-    std::vector<std::shared_ptr<Tablou>> tablouri_quiz;
-    std::vector<Intrebare> intrebari;
-    int intrebare_curenta = 0;
-    int raspunsuri_corecte = 0;
-    int raspunsuri_gresite = 0;
+    std::vector<std::shared_ptr<Painting>> quiz_paintings;
+    std::vector<Question> questions;
+    int current_question = 0;
+    int correct_answers = 0;
+    int wrong_answers = 0;
 
 protected:
-    void initializeaza_implementare() override;
-    int calculeaza_puncte_implementare() override;
-    void afiseaza_reguli_implementare() const override;
+    void initializeImplementation() override;
+    int calculatePointsImplementation() override;
+    void displayRulesImplementation() const override;
 
 public:
-    ArtQuiz(const std::string& nume, Dificultate dif);
+    ArtQuiz(const std::string& name, Difficulty dif);
     ArtQuiz(const ArtQuiz& other);
     ~ArtQuiz() override = default;
 
-    std::unique_ptr<MiniJoc> clone() const override;
-    std::string getTipJoc() const override;
+    std::unique_ptr<MiniGame> clone() const override;
+    std::string getGameType() const override;
 
-    // Funcții specifice
-    void adaugaTablou(std::shared_ptr<Tablou> tablou);
-    void genereazaIntrebari();
-    void afiseazaIntrebareCurenta() const;
-    bool raspunde(const std::string& raspuns);
-    bool areIntrebariRamase() const;
-    void urmatoraIntrebare();
+    // Specific functions
+    void addPainting(std::shared_ptr<Painting> painting);
+    void generateQuestions();
+    void displayCurrentQuestion() const;
+    bool answer(const std::string& response);
+    bool hasRemainingQuestions() const;
+    void nextQuestion();
 
     // Getteri
-    int getRaspunsuriCorecte() const {
-        return raspunsuri_corecte;
+    int getCorrectAnswers() const {
+        return correct_answers;
     }
-    int getRaspunsuriGresite() const {
-        return raspunsuri_gresite;
+    int getWrongAnswers() const {
+        return wrong_answers;
     }
-    int getIntrebariRamase() const {
-        return intrebari.size() - intrebare_curenta;
+    int getRemainingQuestions() const {
+        return static_cast<int>(questions.size()) - current_question;
     }
+    std::string getCurrentQuestionText() const;
 };
-
-#endif  // ARTNOUVEAUGUEST_ARTQUIZ_H

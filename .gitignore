@@ -1,6 +1,14 @@
 
 build/
+build-*/
+cmake-build-*/
+out/
 install_dir/
+docs/html/
+docs/latex/
+save/
+*.tmp
+.DS_Store
 
 # Created by https://www.toptal.com/developers/gitignore/api/c++,clion,cmake,codeblocks,emacs,gcov,sublimetext,vim,visualstudio,visualstudiocode,xcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=c++,clion,cmake,codeblocks,emacs,gcov,sublimetext,vim,visualstudio,visualstudiocode,xcode
@@ -38,6 +46,10 @@ install_dir/
 *.exe
 *.out
 *.app
+ArtNouveauGuestGui
+
+# Golden test expected outputs
+!tests/golden/*.out
 
 ### CLion ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -714,5 +726,3 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,clion,cmake,codeblocks,emacs,gcov,sublimetext,vim,visualstudio,visualstudiocode,xcode
-
-
