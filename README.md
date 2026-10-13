@@ -8,10 +8,55 @@ ArtNouveauGuest is a C++20 interactive art gallery with a console application, a
 optional SFML graphical interface, JSON data loading, persistent user progress,
 and four art-themed mini-games.
 
-The project was originally created for an Object-Oriented Programming course and
-has since been expanded into a portfolio-oriented application with a reusable
-core library, automated tests, CMake presets, CI quality checks, and Doxygen
-documentation.
+The project was originally created for an Object-Oriented Programming course in
+the first year of a Bachelor's degree in Computer Science. It has since been
+expanded into a portfolio-oriented application while keeping the original
+gallery concept and object-oriented design.
+
+## Description
+
+ArtNouveauGuest is an interactive virtual gallery dedicated exclusively to Art
+Nouveau paintings. Each painting can be viewed with details such as its title,
+artist, historical period, technique, dimensions, and virtual price in points
+when it is available for purchase.
+
+Users can search and filter artworks, earn points by playing mini-games, and
+virtually purchase paintings to build a personal collection containing common,
+rare, and exceptional works.
+
+## Mini-Games
+
+The application includes four themed mini-games:
+
+- **Artistic Delight** — guess the colors used in a painting. The score is
+  based on palette similarity, with bonuses for remaining attempts.
+- **Quick Art Look** — match paintings with their artists in a memory-style
+  challenge. Difficulty changes the number of pairs and incorrect answers are
+  penalized.
+- **Art Quiz** — answer questions about artists, years, techniques, and rarity.
+  Difficulty changes the number of questions and the penalties.
+- **Art Puzzle** — rearrange fragments of a painting in the correct order using
+  a limited number of moves.
+
+Each game supports Easy, Medium, and Hard difficulty levels.
+
+## Original OOP Implementation
+
+The original implementation focused on the core object-oriented concepts
+required by the course:
+
+- composition between artists, paintings, the gallery, and users;
+- parameterized and copy constructors;
+- assignment operators and stream output operators;
+- smart pointers such as `shared_ptr`, `unique_ptr`, and `weak_ptr`;
+- inheritance and polymorphism through the `MiniGame` hierarchy;
+- a non-virtual interface for shared game behavior;
+- custom exceptions derived from `std::exception`;
+- STL containers and algorithms for catalog, collection, and game logic.
+
+The current codebase keeps these concepts but uses English class and file names,
+a reusable `ArtNouveauGuestCore` library, and separate console and SFML
+application entry points.
 
 ## Features
 
@@ -127,6 +172,36 @@ The reusable `ArtNouveauGuestCore` library contains domain models, games, JSON
 loading, and persistence. The console and SFML executables compose that core
 through separate application entry points.
 
+## Dataset and Main Menu
+
+The bundled dataset contains artists, paintings, and users in JSON format. The
+console application provides menu actions for:
+
+```text
+Display all artists and paintings
+Search artists and paintings with minimal or full details
+Display the gallery and artist statistics
+Inspect rare paintings and user collections
+Display available games and play a selected game
+Run domain and exception demonstrations
+Exit
+```
+
+The exact menu text and available actions are maintained by the application, so
+this section describes the functionality rather than relying on fixed menu
+numbering.
+
+## Technologies
+
+- **C++20**
+- **CMake 3.26+**
+- **nlohmann/json** for JSON parsing
+- **Catch2** for automated tests
+- **SFML 2.6+** for the optional graphical interface
+- **STL containers and algorithms**
+- **Smart pointers** for ownership and lifetime management
+- **GitHub Actions**, Cppcheck, Clang-Tidy, sanitizers, and Valgrind
+
 ## Progress persistence
 
 The application saves progress to a platform-specific user-data directory.
@@ -168,3 +243,20 @@ ignored by Git and should be regenerated from the current source when needed.
 ## License
 
 This project is distributed under the MIT License. See [LICENSE](LICENSE).
+
+## Roadmap
+
+- [x] **SFML integration** with gallery, collection, details, and menus
+- [x] **Visual mini-games** for all four game types
+- [x] **Save/load system** with versioned files and backup recovery
+- [x] **Code modernization** with a reusable core library and C++20
+- [x] **Automated quality checks** and cross-platform CI
+- [ ] **Expanded dataset** with more artists, paintings, and art movements
+- [ ] **Further UI polish** and additional accessibility improvements
+
+## Resources
+
+- [nlohmann/json](https://github.com/nlohmann/json) — JSON library for C++
+- [Catch2](https://github.com/catchorg/Catch2) — testing framework
+- [SFML](https://www.sfml-dev.org/) — multimedia library
+- [cppreference.com](https://en.cppreference.com/) — C++ reference documentation
