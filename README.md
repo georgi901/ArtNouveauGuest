@@ -2,7 +2,7 @@
 
 ![C++](https://img.shields.io/badge/C%2B%2B-20-blue.svg)
 ![CMake](https://img.shields.io/badge/CMake-3.26%2B-green.svg)
-![Tests](https://img.shields.io/badge/tests-13%20passing-brightgreen.svg)
+![OOP](https://img.shields.io/badge/OOP-Project-orange.svg)
 
 ArtNouveauGuest is a C++20 interactive art gallery with a console application, an
 optional SFML graphical interface, JSON data loading, persistent user progress,
