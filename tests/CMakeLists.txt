@@ -9,7 +9,13 @@ target_link_libraries(ArtNouveauGuestTests
         Catch2::Catch2WithMain
 )
 
-set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ArtNouveauGuestTests)
+if(MSVC)
+    if(USE_ASAN)
+        target_link_options(ArtNouveauGuestTests PRIVATE /fsanitize=address)
+    endif()
+else()
+    set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES ArtNouveauGuestTests)
+endif()
 
 target_compile_definitions(
     ArtNouveauGuestTests
@@ -18,8 +24,22 @@ target_compile_definitions(
 )
 
 include(Catch)
-set_compiler_flags(RUN_SANITIZERS TRUE TARGET_NAMES Catch2 Catch2WithMain)
-catch_discover_tests(ArtNouveauGuestTests DISCOVERY_MODE PRE_TEST)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT WIN32)
+    detect_libcpp()
+    if(HAS_LIBCPP)
+        target_compile_options(Catch2 PRIVATE -stdlib=libc++)
+        target_link_options(Catch2 PRIVATE -stdlib=libc++)
+        target_compile_options(Catch2WithMain PRIVATE -stdlib=libc++)
+        target_link_options(Catch2WithMain PRIVATE -stdlib=libc++)
+    endif()
+endif()
+
+set(catch_discovery_options DISCOVERY_MODE PRE_TEST)
+if(WIN32)
+    get_filename_component(compiler_bin_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
+    list(APPEND catch_discovery_options DL_PATHS "${compiler_bin_dir}")
+endif()
+catch_discover_tests(ArtNouveauGuestTests ${catch_discovery_options})
 
 add_test(
     NAME golden
