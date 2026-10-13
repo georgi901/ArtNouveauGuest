@@ -8,9 +8,9 @@ ArtNouveauGuest is a C++20 interactive art gallery with a console application, a
 optional SFML graphical interface, JSON data loading, persistent user progress,
 and four art-themed mini-games.
 
-The project was originally created for an Object-Oriented Programming course in
-the first year of a Bachelor's degree in Computer Science. It has since been
-expanded into a portfolio-oriented application while keeping the original
+Originally developed as a project for a second-year Object-Oriented Programming
+course during the first semester of a Bachelor's degree in Computer Science. 
+It has since been expanded into a portfolio-oriented application while keeping the original
 gallery concept and object-oriented design.
 
 ## Description
